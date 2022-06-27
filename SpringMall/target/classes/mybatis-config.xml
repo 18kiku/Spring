@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "..//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<!-- mapper 파일의 위치를 잡아준다 -->
+	<!-- mybatis는 매퍼파일만 읽으면된다 데이터베이스설정은 스프링이한다 -->
+	<!-- 2. 패키지에 별명 지정 -->
+	<typeAliases>
+		<typeAlias alias="product" type="com.mall.service.ProductDTO"/>
+		<typeAlias alias="member" type="com.mall.service.MemberDTO"/>
+		<typeAlias alias="management" type="com.mall.service.ManagementDTO"/>
+		<typeAlias alias="cart" type="com.mall.service.CartDTO"/>
+	</typeAliases>
+</configuration>
