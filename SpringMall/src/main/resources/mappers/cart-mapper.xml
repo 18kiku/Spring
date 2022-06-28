@@ -26,24 +26,24 @@
 		<result property="reg_date" column="reg_date"/>
 	</resultMap>
 	
-	<select id="insertCart">
+	<insert id="insertCart">
 		<![CDATA[
 		insert into cart(cart_id, orderer_id, product_id, order_quantity) 
 		values(SEQ_CART.nextval, #{orderer_id}, #{product_id}, #{order_quantity})
 		]]>
-	</select>
+	</insert>
 	
-	<select id="deleteCart">
+	<delete id="deleteCart">
 		<![CDATA[
 		delete from cart where cart_id=#{cart_id}
 		]]>
-	</select>
+	</delete>
 	
-	<select id="deleteCartOrderer">
+	<delete id="deleteCartOrderer">
 		<![CDATA[
 		delete from cart where orderer_id=#{orderer_id}
 		]]>
-	</select>
+	</delete>
 	
 	<select id="getCart" resultMap="cartResult">
 		<![CDATA[

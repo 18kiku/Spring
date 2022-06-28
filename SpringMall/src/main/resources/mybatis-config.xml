@@ -5,9 +5,9 @@
 
 <configuration>
 	<typeAliases>
-		<typeAlias alias="product" type="com.kiku.springmall.service.ProductDTO"/>
-		<typeAlias alias="member" type="com.kiku.springmall.service.MemberDTO"/>
-		<typeAlias alias="management" type="com.kiku.springmall.service.ManagementDTO"/>
-		<typeAlias alias="cart" type="com.kiku.springmall.service.CartDTO"/>
+		<typeAlias alias="product" type="com.kiku.springmall.service.ProductDTO" />
+		<typeAlias alias="member" type="com.kiku.springmall.service.MemberDTO" />
+		<typeAlias alias="management" type="com.kiku.springmall.service.ManagementDTO" />
+		<typeAlias alias="cart" type="com.kiku.springmall.service.CartDTO" />
 	</typeAliases>	
 </configuration>

@@ -12,8 +12,8 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-		
-	<context:property-placeholder location="classpath:config/*.properties" />
+	
+	<context:component-scan base-package="com.kiku.springmall"/>
 	
 	<!-- Transaction -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -21,7 +21,6 @@
 	</bean>
 	
 	<tx:annotation-driven transaction-manager="transactionManager"/>
-	
 	<!-- AOP -->
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 </beans>
