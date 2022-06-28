@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Aspect
 public class AfterAdvice {
 	
-	@After("Pointcut.allPointcut()")
+	@After("PointcutCommon.allPointcut()")
 	public void afterLog(JoinPoint jp) {
 		String method = jp.getSignature().getName();
 		System.out.println("[AfterAdvice]" + method + "()");

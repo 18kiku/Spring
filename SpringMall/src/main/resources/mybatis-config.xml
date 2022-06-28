@@ -4,15 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
-	<properties resource="config/config.properties"/>
 	<typeAliases>
 		<typeAlias alias="product" type="com.kiku.springmall.service.ProductDTO"/>
 		<typeAlias alias="member" type="com.kiku.springmall.service.MemberDTO"/>
 		<typeAlias alias="management" type="com.kiku.springmall.service.ManagementDTO"/>
 		<typeAlias alias="cart" type="com.kiku.springmall.service.CartDTO"/>
-	</typeAliases>
-	
-	<mappers>
-		<mapper resource="mappers/*-mapper.xml"/>
-	</mappers>
+	</typeAliases>	
 </configuration>
