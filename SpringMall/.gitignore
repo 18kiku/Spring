@@ -7,8 +7,8 @@
 
 lecture
 target
-#pom.properties
-#.classpath
+pom.properties
+.classpath
 MANIFEST.MF
 
 ### Eclipse ###
@@ -71,17 +71,17 @@ local.properties
 
 # Uncomment this line if you wish to ignore the project description file.
 # Typically, this file would be tracked if it contains build/dependency configurations:
-#.project
+.project
 
 ### Eclipse Patch ###
 # Spring Boot Tooling
 .sts4-cache/
 
 # Eclipse Core
-#.project
+.project
 
 # IDT-specific (Eclipse Java Development Tools)
-#.classpath
+.classpath
 
 ### Java ###
 # Compiled class file
