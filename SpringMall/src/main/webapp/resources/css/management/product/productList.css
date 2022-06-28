@@ -1,12 +1,42 @@
 @charset "UTF-8";
-
-.container { width: 1200px; margin: 0 auto;}
-#btn_insert { float: right; background: #000; color: #fff; margin-bottom: 10px; cursor: pointer;}
-table {  clear: both; width: 100%; border: 1px solid black; border-collapse: collapse; font-size: 0.9em;}
-tr { height: 30px;}
-tr:nth-child(2n+1) { background: #f8f9fa}
-th, td { border: 1px solid black;}
-th { background: #dee2e6;}
-.center { text-align: center;}
-.left { text-align: left; padding-left: 3px}
-.right { text-align: right; padding-right: 5px;}
+.container {
+	width:1200px;
+	margin:0 auto;
+}
+#btn_insert {
+	float:right;
+	background:#000;
+	color:#fff;
+	margin-bottom:10px;
+	cursor:pointer;
+}
+table {
+	clear:both;
+	width:100%;
+	border:1px solid black;
+	border-collapse:collapse;
+	font-size:0.9em;
+}
+tr {
+	height:30px;
+}
+tr:nth-child(2n+1) {
+	background:#f8f9fa
+}
+th,td {
+	border:1px solid black;
+}
+th {
+	background:#dee2e6;
+}
+.center {
+	text-align:center;
+}
+.left {
+	text-align:left;
+	padding-left:3px
+}
+.right {
+	text-align:right;
+	padding-right: 5px;
+}
