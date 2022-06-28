@@ -40,4 +40,7 @@
 	</bean>
 	
 	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+	<!-- AOP -->
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 </beans>
