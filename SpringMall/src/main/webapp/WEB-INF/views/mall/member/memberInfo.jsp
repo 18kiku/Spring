@@ -149,75 +149,104 @@
 		})
 	})
 </script>
-
-<div id="container">
-	<div class="t_title">회원 정보 확인</div>
-	<form action="memberUpdate.do" method="post" name="infoForm">
-		<table>
-			<tr>
-				<th>아이디</th>
-				<td>
-					<input type="text" name="id" class="c_id" value="${member.id }" readonly>
-					&ensp;<span class="s_id">아이디는 변경 불가</span>
-				</td>
-			</tr>
-			<tr>
-				<th>비밀번호</th>
-				<td>
-					<input type="password" name="password" size=15 value="${member.password }"><br>
-					<span id="chk_password"></span>
-				</td>
-			</tr>
-			<tr>
-				<th>비밀번호 확인</th>
-				<td>
-					<input type="password" name="password2" size=15><br>
-					<span id="chk_password2"></span>
-				</td>
-			</tr>
-			<tr>
-				<th>이름</th>
-				<td><input type="text" name="name" size=15 value="${member.name }"></td>
-			</tr>
-			<tr>
-				<th>생년월일</th>
-				<td><input type="text" name="birth" size=15 value="${member.birth }"></td>
-			</tr>
-			<tr>
-				<th>성별</th>
-				<td><input type="text" name="gender" size=15 value="${member.gender }"></td>
-			</tr>
-			<tr>
-				<th>이메일</th>
-				<td>
-					<input type="email" name="email" size=30 value="${member.email }"><br>
-					<span id="chk_email"></span>					
-				</td>
-			</tr>
-			<tr>
-				<th>전화번호</th>
-				<td><input type="tel" name="tel" value="${member.tel }"></td>
-			</tr>
-			<tr class="addr_row">
-				<th>주소</th>
-				<td>
-					<input type="button" value="주소찾기" id="btn_address"><br>
-					<input type="text" name="address" value="${member.address }" size=49><br>
-					<input type="text" name="address_detail" value="${member.address_detail }" size=49>
-					<input type="hidden" name="postcode" value="${member.postcode }">
-				</td>
-			</tr>
-			<tr>
-				<th>가입일자</th>
-				<td>${member.reg_date }</td>
-			
-			</tr>
-		</table>
-		<div class="btns">
-			<input type="button" value="회원정보수정" id="btn_update">&emsp;&emsp;
-			<input type="button" value="회원탈퇴" id="btn_delete">
-			<input type="button" value="돌아가기" id="btn_back">
-		</div>
-	</form>
-	<hr class="t_line">
+<main>
+<div class="t_title">
+	회원 정보 확인
 </div>
+<form action="memberUpdate.do" method="post" name="infoForm">
+	<table>
+	<tr>
+		<th>
+			아이디
+		</th>
+		<td>
+			<input type="text" name="id" class="c_id" value="${member.id }" readonly>
+			&ensp;<span class="s_id">아이디는 변경 불가</span>
+		</td>
+	</tr>
+	<tr>
+		<th>
+			비밀번호
+		</th>
+		<td>
+			<input type="password" name="password" size=15 value="${member.password }"><br>
+			<span id="chk_password"></span>
+		</td>
+	</tr>
+	<tr>
+		<th>
+			비밀번호 확인
+		</th>
+		<td>
+			<input type="password" name="password2" size=15><br>
+			<span id="chk_password2"></span>
+		</td>
+	</tr>
+	<tr>
+		<th>
+			이름
+		</th>
+		<td>
+			<input type="text" name="name" size=15 value="${member.name }">
+		</td>
+	</tr>
+	<tr>
+		<th>
+			생년월일
+		</th>
+		<td>
+			<input type="text" name="birth" size=15 value="${member.birth }">
+		</td>
+	</tr>
+	<tr>
+		<th>
+			성별
+		</th>
+		<td>
+			<input type="text" name="gender" size=15 value="${member.gender }">
+		</td>
+	</tr>
+	<tr>
+		<th>
+			이메일
+		</th>
+		<td>
+			<input type="email" name="email" size=30 value="${member.email }"><br>
+			<span id="chk_email"></span>
+		</td>
+	</tr>
+	<tr>
+		<th>
+			전화번호
+		</th>
+		<td>
+			<input type="tel" name="tel" value="${member.tel }">
+		</td>
+	</tr>
+	<tr class="addr_row">
+		<th>
+			주소
+		</th>
+		<td>
+			<input type="button" value="주소찾기" id="btn_address"><br>
+			<input type="text" name="address" value="${member.address }" size=49><br>
+			<input type="text" name="address_detail" value="${member.address_detail }" size=49>
+			<input type="hidden" name="postcode" value="${member.postcode }">
+		</td>
+	</tr>
+	<tr>
+		<th>
+			가입일자
+		</th>
+		<td>
+			${member.reg_date }
+		</td>
+	</tr>
+	</table>
+	<div class="btns">
+		<input type="button" value="회원정보수정" id="btn_update">&emsp;&emsp; <input type="button" value="회원탈퇴" id="btn_delete">
+		<input type="button" value="돌아가기" id="btn_back">
+	</div>
+</form>
+<hr class="t_line">
+</main>

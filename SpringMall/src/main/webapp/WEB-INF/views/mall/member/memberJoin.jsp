@@ -151,67 +151,94 @@
 	})
 </script>
 <main>
-	<div class="t_title">회원가입</div>
-	<form action="memberJoin.do" method="post" name="joinForm">
-		<table>
-			<tr>
-				<th>아이디</th>
-				<td>
-					<input type="text" name="id" id="id">
-					<input type="button" value="ID 중복 체크" id="btn_chk_id" onclick="memberCheck()"><br>
-					<span id=chk_id></span>
-				</td>
-			</tr>
-			<tr>
-				<th>비밀번호</th>
-				<td>
-					<input type="password" name="password" size=15><br>
-					<span id="chk_password"></span>
-				</td>
-			</tr>
-			<tr>
-				<th>비밀번호 확인</th>
-				<td>
-					<input type="password" name="password2" id="" size=15><br>
-					<span id="chk_password2"></span>
-				</td>
-			</tr>
-			<tr>
-				<th>이름</th>
-				<td><input type="text" name="name" id="name" size=15></td>
-			</tr>
-			<tr>
-				<th>생년월일</th>
-				<td><input type="text" name="birth" id="birth" size=15></td>
-			</tr>
-			<tr>
-				<th>성별</th>
-				<td><input type="text" name="gender" id="gender" size=15></td>
-			</tr>
-			<tr>
-				<th>이메일</th>
-				<td>
-					<input type="email" name="email" id="email" size=30><br>
-					<span id="chk_email"></span>					
-				</td>
-			</tr>
-			<tr>
-				<th>전화번호</th>
-				<td><input type="tel" name="tel" id="tel"></td>
-			</tr>
-			<tr class="addr_row">
-				<th>주소</th>
-				<td>
-					<input type="button" value="주소찾기" id="btn_address"><br>
-					<input type="text" name="address" id="address" size=49><br>
-					<input type="text" name="address_detail" id="address_detail" size=49>
-					<input type="hidden" name="postcode" id="postcode">
-				</td>
-			</tr>
-		</table>
-		<div class="btns">
-			<input type="button" value="회원가입" id="btn_insert">&emsp;&emsp;
-			<input type="button" value="취소" id="btn_cancel">
-		</div>
-	</form>
+<div class="t_title">
+	회원가입
+</div>
+<form action="memberJoin.do" method="post" name="joinForm">
+	<table>
+	<tr>
+		<th>
+			아이디
+		</th>
+		<td>
+			<input type="text" name="id" id="id">
+			<input type="button" value="ID 중복 체크" id="btn_chk_id" onclick="memberCheck()"><br>
+			<span id=chk_id></span>
+		</td>
+	</tr>
+	<tr>
+		<th>
+			비밀번호
+		</th>
+		<td>
+			<input type="password" name="password" size=15><br>
+			<span id="chk_password"></span>
+		</td>
+	</tr>
+	<tr>
+		<th>
+			비밀번호 확인
+		</th>
+		<td>
+			<input type="password" name="password2" id="" size=15><br>
+			<span id="chk_password2"></span>
+		</td>
+	</tr>
+	<tr>
+		<th>
+			이름
+		</th>
+		<td>
+			<input type="text" name="name" id="name" size=15>
+		</td>
+	</tr>
+	<tr>
+		<th>
+			생년월일
+		</th>
+		<td>
+			<input type="text" name="birth" id="birth" size=15>
+		</td>
+	</tr>
+	<tr>
+		<th>
+			성별
+		</th>
+		<td>
+			<input type="text" name="gender" id="gender" size=15>
+		</td>
+	</tr>
+	<tr>
+		<th>
+			이메일
+		</th>
+		<td>
+			<input type="email" name="email" id="email" size=30><br>
+			<span id="chk_email"></span>
+		</td>
+	</tr>
+	<tr>
+		<th>
+			전화번호
+		</th>
+		<td>
+			<input type="tel" name="tel" id="tel">
+		</td>
+	</tr>
+	<tr class="addr_row">
+		<th>
+			주소
+		</th>
+		<td>
+			<input type="button" value="주소찾기" id="btn_address"><br>
+			<input type="text" name="address" id="address" size=49><br>
+			<input type="text" name="address_detail" id="address_detail" size=49>
+			<input type="hidden" name="postcode" id="postcode">
+		</td>
+	</tr>
+	</table>
+	<div class="btns">
+		<input type="button" value="회원가입" id="btn_insert">&emsp;&emsp; <input type="button" value="취소" id="btn_cancel">
+	</div>
+</form>
 </main>
