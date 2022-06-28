@@ -23,4 +23,5 @@ color: #000; font-size: 20px; font-family: 'Hi Melody', cursive;}
 .t_box4 .hover { position: relative; display: inline-block;}
 .t_box4 .sub { width: 140px; display: none; position: absolute; z-index: 10; font-size: 0.3em; background: lightgray;}
 .t_box4 .hover:hover .sub { display: block; right: -37px;}
-.end_line { margin: 20px 0;}
+.top_end { clear: both;}
+.end_line { border: 1px solid #e9ecef; margin: 20px 0; clear: both;}

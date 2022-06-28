@@ -20,29 +20,29 @@
 		<result property="reg_date" column="reg_date"/>
 	</resultMap>
 
-	<select id="insertProduct">
+	<insert id="insertProduct">
 		<![CDATA[
 		insert into product(product_id, product_category, product_name, product_brand, product_size, product_color, 
 							product_price, discount_rate, product_stock, product_image, product_detail)
 					values(SEQ_PRODUCT.nextval, #{product_category}, #{product_name}, #{product_brand}, #{product_size}, #{product_color},
 							#{product_price}, #{discount_rate}, #{product_stock}, #{product_image}, #{product_detail}) 
 		]]>
-	</select>
+	</insert>
 	
-	<select id="updateProduct">
+	<update id="updateProduct">
 		<![CDATA[
 		update product set product_category=#{product_category}, product_name=#{product_name}, product_brand=#{product_brand}, 
-							product_size=${product_size}, product_color=#{product_color}, product_price=#{product_price}, discount_rate=#{discount_rate},  
+							product_size=#{product_size}, product_color=#{product_color}, product_price=#{product_price}, discount_rate=#{discount_rate},  
 							product_stock=#{product_stock}, product_image=#{product_image}, product_detail=#{product_detail} 
 		where product_id=#{product_id}
 		]]>
-	</select>
+	</update>
 	
-	<select id="deleteProduct">
+	<delete id="deleteProduct">
 		<![CDATA[
 		delete from product where product_id=#{product_id}
 		]]>
-	</select>
+	</delete>
 	
 	<select id="getProduct" resultMap="productResult">
 		<![CDATA[

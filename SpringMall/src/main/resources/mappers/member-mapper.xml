@@ -18,25 +18,25 @@
 		
 	</resultMap>
 
-	<select id="insertMember" resultMap="memberResult">
+	<insert id="insertMember">		
 		<![CDATA[
 		insert into member(id, password, name, birth, gender, email, tel, address, address_detail, postcode) 
 		values(#{id}, #{password}, #{name}, #{birth}, #{gender}, #{email}, #{tel}, #{address}, #{address_detail}, #{postcode})
 		]]>
-	</select>
+	</insert>
 
-	<select id="updateMember" resultMap="memberResult">
+	<update id="updateMember">
 		<![CDATA[
 		update member set password=#{password}, birth=#{birth}, gender=#{gender}, email=#{email}, tel=#{tel}, address=#{address}, address_detail=#{address_detail}, postcode=#{postcode}
 		where id=#{id} and password=#{password}
 		]]>
-	</select>
+	</update>
 	
-	<select id="deleteMember" resultMap="memberResult">
+	<delete id="deleteMember">
 		<![CDATA[
 		delete from member where id=#{id} and password=#{password}
 		]]>
-	</select>
+	</delete>
 	
 	<select id="getMember" resultMap="memberResult">
 		<![CDATA[

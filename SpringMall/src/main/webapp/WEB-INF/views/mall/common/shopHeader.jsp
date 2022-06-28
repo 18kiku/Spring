@@ -3,31 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Dongle&family=Hi+Melody&family=Jua&family=Zen+Loop&display=swap');
-a { text-decoration: none; color: black;}
-.t_box1 { float: left;}
-.t_box2 { float: right;}
-/* 구역1 (상단좌측): 로그인, 회원가입, 고객센터 */
-.t_box1 { }
-.t_box1 a { color: gray; font-size: 14px; font-weight: bold;}
-/* 구역2 (상단우측): 회원정보, 구매정보, 장바구니정보*/
-/* .t_box2 .t_box2_img1:hover { content: url(resources/img/user-color.png);}
-.t_box2 .t_box2_img2:hover { content: url(resources/img/buy-color.png);} 
-.t_box2 .t_box2_img3:hover { content: url(resources/img/cart-color.png);} */
-/* 구역3 (중단): 타이틀, 검색 */
-.t_box3 { clear: both; text-align: center; margin-bottom: 20px;}
-.t_box3 .m_title { font-family: 'Zen Loop', cursive; font-size: 50px;}
-.t_box3 .s_title { font-family: 'Hi Melody', cursive; font-size: 20px;}
-
-/* 구역4 (하단): 메인메뉴(하위메뉴) */
-.t_box4 { text-align: center;}
-.t_box4 div { text-align: center; display: inline-block; margin: 0 10px;  padding: 5px; 
-color: #000; font-size: 20px; font-family: 'Hi Melody', cursive;}
-.t_box4 .hover { position: relative; display: inline-block;}
-.t_box4 .sub { width: 140px; display: none; position: absolute; z-index: 10; font-size: 0.3em; background: lightgray;}
-.t_box4 .hover:hover .sub { display: block; right: -37px;}
-.end_line { margin: 20px 0;}
 </style>
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mall/common/shopHeader.css"> --%>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mall/common/shopHeader.css">
 
 
 <header>
@@ -103,5 +80,7 @@ color: #000; font-size: 20px; font-family: 'Hi Melody', cursive;}
 			</div>
 		</div>
 	</div>
+	<div class="top_end"></div>
+	
 	<hr class="end_line">
 </header>

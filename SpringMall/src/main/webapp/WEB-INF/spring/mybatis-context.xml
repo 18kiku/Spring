@@ -9,7 +9,9 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 	
+	
 	<!-- DBCP -->
+	<context:property-placeholder location="classpath:config/*.properties" />
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="${db.driver}"/>
 		<property name="url" value="${db.url}"/>
@@ -34,10 +36,4 @@
 		<constructor-arg ref="sqlSessionFactory"/>
 	</bean>
 	
-	<!-- Transaction -->
-	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource"/>
-	</bean>
-	
-	<tx:annotation-driven transaction-manager="transactionManager"/>
 </beans>
