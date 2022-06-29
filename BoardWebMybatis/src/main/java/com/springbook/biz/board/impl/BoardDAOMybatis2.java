@@ -1,13 +1,14 @@
 package com.springbook.biz.board.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
-import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.springbook.biz.board.BlockDTO;
 import com.springbook.biz.board.BoardDTO;
 
 @Repository("boardDAO")
@@ -40,13 +41,20 @@ public class BoardDAOMybatis2{
 	// 글삭제
 	public void deleteBoardById(BoardDTO dto) {
 		System.out.println("===> BoardDAOMybatis - deleteBoardById() start");
+		
 		mybatis.delete("BoardDAO.deleteBoardById", dto);
 	}
 	
 	// 글 전체 보기 -> 검색 기능 추가
-	public List<BoardDTO> getBoardList(BoardDTO dto){
+	public List<BoardDTO> getBoardList(BoardDTO dto, BlockDTO block){
 		System.out.println("===> BoardDAOMybatis - getBoardList() start");
-		return mybatis.selectList("BoardDAO.getBoardList", dto);
+		
+		Map<String, Object> pagingMap = new HashMap<String, Object>();
+		pagingMap.put("board", dto);
+		block.setStartNum((block.getPageNum() - 1) * block.getAmount());
+		pagingMap.put("block", block);
+		
+		return mybatis.selectList("BoardDAO.getBoardList", pagingMap);
 	}
 	// 글 상세 보기(1건)
 	public BoardDTO getBoard(BoardDTO dto) {

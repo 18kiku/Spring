@@ -2,10 +2,7 @@ package com.springbook.view.board;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,11 +11,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.springbook.biz.board.BlockDTO;
 import com.springbook.biz.board.BoardDTO;
 import com.springbook.biz.board.BoardService;
+import com.springbook.biz.board.PageDTO;
 
 /*
 RequestMapping - 클라이언트의 요청경로를 컨트롤러에서 찾도록 하는 역할
@@ -40,19 +38,6 @@ public class BoardController {
 	// 컨트롤러 다음 서비스가 시작되기때문에 아직 보드서비스가 생성되지않음
 	@Autowired 
 	private BoardService boardService;
-	
-	// JSON 형식으로 글목록 보기
-	@RequestMapping(value="/getBoardListJson.do")
-	@ResponseBody // 자바 객체를 http 응답 프로토콜에 적용하도록 설정하는 어노테이션
-	public List<BoardDTO> getBoardListJson(BoardDTO dto, Model model) {
-		System.out.println("=> BoardController - 글목록 조회(JSON)");
-		// 검색 확인 - searchCondition, searchKeyword가 null일때의 처리
-		if(dto.getSearchCondition() == null) dto.setSearchCondition("TITLE");
-		if(dto.getSearchKeyword() == null) dto.setSearchKeyword("");
-		
-		List<BoardDTO> boardList= boardService.getBoardList(dto);
-		return boardList;
-	}
 	
 	// 화면을 보여줄때는 get방식으로
 	@RequestMapping(value="/insertBoard.do", method=RequestMethod.GET)
@@ -105,12 +90,14 @@ public class BoardController {
 	}
 		
 	@RequestMapping(value="/getBoardList.do")
-	public String getBoardList(BoardDTO dto, Model model, HttpSession session) {
+	public String getBoardList(BoardDTO dto, Model model, BlockDTO block) {
 		System.out.println("=> BoardController - 글목록 조회");
 		// 검색 확인 - searchCondition, searchKeyword가 null일때의 처리
 		if(dto.getSearchCondition() == null) dto.setSearchCondition("TITLE");
 		if(dto.getSearchKeyword() == null) dto.setSearchKeyword("");
-		model.addAttribute("boardList", boardService.getBoardList(dto));
+		
+		model.addAttribute("boardList", boardService.getBoardList(dto, block));
+		model.addAttribute("pageDTO", new PageDTO(block, 155));
 		return "getBoardList.jsp";
 	}
 }

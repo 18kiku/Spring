@@ -6,7 +6,7 @@ public interface BoardService {
 	void insertBoard(BoardDTO dto);
 	void updateBoard(BoardDTO dto);
 	void deleteBoard(BoardDTO dto);
-	List<BoardDTO> getBoardList(BoardDTO dto);
+	List<BoardDTO> getBoardList(BoardDTO dto, BlockDTO block);
 	void updateBoardCnt(BoardDTO dto);
 	BoardDTO getBoard(BoardDTO dto);
 }

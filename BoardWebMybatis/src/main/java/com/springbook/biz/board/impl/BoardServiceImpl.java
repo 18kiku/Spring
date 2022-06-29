@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.springbook.biz.board.BlockDTO;
 import com.springbook.biz.board.BoardDTO;
 import com.springbook.biz.board.BoardService;
 
@@ -36,9 +37,9 @@ public class BoardServiceImpl implements BoardService{
 	
 
 	@Override
-	public List<BoardDTO> getBoardList(BoardDTO dto) {
+	public List<BoardDTO> getBoardList(BoardDTO dto, BlockDTO block) {
 		System.out.println("==> BoardServiceImpl - getBoardList()");
-		return boardDAO.getBoardList(dto);
+		return boardDAO.getBoardList(dto, block);
 	}
 	
 	@Override

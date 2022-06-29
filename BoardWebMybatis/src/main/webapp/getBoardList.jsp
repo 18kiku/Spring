@@ -27,6 +27,12 @@ th { background: #e9ecef;}
 .t1 input[type=submit] { width: 88px; height: 25px; cursor: pointer;}
 .t2 .center { text-align: center;}
 .t2 .left { padding-left: 5px;}
+/* 하단 - 페이징 영역*/
+.paging { text-align: center; margin-top: 20px;}
+.p_box { display: inline-block; width: 22px; height: 22px; padding: 5px;}
+.p_box:hover { background: #868e96; color: white; font-weight: bold; border-radius: 50%;}
+.p_box_c { background: #1e94be; color: white; font-weight: bold; border-radius: 10px;}
+.p_box_b { font-weight: bold;}
 </style>
 </head>
 <body>
@@ -69,7 +75,22 @@ th { background: #e9ecef;}
 		</tr>
 		</c:forEach>
 	</table>
-	
+	<div class="paging">
+		<!-- 이전 페이지 -->
+		<c:if test="${pageDTO.prev }">
+			<a href="#" class="p_box">prev</a>
+		</c:if>
+		
+		<!-- 페이지 번호 -->
+		<c:forEach var="num" begin="${pageDTO.startPage }" end="${pageDTO.endPage }">
+			<a href="#" class="p_box">${num }</a>
+		</c:forEach>
+		
+		<!-- 이전 페이지 -->
+		<c:if test="${pageDTO.next }">
+			<a href="#" class="p_box">next</a>
+		</c:if>
+	</div>
 </div>
 
 </body>
