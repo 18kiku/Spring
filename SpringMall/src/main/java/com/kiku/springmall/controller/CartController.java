@@ -32,7 +32,9 @@ public class CartController {
 		MemberDTO member = (MemberDTO)session.getAttribute("member");
 		if(member != null) {
 			cartService.insertCart(dto);
-		} else return "login";
+		} else {
+			return "login";
+		}
 		
 		return "redirect:cartList.do";
 	}

@@ -30,7 +30,7 @@ public class ShopController {
 	}
 	@RequestMapping(value="/shopList.do")
 	public String shopList(ProductDTO dto, Model model) {
-		int product_category = Integer.parseInt(productService.getProductList(dto, "category").get(0).getProduct_category());
+		int product_category = Integer.parseInt(productService.getProductList(dto).get(0).getProduct_category());
 		String product_categoryName = " ";
 		
 		switch(product_category){
@@ -56,7 +56,7 @@ public class ShopController {
 		default: product_categoryName = "error"; break;
 		}
 		model.addAttribute("product_category", product_categoryName);
-		model.addAttribute("productList", productService.getProductList(dto, "category"));
+		model.addAttribute("productList", productService.getProductList(dto));
 		return "shop.list";
 	}
 	@RequestMapping(value="/shopDetail.do")

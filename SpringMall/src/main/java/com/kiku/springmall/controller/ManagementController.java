@@ -30,7 +30,9 @@ public class ManagementController {
 		if(admin != null) {
 			session.setAttribute("admin", admin);
 			return "managementMain.do";
-		} else return "management/managementLogin";
+		} else {
+			return "management/managementLogin";
+		}
 	}
 	
 	@RequestMapping(value="/managementLogout.do")

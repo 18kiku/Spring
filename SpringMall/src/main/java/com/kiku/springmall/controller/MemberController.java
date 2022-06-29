@@ -38,7 +38,9 @@ public class MemberController {
 		if(member != null) {
 			session.setAttribute("member", member);
 			return "shop.main";// 원래 있던 페이지로 돌아가도록 수정하기
-		} else return "login";
+		} else {
+			return "login";
+		}
 	}
 	@RequestMapping(value="/memberLogout.do")
 	public String logout(HttpSession session){
@@ -91,7 +93,9 @@ public class MemberController {
 			MemberDTO member = (MemberDTO)session.getAttribute("member");
 			if(member != null) {
 				model.addAttribute("member", memberService.getMember(dto));
-			} else return "login";
+			} else {
+				return "login";
+			}
 			
 			return "memberInfo";
 		}
