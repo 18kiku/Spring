@@ -44,21 +44,27 @@
 		]]>
 	</delete>
 	
-	<select id="getProduct" resultMap="productResult">
+	<select id="getProductCount" resultType="int">
+		<![CDATA[
+		select count(*) from product
+		]]>
+	</select>
+	
+	<select id="getProduct" parameterType="HashMap" resultMap="productResult">
 		<![CDATA[
 		select * from product where product_id=#{product_id}
 		]]>
 	</select>
 	
 	<select id="getProductList" resultMap="productResult">
-		<![CDATA[
-		select * from product order by product_id desc
-		]]>
-	</select>
-	
-	<select id="getProductList_category" resultMap="productResult">
-		<![CDATA[
-		select * from product where product_category=#{product_category} order by product_id desc
-		]]>
+		select * 
+		from product where 1 = 1 
+		<if test="searchCondition == 'PRODUCT_NAME'">
+		and product_name like '%'||#{searchKeyword}||'%'
+		</if>
+		<if test="searchCondition == 'PRODUCT_CATEGORY'">
+		and product_category like '%'||#{searchKeyword}||'%'
+		</if>
+		order by product_id desc
 	</select>
 </mapper>					

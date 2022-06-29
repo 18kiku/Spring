@@ -22,7 +22,22 @@
 <div class="container">
 	<h1>Product List</h1>
 	<input type="button" id="btn_insert" value="Register">
-	<table>
+		<form action="productList.do" method="post">
+	<table class="search">
+		<tr>
+			<td>
+				<select name="searchCondition">
+					<c:forEach var="option" items="${conditionMap }">
+						<option value="${option.value }">${option.key }</option>
+					</c:forEach>
+				</select>
+				<input type="text" name="searchKeyword">
+				<input type="submit" value="search">
+			</td>
+		</tr>
+	</table>	
+	</form>
+	<table class="product">
 	<tr>
 		<th width="4%">
 			product_id
@@ -112,6 +127,26 @@
 	</tr>
 	</c:if>
 	</table>
+	<div>
+		<ul class="paging">
+			<c:if test="${paging.prev }">
+				<li class="paging_button">
+					<a href="#">Previous</a>
+				</li>
+			</c:if>
+			
+			<c:forEach var="num" begin="${paging.startPage }" end="${paging.endPage }">
+				<li class="paging_button">
+					<a href="#">${num }</a>
+				</li>
+			</c:forEach>
+			<c:if test="${paging.next }">
+				<li class="paging_button">
+					<a href="#">Next</a>
+				</li>
+			</c:if>
+		</ul>
+	</div>
 </div>
 </body>
 </html>

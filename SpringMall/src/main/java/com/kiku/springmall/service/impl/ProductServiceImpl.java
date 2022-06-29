@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kiku.springmall.service.BlockDTO;
 import com.kiku.springmall.service.ProductDTO;
 import com.kiku.springmall.service.ProductService;
 
@@ -31,6 +32,12 @@ public class ProductServiceImpl implements ProductService{
 		System.out.println("==> ProductServiceImpl - deleteProduct()");
 		productDAO.deleteProduct(dto);
 	}
+	
+	@Override
+	public int getProductCount(ProductDTO dto) {
+		System.out.println("==> ProductServiceImpl - getProductCount()");
+		return productDAO.getProductCount(dto);
+	}
 
 	@Override
 	public ProductDTO getProduct(ProductDTO dto) {
@@ -39,14 +46,10 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public List<ProductDTO> getProductList(ProductDTO dto, String mode) {
+	public List<ProductDTO> getProductList(ProductDTO dto) {
 		System.out.println("==> ProductServiceImpl getProductList()");
-		if(mode.equals("all")) {
-			return productDAO.getProductList(dto);
-		} else if(mode.equals("category")) {
-			return productDAO.getProductList_category(dto);
-		}
-		return null;
+		return productDAO.getProductList(dto);
 		
 	}
+
 }

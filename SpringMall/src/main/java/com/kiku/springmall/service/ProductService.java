@@ -6,6 +6,7 @@ public interface ProductService {
 	void insertProduct(ProductDTO dto);
 	void updateProduct(ProductDTO dto);
 	void deleteProduct(ProductDTO dto);
+	int getProductCount(ProductDTO dto);
 	ProductDTO getProduct(ProductDTO dto);
-	List<ProductDTO> getProductList(ProductDTO dto, String mode);
+	List<ProductDTO> getProductList(ProductDTO dto);
 }

@@ -1,6 +1,8 @@
 package com.kiku.springmall.controller;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,7 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.kiku.springmall.service.BlockDTO;
 import com.kiku.springmall.service.MemberDTO;
+import com.kiku.springmall.service.PageDTO;
 import com.kiku.springmall.service.ProductDTO;
 import com.kiku.springmall.service.ProductService;
 
@@ -57,11 +61,24 @@ public class ProductController {
 		return "management/product/productDetail";
 	}
 	
+	@ModelAttribute("conditionMap")
+	public Map<String, String> searchConditionMap(){
+		Map<String, String> conditionMap = new HashMap<String, String>();
+		conditionMap.put("상품명", "PRODUCT_NAME");
+		conditionMap.put("카테고리", "PRODUCT_CATEGORY");
+		return conditionMap;
+	}
 	
 	@RequestMapping(value="/productList.do")
 	public String getProductList(ProductDTO dto, Model model){
 		System.out.println("=> ProductController getProductList");
-		model.addAttribute("productList", productService.getProductList(dto, "all"));
+		
+		if(dto.getSearchCondition() == null) dto.setSearchCondition("PRODUCT_NAME");
+		if(dto.getSearchKeyword() == null) dto.setSearchKeyword("");
+		
+		int totalCount = productService.getProductCount(dto);
+		System.out.println(totalCount);
+		model.addAttribute("productList", productService.getProductList(dto));
 		return "management/product/productList";
 	}
 }
