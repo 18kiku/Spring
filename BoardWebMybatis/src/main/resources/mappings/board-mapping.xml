@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "..//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 
+1. parameterType="board" -> 생략
+2. resultType="board" -> 필수, select에서 사용
+3. resultType의 문제점
+ - join 구문을 포함할때는 사용할 수 없음
+ - 자바객체의 프로퍼티명과 테이블의 컬럼명이 일치하지 않을때는 사용불가
+4. resultType 대신에 resultMap을 사용하면 위의 문제점을 해결할 수 있음
+ - result로 property와 column을 mapping
+ - PK는 result 대신에 id를 사용할 수 있다
+ 
+5. mapper 파일에서 sql문을 사용할때의 문제점
+ - >, < 연산자를 태그로 인식하는 문제점
+ - CDATA section을 사용
+ 
+6. Dynamic SQL
+ - SQL에서 선택적으로 실행할 내용을 구현하기 위해서 Mybatis에서 사용하는 문법
+ - CDATA랑 같이 사용할 수 없음
+ 
+ -->
+<mapper namespace="BoardDAO">
+	<resultMap type="board" id="boardResult">
+		<result property="seq" column="seq"/>
+		<result property="title" column="title"/>
+		<result property="writer" column="writer"/>
+		<result property="content" column="content"/>
+		<result property="regdate" column="regdate"/>
+		<result property="cnt" column="cnt"/>
+	</resultMap>
+
+	<insert id="insertBoard">
+		<![CDATA[
+		insert into board(seq, title, writer, content) values(board_seq.nextval, #{title}, #{writer}, #{content})
+		]]>
+	</insert>
+	
+	<update id="updateBoard">
+		<![CDATA[
+		update board set title=#{title}, content=#{content}, writer=#{writer} where seq=#{seq}
+		]]>
+	</update>
+	
+	<!-- 번호에 의한 삭제 -->
+	<delete id="deleteBoard">
+		<![CDATA[
+		delete board where seq=#{seq}
+		]]>
+	</delete>
+	
+	<!-- 아이디에 의한 삭제 -->
+	<delete id="deleteBoardById">
+		<![CDATA[
+		delete board where writer=#{writer}
+		]]>
+	</delete>
+	
+	<update id="updateBoardCnt">
+		<![CDATA[
+		update board set cnt=cnt+1 where writer=#{writer}
+		]]>
+	</update>
+	
+	<select id="getBoard" resultMap="boardResult">
+		<![CDATA[
+		select * from board where seq=#{seq}
+		]]>
+	</select>
+	
+	<select id="getBoardList" resultMap="boardResult">
+		
+		select * from board where 1 = 1 
+		<if test="searchCondition == 'TITLE'">
+		and title like '%'||#{searchKeyword}||'%'
+		</if>
+		<if test="searchCondition == 'CONTENT'">
+		and content like '%'||#{searchKeyword}||'%'
+		</if>
+		<if test="searchCondition == 'WRITER'">
+		and writer like '%'||#{searchKeyword}||'%'
+		</if>
+		
+		order by seq desc
+		
+	</select>
+</mapper>					
