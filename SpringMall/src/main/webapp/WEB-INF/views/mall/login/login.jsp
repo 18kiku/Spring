@@ -1,4 +1,5 @@
-<%@ page language="java" contenttype="text/html; charset=UTF-8" pageencoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mall/login/login.css">
 <script>
 	document.addEventListener("DOMContentLoaded", function(){

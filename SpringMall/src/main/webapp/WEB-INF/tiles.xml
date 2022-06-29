@@ -22,7 +22,7 @@
     <put-attribute name="footer" value="/WEB-INF/views/mall/common/shopFooter.jsp" />
   </definition>
   <definition name="login" template="/WEB-INF/views/mall/common/shopLayout.jsp">
-    <put-attribute name="title" value="Shop detail" />
+    <put-attribute name="title" value="login" />
     <put-attribute name="header" value="/WEB-INF/views/mall/common/shopHeader.jsp" />
     <put-attribute name="body" value="/WEB-INF/views/mall/login/login.jsp" />
     <put-attribute name="footer" value="/WEB-INF/views/mall/common/shopFooter.jsp" />
