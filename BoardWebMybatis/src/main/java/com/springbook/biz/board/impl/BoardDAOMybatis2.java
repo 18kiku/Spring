@@ -45,6 +45,18 @@ public class BoardDAOMybatis2{
 		mybatis.delete("BoardDAO.deleteBoardById", dto);
 	}
 	
+	// 글 상세 보기(1건)
+	public BoardDTO getBoard(BoardDTO dto) {
+		System.out.println("===> BoardDAOMybatis - getBoard() start");
+		return mybatis.selectOne("BoardDAO.getBoard", dto);
+	}
+	
+	// 페이징에서 사용할 전체 페이지수를 구함
+	public int getBoardListCount(BoardDTO dto) {
+		System.out.println("===> BoardDAOMybatis - getBoardListCount() start");
+		return mybatis.selectOne("BoardDAO.getBoardListCount", dto);
+	}
+	
 	// 글 전체 보기 -> 검색 기능 추가
 	public List<BoardDTO> getBoardList(BoardDTO dto, BlockDTO block){
 		System.out.println("===> BoardDAOMybatis - getBoardList() start");
@@ -55,10 +67,5 @@ public class BoardDAOMybatis2{
 		pagingMap.put("block", block);
 		
 		return mybatis.selectList("BoardDAO.getBoardList", pagingMap);
-	}
-	// 글 상세 보기(1건)
-	public BoardDTO getBoard(BoardDTO dto) {
-		System.out.println("===> BoardDAOMybatis - getBoard() start");
-		return mybatis.selectOne("BoardDAO.getBoard", dto);
 	}
 }

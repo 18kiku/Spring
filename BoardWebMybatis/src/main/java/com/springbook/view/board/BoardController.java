@@ -90,14 +90,19 @@ public class BoardController {
 	}
 		
 	@RequestMapping(value="/getBoardList.do")
-	public String getBoardList(BoardDTO dto, Model model, BlockDTO block) {
+	public String getBoardList(BoardDTO dto, BlockDTO block, Model model) {
 		System.out.println("=> BoardController - 글목록 조회");
 		// 검색 확인 - searchCondition, searchKeyword가 null일때의 처리
 		if(dto.getSearchCondition() == null) dto.setSearchCondition("TITLE");
 		if(dto.getSearchKeyword() == null) dto.setSearchKeyword("");
 		
+		int tot = boardService.getBoardListCount(dto);
+		
 		model.addAttribute("boardList", boardService.getBoardList(dto, block));
-		model.addAttribute("pageDTO", new PageDTO(block, 155));
+		model.addAttribute("pageDTO", new PageDTO(block, tot));
+		System.out.println(block);
+		System.out.println(dto);
+		System.out.println(new PageDTO(block, tot));
 		return "getBoardList.jsp";
 	}
 }

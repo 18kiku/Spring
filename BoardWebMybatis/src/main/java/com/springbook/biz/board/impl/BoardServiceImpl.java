@@ -55,5 +55,11 @@ public class BoardServiceImpl implements BoardService{
 		return boardDAO.getBoard(dto);
 	}
 
+	@Override
+	public int getBoardListCount(BoardDTO dto) {
+		System.out.println("==> BoardServiceImpl - getBoardListCount()");
+		return boardDAO.getBoardListCount(dto);
+	}
+
 
 }

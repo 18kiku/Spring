@@ -9,4 +9,5 @@ public interface BoardService {
 	List<BoardDTO> getBoardList(BoardDTO dto, BlockDTO block);
 	void updateBoardCnt(BoardDTO dto);
 	BoardDTO getBoard(BoardDTO dto);
+	int getBoardListCount(BoardDTO dto);
 }

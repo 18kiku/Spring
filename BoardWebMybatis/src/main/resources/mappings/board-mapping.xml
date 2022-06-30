@@ -61,7 +61,7 @@
 	
 	<update id="updateBoardCnt">
 		<![CDATA[
-		update board set cnt=cnt+1 where writer=#{writer}
+		update board set cnt=cnt+1 where seq=#{seq}
 		]]>
 	</update>
 	
@@ -71,12 +71,11 @@
 		]]>
 	</select>
 	
-	<select id="getBoardList" parameterMap="HashMap" resultMap="boardResult">
+	<select id="getBoardList" parameterType="Map" resultMap="boardResult">
 		<![CDATA[
 		select * from (
-		select rownum rn, * from board
-		where 1 = 1 
-		and rownum < #{block.pageNum} * #{block.amount}
+			select b.*, row_number() over(order by seq desc) as rnum from board b
+			where 1=1
 		]]>
 		<if test="searchCondition == 'TITLE'">
 		and title like '%'||#{searchKeyword}||'%'
@@ -88,7 +87,25 @@
 		and writer like '%'||#{searchKeyword}||'%'
 		</if>
 		<![CDATA[
-		) where rn > (#{block.pageNum} -1) * #{block.amount}
+		) where rnum >= (#{block.pageNum}-1) * #{block.amount} and rnum <= #{block.pageNum} * #{block.amount}
 		]]>
+	</select>
+	
+		<select id="getBoardListCount" resultType="int">
+		<![CDATA[
+		select count(*) from board
+		where 1=1
+		]]>
+		<if test="searchCondition == 'TITLE'">
+		and title like '%'||#{searchKeyword}||'%'
+		</if>
+		<if test="searchCondition == 'CONTENT'">
+		and content like '%'||#{searchKeyword}||'%'
+		</if>
+		<if test="searchCondition == 'WRITER'">
+		and writer like '%'||#{searchKeyword}||'%'
+		</if>
+		
+		
 	</select>
 </mapper>					

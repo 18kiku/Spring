@@ -31,8 +31,8 @@ th { background: #e9ecef;}
 .paging { text-align: center; margin-top: 20px;}
 .p_box { display: inline-block; width: 22px; height: 22px; padding: 5px;}
 .p_box:hover { background: #868e96; color: white; font-weight: bold; border-radius: 50%;}
-.p_box_c { background: #1e94be; color: white; font-weight: bold; border-radius: 10px;}
-.p_box_b { font-weight: bold;}
+.p_box_choice { background: #1e94be; color: white; font-weight: bold; border-radius: 10px;}
+.p_box_bold { font-weight: 900;}
 </style>
 </head>
 <body>
@@ -78,17 +78,23 @@ th { background: #e9ecef;}
 	<div class="paging">
 		<!-- 이전 페이지 -->
 		<c:if test="${pageDTO.prev }">
-			<a href="#" class="p_box">prev</a>
+			<a href="getBoardList.do?startPage=${pageDTO.startPage-1 }" class="p_box p_box_bold">prev</a>
 		</c:if>
 		
 		<!-- 페이지 번호 -->
-		<c:forEach var="num" begin="${pageDTO.startPage }" end="${pageDTO.endPage }">
-			<a href="#" class="p_box">${num }</a>
+		<c:forEach var="num" varStatus="s" begin="${pageDTO.startPage }" end="${pageDTO.endPage }">
+			<c:if test="${pageNum == s.index }">
+				<a href="getBoardList.do?pageNum=${pageNum }" class="p_box_choice">${pageNum }</a>
+			</c:if>
+			<c:if test="${pageNum != s.index }">
+				<a href="getBoardList.do?pageNum=${pageNum }" class="p_box">${pageNum }</a>
+			</c:if>
+			<a href="getBoardList.do?pageNum=${pageNum }" class="p_box">${pageNum }</a>
 		</c:forEach>
 		
-		<!-- 이전 페이지 -->
+		<!-- 다음 페이지 -->
 		<c:if test="${pageDTO.next }">
-			<a href="#" class="p_box">next</a>
+			<a href="getBoardList.do?endPage=${pageDTO.endPage+1 }" class="p_box p_box_bold">next</a>
 		</c:if>
 	</div>
 </div>
