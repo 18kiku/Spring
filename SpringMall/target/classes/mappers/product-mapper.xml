@@ -58,7 +58,9 @@
 	
 	<select id="getProductList" resultMap="productResult">
 		select * 
-		from product where 1 = 1 
+		from product inner join category
+		on product.product_category = category.category_code
+		where 1 = 1 
 		<if test="searchCondition == 'PRODUCT_NAME'">
 		and product_name like '%'||#{searchKeyword}||'%'
 		</if>

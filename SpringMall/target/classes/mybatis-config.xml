@@ -9,5 +9,6 @@
 		<typeAlias alias="member" type="com.kiku.springmall.service.MemberDTO" />
 		<typeAlias alias="management" type="com.kiku.springmall.service.ManagementDTO" />
 		<typeAlias alias="cart" type="com.kiku.springmall.service.CartDTO" />
+		<typeAlias alias="category" type="com.kiku.springmall.service.CategoryDTO" />
 	</typeAliases>
 </configuration>

@@ -19,8 +19,9 @@ public class ProductDTO {
 	private String product_detail;
 	private Timestamp reg_date;
 	
+	private int category_code;
+	private String category_name;
+	
 	private String searchCondition;
 	private String searchKeyword;
-	
-	
 }

@@ -51,7 +51,7 @@ public class ProductController {
 			List<MultipartFile> product_images = request.getFiles("product_images");
 			dto.setProduct_image(String.join(",", Util.saveFile(product_images)));			
 		} else {
-			dto.setProduct_image(UPLOAD_PATH + "no-image.jpg");
+			dto.setProduct_image(/* UPLOAD_PATH + */ "no-image.jpg");
 		}
 		if(request.getFiles("product_details") != null) {
 			File fileCheck = new File(UPLOAD_PATH);
@@ -60,7 +60,7 @@ public class ProductController {
 			List<MultipartFile> product_details = request.getFiles("product_details");
 			dto.setProduct_detail(String.join(",", Util.saveFile(product_details)));
 		} else {
-			dto.setProduct_detail(UPLOAD_PATH + "no-detail.jpg");
+			dto.setProduct_detail(/* UPLOAD_PATH + */ "no-detail.jpg");
 		}
 		
 

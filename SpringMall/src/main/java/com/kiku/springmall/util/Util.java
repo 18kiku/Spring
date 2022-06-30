@@ -23,13 +23,13 @@ public class Util {
 		
 		for(MultipartFile file : fileList) {
 			String originalFilename = file.getOriginalFilename();
-			String saveName = UPLOAD_PATH + originalFilename;
+			String saveName = /* UPLOAD_PATH + */ originalFilename;
 			System.out.println(UPLOAD_PATH);
 			System.out.println("fileName : " + originalFilename);
 			System.out.println("fileSize : " + file.getSize());
 			
 			try {
-				file.transferTo(new File(UPLOAD_PATH, originalFilename));
+				file.transferTo(new File(/* UPLOAD_PATH, */ originalFilename));
 				savedFiles.add(saveName);
 			} catch (Exception e) {
 				e.printStackTrace(); // !! alert fail 하기

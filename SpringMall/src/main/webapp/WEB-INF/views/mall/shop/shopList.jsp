@@ -7,7 +7,7 @@
 <main>
 <%-- 분류별 상품을 4개씩 3단으로 처리 --%>
 <div class="d_category2">
-	 분류 : <span>${product_category }</span>
+	 분류 : <span>${productList[0].category_name }</span>
 </div>
 <c:forEach var="product" items="${productList }">
 <div class="d_category3">

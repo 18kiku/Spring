@@ -76,17 +76,17 @@
 			delete
 		</th>
 	</tr>
-	<c:if test="${productList[0] !=null }">
+	<c:if test="${productList[0] != null }">
 	<c:forEach var="product" items="${productList }">
 	<tr>
 		<td class="center">
 			<a href="productDetail.do?product_id=${product.product_id }">${product.product_id }</a>
 		</td>
 		<td class="center">
-			${product.product_category }
+			${product.category_name }
 		</td>
 		<td class="center">
-			<a href="productDetail.do?product_id=${product.product_id }"><img src="file:\\\${product.product_image }" width="60" height="60"></a>
+			<a href="productDetail.do?product_id=${product.product_id }">/images/${product.product_image }<img src="/images/${product.product_image }" width="60" height="60"></a>
 		</td>
 		<td class="center">
 			<a href="productDetail.do?product_id=${product.product_id }">${product.product_name }</a>

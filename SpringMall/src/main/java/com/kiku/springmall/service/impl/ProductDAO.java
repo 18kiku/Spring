@@ -44,6 +44,7 @@ public class ProductDAO {
 	
 	public List<ProductDTO> getProductList(ProductDTO dto) {
 		System.out.println("===> ProductDAO getProductList");
+		System.out.println(sqlSession.selectList("ProductDAO.getProductList", dto));
 		return sqlSession.selectList("ProductDAO.getProductList", dto);
 	}
 	
