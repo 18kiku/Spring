@@ -86,7 +86,7 @@
 			${product.product_category }
 		</td>
 		<td class="center">
-			<a href="productDetail.do?product_id=${product.product_id }"><img src="${product.product_image }" width="60" height="60"></a>
+			<a href="productDetail.do?product_id=${product.product_id }"><img src="file:\\\${product.product_image }" width="60" height="60"></a>
 		</td>
 		<td class="center">
 			<a href="productDetail.do?product_id=${product.product_id }">${product.product_name }</a>

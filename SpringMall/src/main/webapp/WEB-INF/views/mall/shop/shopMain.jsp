@@ -29,7 +29,7 @@
 <main>
 <article class="main_img">
 <div class="slider">
-	<img src="<spring:url value='/images/main1.jpg'/>"> <img src="<spring:url value='/images/main2.jpg'/>"> <img src="<spring:url value='/images/main3.jpg'/>">
+	<img src="<spring:url value='/resources/img/main1.jpg'/>"> <img src="<spring:url value='/resources/img/main2.jpg'/>"> <img src="<spring:url value='/resources/img/main3.jpg'/>">
 </div>
 </article>
 </main>

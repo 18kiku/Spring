@@ -1,5 +1,6 @@
 package com.kiku.springmall.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,13 +32,14 @@ public class MemberController {
 	}
 	// int로 고치고 반환값에따라 아이디가 존재하지 않습니다, 등 경고창 띄우기
 	@PostMapping(value="/memberLogin.do")
-	public String login(MemberDTO dto, HttpSession session) {
+	public String login(MemberDTO dto, HttpSession session, HttpServletRequest request) {
 		System.out.println("=> MemberController - login(post)");
 		
 		MemberDTO member = memberService.login(dto);
 		if(member != null) {
 			session.setAttribute("member", member);
-			return "shop.main";// 원래 있던 페이지로 돌아가도록 수정하기
+			//return "redirect:" + request.getHeader("Referer"); // 전전페이지로는 어떻게돌아가지? 모달을써보자
+			return "redirect:shopMain.do";
 		} else {
 			return "login";
 		}

@@ -14,6 +14,7 @@ import com.kiku.springmall.service.MemberDTO;
 import com.kiku.springmall.service.MemberService;
 import com.kiku.springmall.service.ProductDTO;
 import com.kiku.springmall.service.ProductService;
+import com.kiku.springmall.util.Util;
 
 @Controller
 @SessionAttributes
@@ -60,11 +61,10 @@ public class ShopController {
 		return "shop.list";
 	}
 	@RequestMapping(value="/shopDetail.do")
-	public String shopDetail(ProductDTO dto, Model model) {
+	public String shopDetail(ProductDTO dto, Model model, HttpSession session) {
 		ProductDTO product = productService.getProduct(dto);
 		int product_category = Integer.parseInt(productService.getProduct(dto).getProduct_category());
 		String product_categoryName = "";
-		
 		
 		switch(product_category){
 		case 111: product_categoryName = "여자 물실크"; break;

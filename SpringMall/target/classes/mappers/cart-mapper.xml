@@ -33,6 +33,21 @@
 		]]>
 	</insert>
 	
+	<select id="checkCart" resultMap="cartResult">
+		<![CDATA[
+		select product_id from cart
+		where orderer_id = #{orderer_id}
+		]]>
+	</select>
+	
+	<update id="updateCart">
+		<![CDATA[
+		update cart set order_quantity=#{order_quantity} 
+		where product_id=#{product_id}
+		and orderer_id=#{orderer_id}
+		]]>
+	</update>
+	
 	<delete id="deleteCart">
 		<![CDATA[
 		delete from cart where cart_id=#{cart_id}

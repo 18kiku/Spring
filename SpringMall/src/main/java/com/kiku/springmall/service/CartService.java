@@ -8,4 +8,5 @@ public interface CartService {
 	void deleteCart(CartDTO dto);
 	CartDTO getCart(CartDTO dto);
 	List<CartDTO> getCartList(CartDTO dto);
+	boolean checkCart(CartDTO dto);
 }

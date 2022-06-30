@@ -1,164 +1,152 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>          
+
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mall/shop/shopDetail.css">
-<script>
-	document.addEventListener("DOMContentLoaded", function(){
-		// 이미지 변화 효과
-		let big_img = document.querySelector(".big_img");
-		let thumb_imgs = document.querySelectorAll(".thumb");
-		for(let thumb of thumb_imgs){
-			thumb.addEventListener("mouseover", function(){
-				big_img.src = thumb.src;
-			})	
-		}
-		// 상품 수량을 100 미만으로 제한하는 효과
-		let order_quantity = document.getElementById("order_quantity");
-		order_quantity.addEventListener("keyup", function(event){
-			if(order_quantity.value < 1) order_quantity.value = 1;
-			else if(order_quantity.value > 99){
-				order_quantity.value = 99;
-			}
-		})
-		
-		// 장바구니 주문하기 버튼
-		let form = document.detailForm;
-		let btn_cart = document.getElementById("btn_cart");
-		let btn_buy = document.getElementById("btn_buy");
-		btn_cart.addEventListener("click", function(){
-			if(!confirm('상품을 장바구니에 담으시겠습니까?')) {
-				return;
-			} else {
-				form.submit();
-			}
-		})
-		btn_buy.addEventListener("click", function(){
-			if(!confirm('주문하시겠습니까?')) {
-				return;
-			} else {
-				form.action = '../buy/buyForm.jsp';
-				form.submit();
-			}
-		})
-	})
-</script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <main>
-<div class="d_category">
-	<a href="shopMain.do">홈</a>&ensp;>&ensp; <a href="shopList.do?product_category=${product.product_category }">${product.product_category }</a>&ensp;>&ensp; <span class="p_name">${product.product_name }</span>
-</div>
-<div class="c_detail">
-	<%-- 구역 1: 왼쪽 상단 - 상품이미지 --%>
-	<div class="s1">
-		<div class="big_imgs">
-			<img src="<spring:url value='/images/${product.product_image }'/>" width="450" height="600" class="big_img">
-		</div>
-		<div class="small_imgs">
-			<img src="<spring:url value='/images/${product.product_image }'/>" width="60" height="80" class="thumb"> <img src="<spring:url value='/images/${product.product_image }'/>" width="60" height="80" class="thumb"> <img src="<spring:url value='/images/${product.product_image }'/>" width="60" height="80" class="thumb">
-		</div>
-	</div>
-	<%-- 구역 2: 오른쪽 상단 - 상품 기본 정보 --%>
-	<div class="s2">
-		<form action="cartInsert.do" method="post" name="detailForm">
-			<%-- cart_id, order_quantity를 제외한 5가지 필드 정보--%>
-			<input type="hidden" name="orderer_id" value="${member.id }">
-			<input type="hidden" name="product_id" value="${product.product_id }">
-			<div class="s2_d1">
-				${product.product_name }
-			</div>
-			<div class="s2_d2">
-				<span class="ss">브랜드</span><span>${product.product_brand }</span>
-			</div>
-			<div class="s2_d8">
-				<span class="ss">사이즈</span><span>${product.product_size }</span>
-			</div>
-			<div class="s2_d9">
-				<span class="ss">색상</span><span>${product.product_color }</span>
-			</div>
-			<div class="s2_d3">
-				<span class="ss">정가</span><span>${product.product_price }원</span>
-			</div>
-			<div class="s2_d4">
-				<span class="ss">판매가</span><span><b><fmt:formatNumber pattern="#,###,###" value="${product.product_price * product.discount_rate / 100}"/></b>원</span>
-			</div>
-			<div class="s2_d5">
-				<span class="ss">할인율</span><span><b>${product.discount_rate }%</b></span>
-			</div>
-			<div class="s2_d6">
-				<span class="ss">구매수량</span><input type="number" name="order_quantity" id="order_quantity" value="1" min="1" max="99">
-			</div>
-			<div class="s2_d7">
-				<span class="ss">배송안내</span><br>
-				<br>
-				<c:if test="${member==null }">
-				<span>
-				배송일은 서울은 익일, 경기는 2일, 지방은 3일, 제주 및 도서지역은 평균 5일이 소요됩니다.<br>
-				<br>
-				 단, 토요일, 일요일은 쉽니다. </span>
-				</c:if>
-				<c:if test="${member !=null }">
-				<!-- controller에서 넘길때 model에 d_day를 계산해서 넘기기 -->
-				<span><b>${member.name }</b>님의 주소로 <b>${d_day }</b>까지 배송됩니다.</span><br>
-				<br>
-				<span>주소 : <b>${member.address }</b></span>
-				</c:if>
-			</div>
-			<div class="s2_d8">
-				<span class="ss">배송비</span><span>무료</span>
-			</div>
-			<div class="btns">
-				<input type="button" value="장바구니" id="btn_cart">
-				<input type="button" value="주문하기" id="btn_buy">
-			</div>
-		</form>
-	</div>
-	<hr class="t_line">
-	<%-- 구역 3: 하단 - 상품 내용, 리뷰 --%>
-	<div class="s3">
-		<div class="s3_c1">
-			<span class="ss1"><a href="#s2">상세설명</a></span>
-			<span class="ss2"><a href="#s3">리뷰</a></span>
-			<span class="ss3">상품문의</span>
-			<span class="ss4">교환/반품</span>
-		</div>
-		<h3>상세정보</h3>
-		<hr>
-		<div class="s3_c2" id="s2">
-			<img src="<spring:url value='/images/${product.product_detail }'/>">
-		</div>
-		<%-- <h3>리뷰</h3>
-		<hr>
-		<div class="s3_c3" id="s3">
-			<c:foreach var="review" items="reviewList">
-			<div class="s3_review">
-				<div class="s3_r1">
-					<div class="s3_title">
-						${review.title }
-					</div>
-					<div class="s3_content">
-						${review.content } %>
-					</div>
-					<div class="s3_content_toggle">
-						내용 전체 보기 ∨
-					</div>
+<div class="wrapper">
+	<div class="wrap">
+		<div class="content_area">
+			<div class="content_top">
+				<div class="dt_left_area">
+					<div class="image_wrap">
+						<img>
+					</div>				
 				</div>
-				<div class="s3_r2">
-					<div>
-						작성자 : ${review.writer }
+				<div class="dt_right_area">
+					<div class="title">
+						<h1>
+							${product.product_name}
+						</h1>
 					</div>
-					<div>
-						등록일자 : ${review.reg_date }
+					<div class="line"></div>
+					<div class="brand">
+						 <span>
+						 	브랜드 | ${product.product_brand} 
+						 </span>
 					</div>
-					<div>
-						조회수 : ${review.cnt }
+					<div class="line"></div>
+					<div class="color">
+						 <span>
+						 	색상 | &emsp;${product.product_color} 
+						 </span>
+					</div>
+					<div class="line"></div>
+					<div class="size">
+						 <span>
+						 	사이즈 | ${product.product_size} 
+						 </span>
+					</div>
+					<div class="line"></div>
+					<div class="price">
+						<div class="list_price">정가 : <fmt:formatNumber value="${product.product_price}" pattern="#,### 원" /></div>
+						<div class="discount_price">
+							판매가 : <span class="discount_price_number"><fmt:formatNumber value="${product.product_price - (product.product_price*product.discount_rate/100)}" pattern="#,### 원" /></span> 
+							[<fmt:formatNumber value="${product.discount_rate}" pattern="###" />% 
+							<fmt:formatNumber value="${product.product_price*product.discount_rate}" pattern="#,### 원" /> 할인]
+						</div>
+						<div>
+							적립 포인트 : <span class="point_span"></span>원
+						</div>							
+					</div>			
+					<div class="line">
+					</div>	
+					<div class="button">						
+						<div class="button_quantity">
+							주문수량 | 
+							<input type="text" class="quantity_input" value="1">
+							<span>
+								<button class="plus_btn">+</button>
+								<button class="minus_btn">-</button>
+							</span>
+						</div>
+						<div class="space_vertical"></div>
+						<div class="button_set">
+							<a class="btn_cart">장바구니 담기</a>
+							<a class="btn_order">바로구매</a>
+						</div>
 					</div>
 				</div>
 			</div>
-			</c:foreach>
+			<div class="line">
+			</div>				
+			<div class="content_middle">
+				<div class="product_intro">
+					intro
+				</div>
+				<div class="product_detail">
+					detail
+
+				</div>
+			</div>
+			<!-- 주문 form -->
+			<form action="/order/${member.id}" method="get" class="order_form">
+				<input type="hidden" name="orders[0].productId" value="${product.product_id}">
+				<input type="hidden" name="orders[0].productCount" value="">
+			</form>	
 		</div>
-		 --%>
-	</div>
-</div>
-<hr class="t_line">
+	</div>	<!-- class="wrap" -->
+</div>	<!-- class="wrapper" -->
 </main>
+<script>
+    $(document).ready(function () { /* 이미지 삽입 */
+        const bobj = $(".image_wrap");
+        if (bobj.data("productId")) {
+            const uploadPath = bobj.data("path");
+            const uuid = bobj.data("uuid");
+            const fileName = bobj.data("filename");
+            const fileCallPath = encodeURIComponent(uploadPath + "/s_" + uuid + "_" + fileName);
+            bobj.find("img").attr('src', '/display?fileName=' + fileCallPath);
+        } else {
+            bobj.find("img").attr('src', '/resources/img/goodsNoImage.png');
+        }
+    });
+    // $(document).ready(function(){
+    // 수량 버튼 조작
+    let quantity = $(".quantity_input").val();
+    $(".plus_btn").on("click", function () {
+        $(".quantity_input").val(++ quantity);
+    });
+    $(".minus_btn").on("click", function () {
+        if (quantity > 1) {
+            $(".quantity_input").val(-- quantity);
+        }
+    });
+    // 서버로 전송할 데이터
+    const form = {
+        id: '${member.id}',
+        productId: '${product.product_id}',
+        productCount: ''
+    }
+    // 장바구니 추가 버튼
+    $(".btn_cart").on("click", function (e) {
+        form.productCount = $(".quantity_input").val();
+        $.ajax({
+            url: '/cart/add',
+            type: 'POST',
+            data: form,
+            success: function (result) {
+                cartAlert(result);
+            }
+        })
+    });
+    function cartAlert(result) {
+        if (result == '0') {
+            alert("장바구니에 추가를 하지 못하였습니다.");
+        } else if (result == '1') {
+            alert("장바구니에 추가되었습니다.");
+        } else if (result == '2') {
+            alert("장바구니에 이미 추가되어져 있습니다.");
+        } else if (result == '5') {
+            alert("로그인이 필요합니다.");
+        }
+    }
+    /* 바로구매 버튼 */
+    $(".btn_order").on("click", function () {
+        let productCount = $(".quantity_input").val();
+        $(".order_form").find("input[name='orders[0].productCount']").val(productCount);
+        $(".order_form").submit();
+    });
+</script>

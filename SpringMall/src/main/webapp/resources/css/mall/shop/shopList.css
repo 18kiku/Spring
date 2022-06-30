@@ -1,4 +1,8 @@
 @charset "UTF-8";
+header { 
+	width: 1200px; 
+	margin: 0 auto;
+}
 <!-- 쇼핑몰 리스트 페이지:상품이 나열되는 페이지 --!><!-- 상품의 분류별 전체 보기 --!>/* 상품 분류*/
 .t_category {
 	margin-top:30px;

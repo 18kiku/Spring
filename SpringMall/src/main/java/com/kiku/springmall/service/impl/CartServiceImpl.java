@@ -44,4 +44,10 @@ public class CartServiceImpl implements CartService{
 		return cartDAO.getCartList(dto);
 	}
 
+	@Override
+	public boolean checkCart(CartDTO dto) {
+		System.out.println("==> CartServiceImpl - checkCart()");
+		return cartDAO.checkCart(dto);
+	}
+
 }

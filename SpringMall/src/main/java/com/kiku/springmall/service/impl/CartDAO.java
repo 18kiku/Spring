@@ -20,8 +20,8 @@ public class CartDAO {
 	}
 	
 	public void updateCart(CartDTO dto) {
-		System.out.println("===> CartDAO - insertCart()");
-		sqlSession.insert("CartDAO.insertCart", dto);
+		System.out.println("===> CartDAO - updateCart()");
+		sqlSession.insert("CartDAO.updateCart", dto);
 	}
 	
 	public void deleteCart(CartDTO dto) {
@@ -36,7 +36,15 @@ public class CartDAO {
 	
 	public List<CartDTO> getCartList(CartDTO dto) {
 		System.out.println("===> CartDAO - getCartList()");
-		System.out.println(dto);
 		return sqlSession.selectList("CartDAO.getCartList", dto);
+	}
+
+	public boolean checkCart(CartDTO dto) {
+		System.out.println("===> CartDAO - getCartList()");
+		boolean isEmpty = false;
+		if(sqlSession.selectList("CartDAO.checkCart", dto).get(0) == null) {
+			isEmpty = true;
+		}
+		return isEmpty;
 	}
 }

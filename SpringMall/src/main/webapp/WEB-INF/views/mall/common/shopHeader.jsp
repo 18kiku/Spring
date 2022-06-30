@@ -20,19 +20,19 @@
 	<%-- 구역2 (상단우측): 회원정보, 구매정보, 장바구니정보 --%>
 	<c:if test="${member !=null }">
 	<a href="memberInfo.do">
-	<img src="<spring:url value='/images/icons/user-white.png'/>" width="35" title="회원정보" class="t_box2_img1"> </a>
+	<img src="<spring:url value='/resources/img/user-white.png'/>" width="35" title="회원정보" class="t_box2_img1"> </a>
 	<a href="purchaseDetail.do">
-	<img src="<spring:url value='/images/icons/buy-white.png'/>" width="35" title="구매정보" class="t_box2_img2"> </a>
+	<img src="<spring:url value='/resources/img/buy-white.png'/>" width="35" title="구매정보" class="t_box2_img2"> </a>
 	<a href="cartList.do">
-	<img src="<spring:url value='/images/icons/cart-white.png'/>" width="35" title="장바구니정보" class="t_box2_img3"> </a>
+	<img src="<spring:url value='/resources/img/cart-white.png'/>" width="35" title="장바구니정보" class="t_box2_img3"> </a>
 	</c:if>
 	<c:if test="${member==null }">
 	<a href="memberLogin.do?id=${member.id }">
-	<img src="<spring:url value='/images/icons/user-white.png'/>" width="35" title="회원정보" class="t_box2_img1"> </a>
+	<img src="<spring:url value='/resources/img/user-white.png'/>" width="35" title="회원정보" class="t_box2_img1"> </a>
 	<a href="memberLogin.do">
-	<img src="<spring:url value='/images/icons/buy-white.png'/>" width="35" title="구매정보" class="t_box2_img2"> </a>
+	<img src="<spring:url value='/resources/img/buy-white.png'/>" width="35" title="구매정보" class="t_box2_img2"> </a>
 	<a href="memberLogin.do">
-	<img src="<spring:url value='/images/icons/cart-white.png'/>" width="35" title="장바구니정보" class="t_box2_img3"> </a>
+	<img src="<spring:url value='/resources/img/cart-white.png'/>" width="35" title="장바구니정보" class="t_box2_img3"> </a>
 	</c:if>
 </div>
 <div class="t_box3">

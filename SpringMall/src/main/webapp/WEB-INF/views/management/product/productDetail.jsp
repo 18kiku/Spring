@@ -27,7 +27,7 @@
 <div class="container">
 	<h1>ProductDetail</h1>
 	<div class="d1">
-		<form action="productUpdate.do" method="post" name="detailForm">
+		<form action="productUpdate.do" method="post" name="detailForm" enctype="multipart/form-data">
 			<table>
 			<tr>
 				<th>
@@ -108,7 +108,8 @@
 					product_image
 				</th>
 				<td>
-					<input type="text" name="product_image" value="${product.product_image }">
+					<input type="file" name="product_images">
+					<input type="hidden" name="no_image" value="${product.product_image }" multiple>
 				</td>
 			</tr>
 			<tr>
@@ -116,7 +117,8 @@
 					product_detail
 				</th>
 				<td>
-					<input type="text" name="product_detail" value="${product.product_detail }">
+					<input type="file" name="product_details">
+					<input type="hidden" name="no_detail" value="${product.product_detail }" multiple>
 				</td>
 			</tr>
 			</table>

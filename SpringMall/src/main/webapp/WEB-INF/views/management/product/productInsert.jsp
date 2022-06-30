@@ -26,7 +26,7 @@
 <div class="container">
 	<h1>Product Insert</h1>
 	<div class="d1">
-		<form action="productInsert.do" method="post" name="detailForm">
+		<form action="productInsert.do" method="post" name="detailForm" enctype="multipart/form-data">
 			<table>
 			<tr>
 				<th>
@@ -34,7 +34,7 @@
 				</th>
 				<!-- select로 고치기 -->
 				<td>
-					<input type="text" name="product_category" value="${product.product_category }">
+					<input type="text" name="product_category">
 				</td>
 			</tr>
 			<tr>
@@ -42,7 +42,7 @@
 					product_name
 				</th>
 				<td>
-					<input type="text" name="product_name" value="${product.product_name }">
+					<input type="text" name="product_name">
 				</td>
 			</tr>
 			<tr>
@@ -50,7 +50,7 @@
 					product_brand
 				</th>
 				<td>
-					<input type="text" name="product_brand" value="${product.product_brand }">
+					<input type="text" name="product_brand">
 				</td>
 			</tr>
 			<tr>
@@ -58,7 +58,7 @@
 					product_size
 				</th>
 				<td>
-					<input type="text" name="product_size" value="${product.product_size }">
+					<input type="text" name="product_size">
 				</td>
 			</tr>
 			<tr>
@@ -66,7 +66,7 @@
 					product_color
 				</th>
 				<td>
-					<input type="text" name="product_color" value="${product.product_color }">
+					<input type="text" name="product_color">
 				</td>
 			</tr>
 			<tr>
@@ -74,7 +74,7 @@
 					product_price
 				</th>
 				<td>
-					<input type="number" name="product_price" value="${product.product_price }">
+					<input type="number" name="product_price">
 				</td>
 			</tr>
 			<tr>
@@ -82,7 +82,7 @@
 					discount_rate
 				</th>
 				<td>
-					<input type="number" name="discount_rate" value="${product.discount_rate }">
+					<input type="number" name="discount_rate">
 				</td>
 			</tr>
 			<tr>
@@ -90,7 +90,7 @@
 					product_stock
 				</th>
 				<td>
-					<input type="number" name="product_stock" value="${product.product_stock }">
+					<input type="number" name="product_stock">
 				</td>
 			</tr>
 			<tr>
@@ -98,7 +98,7 @@
 					product_image
 				</th>
 				<td>
-					<input type="text" name="product_image" value="${product.product_image }">
+					<input type="file" name="product_images" multiple>
 				</td>
 			</tr>
 			<tr>
@@ -106,7 +106,7 @@
 					product_detail
 				</th>
 				<td>
-					<input type="text" name="product_detail" value="${product.product_detail }">
+					<input type="file" name="product_details" multiple>
 				</td>
 			</tr>
 			</table>
