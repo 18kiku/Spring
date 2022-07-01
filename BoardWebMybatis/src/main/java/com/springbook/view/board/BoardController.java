@@ -83,9 +83,9 @@ public class BoardController {
 	@ModelAttribute("conditionMap") // RequestMapping 이전에 실행
 	public Map<String, String> searchConditionMap(){
 		Map<String, String> conditionMap = new HashMap<String, String>();
-		conditionMap.put("내용", "CONTENT");
-		conditionMap.put("작성자", "WRITER");
 		conditionMap.put("제목", "TITLE");
+		conditionMap.put("작성자", "WRITER");
+		conditionMap.put("내용", "CONTENT");
 		return conditionMap;
 	}
 		
