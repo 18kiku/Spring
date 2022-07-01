@@ -27,16 +27,17 @@ table .title { width: 380px; height: 20px; background: #186ab3;}
 <script>
 	document.addEventListener("DOMContentLoaded", function(){
 		let form = document.detailForm;
+		let pageNum = form.pageNum.value;
 		// 글목록 버튼 처리
 		let btn_board_list = document.getElementById("btn_board_list");
 		btn_board_list.addEventListener("click", function(){
-			form.action = "getBoardList.do";
+			form.action = "getBoardList.do?pageNum=" + pageNum;
 			form.submit();
 		})
 		// 글삭제버튼처리
 		let btn_delete = document.getElementById("btn_delete");
 		btn_delete.addEventListener("click", function(){
-			form.action = "deleteBoard.do";
+			form.action = "deleteBoard.do?pageNum=" + pageNum;
 			form.submit();
 		})
 	})
@@ -46,7 +47,8 @@ table .title { width: 380px; height: 20px; background: #186ab3;}
 <div class="container">
 	<h1>글상세</h1>
 	<div class="d1"><a href="logout.do">로그아웃</a></div>
-	<form action="updateBoard.do" method="post" name="detailForm">
+	<form action="updateBoard.do?pageNum=${param.pageNum }" method="post" name="detailForm">
+	<input type="hidden" name="pageNum" value="${param.pageNum }">
 	<table>
 		<tr>
 			<th width="20%">번호</th>

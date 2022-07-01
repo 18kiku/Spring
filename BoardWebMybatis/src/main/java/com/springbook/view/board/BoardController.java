@@ -47,7 +47,7 @@ public class BoardController {
 	}
 	// 처리할때는 post방식으로 나눠주자
 	@PostMapping(value="/insertBoard.do")
-	public String insertBoard(BoardDTO dto) throws IOException{
+	public String insertBoard(BoardDTO dto, BlockDTO block) throws IOException{
 		System.out.println("=> BoardController - 글등록 처리(처리)");
 		boardService.insertBoard(dto);
 		
@@ -55,21 +55,21 @@ public class BoardController {
 		if(dto.getWriter().equals("")) return "insertBoard.jsp";
 		if(dto.getContent().equals("")) return "insertBoard.jsp";
 		
-		return "redirect:getBoardList.do";
+		return "redirect:getBoardList.do?pageNum=1";
 	}
 	// SessionAttributes의 ModelAttribute 어노테이션을 사용하여 update할때 발생하는 null 업데이트를 방지
 	@RequestMapping(value="/updateBoard.do")
-	public String updateBoard(@ModelAttribute("board") BoardDTO dto){
+	public String updateBoard(@ModelAttribute("board") BoardDTO dto, BlockDTO block){
 		System.out.println("=> BoardController - 글수정 처리");
 		/* System.out.println("작성자 : " + dto.getWriter()); */
 		boardService.updateBoard(dto);
-		return "redirect:getBoardList.do";
+		return "redirect:getBoardList.do?pageNum=" + block.getPageNum();
 	}
 	@RequestMapping(value="/deleteBoard.do")
-	public String deleteBoard(BoardDTO dto) {
+	public String deleteBoard(BoardDTO dto, BlockDTO block) {
 		System.out.println("=> BoardController - 글삭제 처리");
 		boardService.deleteBoard(dto);
-		return "redirect:getBoardList.do";
+		return "redirect:getBoardList.do?pageNum=" + block.getPageNum();
 	}
 	
 	
@@ -96,6 +96,8 @@ public class BoardController {
 		if(dto.getSearchCondition() == null) dto.setSearchCondition("TITLE");
 		if(dto.getSearchKeyword() == null) dto.setSearchKeyword("");
 		
+		
+		
 		int tot = boardService.getBoardListCount(dto);
 		
 		model.addAttribute("boardList", boardService.getBoardList(dto, block));
@@ -103,6 +105,7 @@ public class BoardController {
 		System.out.println(block);
 		System.out.println(dto);
 		System.out.println(new PageDTO(block, tot));
+		
 		return "getBoardList.jsp";
 	}
 }

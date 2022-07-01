@@ -30,8 +30,8 @@ th { background: #e9ecef;}
 /* 하단 - 페이징 영역*/
 .paging { text-align: center; margin-top: 20px;}
 .p_box { display: inline-block; width: 22px; height: 22px; padding: 5px;}
-.p_box:hover { background: #868e96; color: white; font-weight: bold; border-radius: 50%;}
-.p_box_choice { background: #1e94be; color: white; font-weight: bold; border-radius: 10px;}
+.p_box:hover { background: #495057; color: #fff; font-weight: bold; border-radius: 10px;}
+.p_box_choice { background: #495057; color: #fff; font-weight: 900; border-radius: 10px;}
 .p_box_bold { font-weight: 900;}
 </style>
 </head>
@@ -42,7 +42,7 @@ th { background: #e9ecef;}
 		<div class="d1_1"><a href="getMember.do?id=${member.id}">${member.id }</a> 님 환영합니다&emsp;<a href="logout.do">LOGOUT</a></div>
 		<div class="d1_2"><a href="insertBoard.do">글등록</a></div>
 	</div>
-	<form action="getBoardList.do" method="post">
+	<form action="getBoardList.do?pageNum=1" method="post">
 	<table class="t1">
 		<tr>
 			<td width="60%">
@@ -68,7 +68,7 @@ th { background: #e9ecef;}
 		<c:forEach var="board" items="${boardList }">
 		<tr>
 			<td class="center">${board.seq }</td>
-			<td class="left"><a href="getBoard.do?seq=${board.seq }">${board.title }</a></td>
+			<td class="left"><a href="getBoard.do?seq=${board.seq }&pageNum=${param.pageNum}">${board.title }</a></td>
 			<td class="center">${board.writer }</td>
 			<td class="center">${board.regdate }</td>
 			<td class="center">${board.cnt }</td>
@@ -76,25 +76,38 @@ th { background: #e9ecef;}
 		</c:forEach>
 	</table>
 	<div class="paging">
+		<!-- 첫 페이지 -->
+		<c:if test="${pageDTO.prev }">
+			<a href="getBoardList.do?pageNum=1" class="p_box p_box_bold">prev</a>
+		</c:if>
 		<!-- 이전 페이지 -->
 		<c:if test="${pageDTO.prev }">
-			<a href="getBoardList.do?startPage=${pageDTO.startPage-1 }" class="p_box p_box_bold">prev</a>
+			<c:set var="pageNum" value="${param.pageNum-10 }"/>	
+			<a href="getBoardList.do?pageNum=${pageNum }" class="p_box p_box_bold">next</a>
 		</c:if>
 		
 		<!-- 페이지 번호 -->
-		<c:forEach var="num" varStatus="s" begin="${pageDTO.startPage }" end="${pageDTO.endPage }">
-			<c:if test="${pageNum == s.index }">
+		<c:forEach var="pageNum" varStatus="s" begin="${pageDTO.startPage }" end="${pageDTO.endPage }">
+			<c:if test="${param.pageNum == pageNum }">
 				<a href="getBoardList.do?pageNum=${pageNum }" class="p_box_choice">${pageNum }</a>
 			</c:if>
-			<c:if test="${pageNum != s.index }">
+			<c:if test="${param.pageNum != pageNum }">
 				<a href="getBoardList.do?pageNum=${pageNum }" class="p_box">${pageNum }</a>
 			</c:if>
-			<a href="getBoardList.do?pageNum=${pageNum }" class="p_box">${pageNum }</a>
 		</c:forEach>
 		
 		<!-- 다음 페이지 -->
 		<c:if test="${pageDTO.next }">
-			<a href="getBoardList.do?endPage=${pageDTO.endPage+1 }" class="p_box p_box_bold">next</a>
+		<c:set var="pageNum" value="${param.pageNum+10 }"/>
+			<c:if test="${pageNum > pageDTO.pageCount }">
+				<c:set var="pageNum" value="${pageDTO.pageCount-1 }"/>
+			</c:if>
+			<a href="getBoardList.do?pageNum=${pageNum }" class="p_box p_box_bold">next</a>
+		</c:if>
+		<!-- 마지막 페이지 -->
+		<c:if test="${pageDTO.prev }">
+		<c:set var="pageNum" value="${pageDTO.pageCount }"/>
+			<a href="getBoardList.do?pageNum=${pageNum-1 }" class="p_box p_box_bold">prev</a>
 		</c:if>
 	</div>
 </div>

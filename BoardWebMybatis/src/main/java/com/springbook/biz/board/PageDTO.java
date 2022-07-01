@@ -6,10 +6,14 @@ public class PageDTO {
 	private boolean prev, next;
 	private int total;
 	private BlockDTO block;
+	private int pageCount;
 	
 	public PageDTO(BlockDTO block, int total) {
 		this.block = block;
 		this.total = total;
+		
+		this.pageCount = total / block.getAmount();
+		if(total % block.getAmount() > 0) this.pageCount++;
 		
 		this.endPage = (int)(Math.ceil(block.getPageNum() / 10.0)) * 10;
 		this.startPage = this.endPage - 9;
@@ -69,11 +73,21 @@ public class PageDTO {
 		this.block = block;
 	}
 
+	public int getPageCount() {
+		return pageCount;
+	}
+
+	public void setPageCount(int pageCount) {
+		this.pageCount = pageCount;
+	}
+
 	@Override
 	public String toString() {
 		return "PageDTO [startPage=" + startPage + ", endPage=" + endPage + ", prev=" + prev + ", next=" + next
-				+ ", total=" + total + ", block=" + block + "]";
+				+ ", total=" + total + ", block=" + block + ", pageCount=" + pageCount + "]";
 	}
+
+	
 	
 	
 }

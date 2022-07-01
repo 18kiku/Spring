@@ -33,14 +33,14 @@ table .address { width: 370px; height: 20px;}
 		// 회원삭제(탈퇴) 버튼처리
 		let btn_delete = document.getElementById("btn_delete");
 		btn_delete.addEventListener("click", function(){
-			form.action = "deleteMember.do";
+			form.action = "deleteMember.do?pageNum=" + pageNum;
 			form.submit();
 		})
 		
 		// 글목록 버튼 처리
 		let btn_board_list = document.getElementById("btn_board_list");
 		btn_board_list.addEventListener("click", function(){
-			form.action = "getBoardList.do";
+			form.action = "getBoardList.do?pageNum=" + pageNum;
 			form.submit();
 		})
 	})
@@ -49,7 +49,8 @@ table .address { width: 370px; height: 20px;}
 <body>
 <div class="container">
 	<h1>회원정보</h1>
-	<form action="updateMember.do" method="post" name="detailMemberForm">
+	<form action="updateMember.do?pageNum=${param.pageNum }" method="post" name="detailMemberForm">
+	<input type="hidden" name="pageNum" value="${param.pageNum }">
 		<table>
 			<tr>
 				<th width="20%">아이디</th>
