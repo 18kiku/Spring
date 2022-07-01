@@ -49,3 +49,29 @@
 	text-align:right;
 	padding-right: 5px;
 }
+/* 하단 - 페이징 영역*/
+.paging {
+    text-align: center;
+    margin-top: 20px;
+}
+.p_box {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    padding: 5px;
+}
+.p_box:hover {
+    background: #495057;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 10px;
+}
+.p_box_choice {
+    background: #495057;
+    color: #fff;
+    font-weight: 900;
+    border-radius: 10px;
+}
+.p_box_bold {
+    font-weight: 900;
+}

@@ -19,6 +19,10 @@
 		<result property="product_detail" column="product_detail"/>
 		<result property="reg_date" column="reg_date"/>
 	</resultMap>
+	<resultMap type="category" id="categoryResult">
+		<result property="category_code" column="category_code"/>
+		<result property="category_name" column="category_name"/>
+	</resultMap>
 
 	<insert id="insertProduct">
 		<![CDATA[
@@ -47,7 +51,14 @@
 	<select id="getProductCount" resultType="int">
 		<![CDATA[
 		select count(*) from product
+		where
 		]]>
+		<if test="product.searchCondition == 'PRODUCT_CATEGORY'">
+		and product_category like '%'||#{product.searchKeyword}||'%'
+		</if>
+		<if test="product.searchCondition == 'PRODUCT_NAME'">
+		and product_name like '%'||#{product.searchKeyword}||'%'
+		</if>
 	</select>
 	
 	<select id="getProduct" parameterType="HashMap" resultMap="productResult">
@@ -56,17 +67,25 @@
 		]]>
 	</select>
 	
-	<select id="getProductList" resultMap="productResult">
-		select * 
-		from product inner join category
-		on product.product_category = category.category_code
-		where 1 = 1 
-		<if test="searchCondition == 'PRODUCT_NAME'">
-		and product_name like '%'||#{searchKeyword}||'%'
-		</if>
-		<if test="searchCondition == 'PRODUCT_CATEGORY'">
-		and product_category like '%'||#{searchKeyword}||'%'
-		</if>
-		order by product_id desc
+	<select id="getProductList" parameterType="Map" resultMap="productResult">
+			<![CDATA[
+			select * from (
+			select p.*, row_number() over(order by product_id desc) as rnum 
+			from (select * from product p join category c on p.product_category = c.category_code) p
+			where 1=1
+			]]>
+			
+			<if test="product.searchCondition == 'PRODUCT_CATEGORY'">
+			and product_category like '%'||#{product.searchKeyword}||'%'
+			</if>
+			<if test="product.searchCondition == 'PRODUCT_NAME'">
+			and product_name like '%'||#{product.searchKeyword}||'%'
+			</if>
+			
+			<![CDATA[
+			) where rnum >= ((#{block.pageNum}-1) * #{block.amount} + 1) and rnum <= #{block.pageNum} * #{block.amount}
+			order by product_id desc
+			]]>
+		
 	</select>
 </mapper>					

@@ -14,12 +14,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.kiku.springmall.service.BlockDTO;
 import com.kiku.springmall.service.MemberDTO;
+import com.kiku.springmall.service.PageDTO;
 import com.kiku.springmall.service.ProductDTO;
 import com.kiku.springmall.service.ProductService;
 import com.kiku.springmall.util.Util;
@@ -119,21 +120,21 @@ public class ProductController {
 	@ModelAttribute("conditionMap")
 	public Map<String, String> searchConditionMap(){
 		Map<String, String> conditionMap = new HashMap<String, String>();
-		conditionMap.put("Name", "PRODUCT_NAME");
-		conditionMap.put("Category", "PRODUCT_CATEGORY");
+		conditionMap.put("NAME", "PRODUCT_NAME");
+		conditionMap.put("CATEGORY", "PRODUCT_CATEGORY");
 		return conditionMap;
 	}
 	
 	@RequestMapping(value="/productList.do")
-	public String getProductList(ProductDTO dto, Model model){
+	public String getProductList(ProductDTO dto, BlockDTO block, Model model){
 		System.out.println("=> ProductController getProductList");
 		
-		if(dto.getSearchCondition() == null) dto.setSearchCondition("PRODUCT_NAME");
+		if(dto.getSearchCondition() == null) dto.setSearchCondition("PRODUCT_CATEGORY");
 		if(dto.getSearchKeyword() == null) dto.setSearchKeyword("");
 		
 		int totalCount = productService.getProductCount(dto);
-		
-		model.addAttribute("productList", productService.getProductList(dto));
+		model.addAttribute("pageDTO", new PageDTO(block, totalCount));
+		model.addAttribute("productList", productService.getProductList(dto, block));
 		return "management/product/productList";
 	}
 }

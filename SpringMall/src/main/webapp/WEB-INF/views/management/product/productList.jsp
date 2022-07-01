@@ -22,7 +22,7 @@
 <div class="container">
 	<h1>Product List</h1>
 	<input type="button" id="btn_insert" value="Register">
-		<form action="productList.do" method="post">
+	<form action="productList.do?pageNum=1" method="post">
 	<table class="search">
 		<tr>
 			<td>
@@ -127,25 +127,40 @@
 	</tr>
 	</c:if>
 	</table>
-	<div>
-		<ul class="paging">
-			<c:if test="${paging.prev }">
-				<li class="paging_button">
-					<a href="#">Previous</a>
-				</li>
+	<div class="paging">
+		<!-- 첫 페이지 -->
+		<c:if test="${pageDTO.prev }">
+			<a href="productList.do?pageNum=1" class="p_box p_box_bold">prev</a>
+		</c:if>
+		<!-- 이전 페이지 -->
+		<c:if test="${pageDTO.prev }">
+			<c:set var="pageNum" value="${param.pageNum-10 }"/>	
+			<a href="productList.do?pageNum=${pageNum }" class="p_box p_box_bold">next</a>
+		</c:if>
+		
+		<!-- 페이지 번호 -->
+		<c:forEach var="pageNum" varStatus="s" begin="${pageDTO.startPage }" end="${pageDTO.endPage }">
+			<c:if test="${param.pageNum == pageNum }">
+				<a href="productList.do?pageNum=${pageNum }" class="p_box_choice">${pageNum }</a>
 			</c:if>
-			
-			<c:forEach var="num" begin="${paging.startPage }" end="${paging.endPage }">
-				<li class="paging_button">
-					<a href="#">${num }</a>
-				</li>
-			</c:forEach>
-			<c:if test="${paging.next }">
-				<li class="paging_button">
-					<a href="#">Next</a>
-				</li>
+			<c:if test="${param.pageNum != pageNum }">
+				<a href="productList.do?pageNum=${pageNum }" class="p_box">${pageNum }</a>
 			</c:if>
-		</ul>
+		</c:forEach>
+		
+		<!-- 다음 페이지 -->
+		<c:if test="${pageDTO.next }">
+		<c:set var="pageNum" value="${param.pageNum+10 }"/>
+			<c:if test="${pageNum > pageDTO.pageCount }">
+				<c:set var="pageNum" value="${pageDTO.pageCount-1 }"/>
+			</c:if>
+			<a href="productList.do?pageNum=${pageNum }" class="p_box p_box_bold">next</a>
+		</c:if>
+		<!-- 마지막 페이지 -->
+		<c:if test="${pageDTO.prev }">
+		<c:set var="pageNum" value="${pageDTO.pageCount }"/>
+			<a href="productList.do?pageNum=${pageNum-1 }" class="p_box p_box_bold">prev</a>
+		</c:if>
 	</div>
 </div>
 </body>

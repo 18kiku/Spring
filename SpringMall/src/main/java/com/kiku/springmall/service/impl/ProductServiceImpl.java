@@ -46,9 +46,9 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public List<ProductDTO> getProductList(ProductDTO dto) {
+	public List<ProductDTO> getProductList(ProductDTO dto, BlockDTO block) {
 		System.out.println("==> ProductServiceImpl getProductList()");
-		return productDAO.getProductList(dto);
+		return productDAO.getProductList(dto, block);
 		
 	}
 

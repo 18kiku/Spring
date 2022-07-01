@@ -42,10 +42,15 @@ public class ProductDAO {
 		return sqlSession.selectOne("ProductDAO.getProduct", dto);
 	}
 	
-	public List<ProductDTO> getProductList(ProductDTO dto) {
+	public List<ProductDTO> getProductList(ProductDTO dto, BlockDTO block) {
 		System.out.println("===> ProductDAO getProductList");
-		System.out.println(sqlSession.selectList("ProductDAO.getProductList", dto));
-		return sqlSession.selectList("ProductDAO.getProductList", dto);
+		
+		Map<String, Object> pagingMap = new HashMap<String, Object>();
+		pagingMap.put("board", dto);
+		block.setStartNum((block.getPageNum() - 1) * block.getAmount());
+		pagingMap.put("block", block);
+		
+		return sqlSession.selectList("ProductDAO.getProductList", pagingMap);
 	}
 	
 }

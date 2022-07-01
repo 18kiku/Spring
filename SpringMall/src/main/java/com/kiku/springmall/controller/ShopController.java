@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.kiku.springmall.service.BlockDTO;
 import com.kiku.springmall.service.MemberDTO;
 import com.kiku.springmall.service.MemberService;
+import com.kiku.springmall.service.PageDTO;
 import com.kiku.springmall.service.ProductDTO;
 import com.kiku.springmall.service.ProductService;
 import com.kiku.springmall.util.Util;
@@ -30,8 +32,11 @@ public class ShopController {
 		return "shop.main";
 	}
 	@RequestMapping(value="/shopList.do")
-	public String shopList(ProductDTO dto, Model model) {
-		model.addAttribute("productList", productService.getProductList(dto));
+	public String shopList(ProductDTO dto, Model model, BlockDTO block) {
+		
+		int totalCount = productService.getProductCount(dto);
+		model.addAttribute("pageDTO", new PageDTO(block, totalCount));
+		model.addAttribute("productList", productService.getProductList(dto, block));
 		return "shop.list";
 	}
 	@RequestMapping(value="/shopDetail.do")

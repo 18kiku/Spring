@@ -8,5 +8,5 @@ public interface ProductService {
 	void deleteProduct(ProductDTO dto);
 	int getProductCount(ProductDTO dto);
 	ProductDTO getProduct(ProductDTO dto);
-	List<ProductDTO> getProductList(ProductDTO dto);
+	List<ProductDTO> getProductList(ProductDTO dto, BlockDTO block);
 }

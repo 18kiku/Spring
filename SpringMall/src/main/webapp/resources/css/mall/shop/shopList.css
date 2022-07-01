@@ -1,5 +1,5 @@
 @charset "UTF-8";
-header { 
+main { 
 	width: 1200px; 
 	margin: 0 auto;
 }
@@ -9,6 +9,9 @@ header {
 }
 /* .d_category1{text-align:right;padding-bottom:10px;margin-left:20px;}.d_category1 .s_category1{display:inline-block;float:left;}.d_category1 .s_category11{font-size:1.1em;color:navy;}.d_category2{margin-left:20px;margin-bottom:10px;clear:both;}.d_category1 .s_category2 select{margin-right:20px;width:200px;height: 25px;}*/
 /* 상품 분류별 노출*/
+.c_products {
+	display: block;
+}
 .d_category3 {
 	position:relative;
 	text-align:center;
@@ -99,33 +102,31 @@ header {
 	color: white;
 }
 /* 하단 - 페이징 영역*/
-#paging {
-	clear:both;
-	text-align:center;
-	margin-top:20px;
+.paging {
+    text-align: center;
+    margin-top: 20px;
 }
-#paging a {
-	color:#000;
+.p_box {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    padding: 5px;
 }
-#pBox {
-	display:inline-block;
-	width:22px;
-	height:22px;
-	padding:5px;
-	margin:5px;
+.p_box:hover {
+    background: #495057;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 10px;
 }
-#pBox:hover {
-	background:#868e96;
-	color:white;
-	font-weight:bold;
-	border-radius:10px;
+.p_box_choice {
+    background: #495057;
+    color: #fff;
+    font-weight: 900;
+    border-radius: 10px;
 }
-.pBox_c {
-	background:#f1617d;
-	color:white;
-	font-weight:900;
-	border-radius:10px;
+.p_box_bold {
+    font-weight: 900;
 }
-.pBox_b {
-	font-weight: 900;
+.clearfix {
+    clear: both;
 }
