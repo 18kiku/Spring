@@ -29,7 +29,7 @@ public class Util {
 			System.out.println("fileSize : " + file.getSize());
 			
 			try {
-				file.transferTo(new File(/* UPLOAD_PATH, */ originalFilename));
+				file.transferTo(new File(UPLOAD_PATH, originalFilename));
 				savedFiles.add(saveName);
 			} catch (Exception e) {
 				e.printStackTrace(); // !! alert fail 하기

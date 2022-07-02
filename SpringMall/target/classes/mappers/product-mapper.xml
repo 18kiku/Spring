@@ -51,17 +51,17 @@
 	<select id="getProductCount" resultType="int">
 		<![CDATA[
 		select count(*) from product
-		where
+		where 1=1
 		]]>
-		<if test="product.searchCondition == 'PRODUCT_CATEGORY'">
-		and product_category like '%'||#{product.searchKeyword}||'%'
+		<if test="searchCondition == 'PRODUCT_CATEGORY'">
+		and product_category like '%'||#{searchKeyword}||'%'
 		</if>
-		<if test="product.searchCondition == 'PRODUCT_NAME'">
-		and product_name like '%'||#{product.searchKeyword}||'%'
+		<if test="searchCondition == 'PRODUCT_NAME'">
+		and product_name like '%'||#{searchKeyword}||'%'
 		</if>
 	</select>
 	
-	<select id="getProduct" parameterType="HashMap" resultMap="productResult">
+	<select id="getProduct" resultMap="productResult">
 		<![CDATA[
 		select * from product where product_id=#{product_id}
 		]]>
@@ -74,16 +74,14 @@
 			from (select * from product p join category c on p.product_category = c.category_code) p
 			where 1=1
 			]]>
-			
-			<if test="product.searchCondition == 'PRODUCT_CATEGORY'">
-			and product_category like '%'||#{product.searchKeyword}||'%'
+			<if test="searchCondition == 'PRODUCT_CATEGORY'">
+			and product_category like '%'||#{searchKeyword}||'%'
 			</if>
-			<if test="product.searchCondition == 'PRODUCT_NAME'">
-			and product_name like '%'||#{product.searchKeyword}||'%'
+			<if test="searchCondition == 'PRODUCT_NAME'">
+			and product_name like '%'||#{searchKeyword}||'%'
 			</if>
-			
 			<![CDATA[
-			) where rnum >= ((#{block.pageNum}-1) * #{block.amount} + 1) and rnum <= #{block.pageNum} * #{block.amount}
+			) where rnum >= ((#{block.pageNum}-1) * #{block.amount}) and rnum <= #{block.pageNum} * #{block.amount}
 			order by product_id desc
 			]]>
 		

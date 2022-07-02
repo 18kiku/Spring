@@ -6,19 +6,16 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/management/product/productInsert.css" />
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
-	document.addEventListener("DOMContentLoaded", function(){
-		let btn_insert = document.getElementById("btn_insert");
-		let btn_list = document.getElementById("btn_list");
-		
-		btn_insert.addEventListener("click", function(){
-			// 유효성 검사 후 submit();
+	$(document).ready(function(){
+		let pageNum = $("input[name=pageNum]").val();
+		$(".btn_insert").click(function(){
+			// 유효성검사
 		})
-		
-		btn_list.addEventListener("click", function(){
-			location="productList.do";
+		$(".btn_list").click(function(){
+			location="productList.do?pageNum=" + pageNum;
 		})
-		
 	})
 </script>
 </head>
@@ -27,6 +24,7 @@
 	<h1>Product Insert</h1>
 	<div class="d1">
 		<form action="productInsert.do" method="post" name="detailForm" enctype="multipart/form-data">
+		<input type="hidden" name="pageNum" value="${param.pageNum }">
 			<table>
 			<tr>
 				<th>
@@ -34,7 +32,7 @@
 				</th>
 				<!-- select로 고치기 -->
 				<td>
-					<input type="text" name="product_category">
+					<input type="text" name="product_category" value="600">
 				</td>
 			</tr>
 			<tr>
@@ -42,7 +40,7 @@
 					product_name
 				</th>
 				<td>
-					<input type="text" name="product_name">
+					<input type="text" name="product_name" value="test">
 				</td>
 			</tr>
 			<tr>
@@ -50,7 +48,7 @@
 					product_brand
 				</th>
 				<td>
-					<input type="text" name="product_brand">
+					<input type="text" name="product_brand" value="test">
 				</td>
 			</tr>
 			<tr>
@@ -58,7 +56,7 @@
 					product_size
 				</th>
 				<td>
-					<input type="text" name="product_size">
+					<input type="text" name="product_size" value="test">
 				</td>
 			</tr>
 			<tr>
@@ -66,7 +64,7 @@
 					product_color
 				</th>
 				<td>
-					<input type="text" name="product_color">
+					<input type="text" name="product_color" value="test">
 				</td>
 			</tr>
 			<tr>
@@ -74,7 +72,7 @@
 					product_price
 				</th>
 				<td>
-					<input type="number" name="product_price">
+					<input type="number" name="product_price" value="100000">
 				</td>
 			</tr>
 			<tr>
@@ -82,7 +80,7 @@
 					discount_rate
 				</th>
 				<td>
-					<input type="number" name="discount_rate">
+					<input type="number" name="discount_rate" value="10">
 				</td>
 			</tr>
 			<tr>
@@ -90,7 +88,7 @@
 					product_stock
 				</th>
 				<td>
-					<input type="number" name="product_stock">
+					<input type="number" name="product_stock" value="50">
 				</td>
 			</tr>
 			<tr>
@@ -98,7 +96,7 @@
 					product_image
 				</th>
 				<td>
-					<input type="file" name="product_images" multiple>
+					<input type="file" name="product_images">
 				</td>
 			</tr>
 			<tr>
@@ -111,9 +109,9 @@
 			</tr>
 			</table>
 			<div class="btns">
-				<input type="submit" id="btn_insert" value="Insert">
+				<input type="submit" class="btn_insert" value="Insert">
 				<input type="reset" value="reset">
-				<input type="button" id="btn_list" value="list">
+				<input type="button" class="btn_list" value="list">
 			</div>
 		</form>
 	</div>

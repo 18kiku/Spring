@@ -33,10 +33,11 @@
 		]]>
 	</insert>
 	
-	<select id="checkCart" resultMap="cartResult">
+	<select id="checkCart" resultType="int">
 		<![CDATA[
-		select product_id from cart
-		where orderer_id = #{orderer_id}
+		select count(*) from cart
+		where orderer_id = #{orderer_id} 
+		and product_id = #{product_id}
 		]]>
 	</select>
 	
@@ -54,7 +55,7 @@
 		]]>
 	</delete>
 	
-	<delete id="deleteCartOrderer">
+	<delete id="deleteCartAll">
 		<![CDATA[
 		delete from cart where orderer_id=#{orderer_id}
 		]]>

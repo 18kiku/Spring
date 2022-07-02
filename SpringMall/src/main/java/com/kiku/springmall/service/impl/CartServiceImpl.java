@@ -15,21 +15,27 @@ public class CartServiceImpl implements CartService{
 	private CartDAO cartDAO;
 	
 	@Override
-	public void insertCart(CartDTO dto) {
+	public int insertCart(CartDTO dto) {
 		System.out.println("==> CartServiceImpl - insertCart()");
-		cartDAO.insertCart(dto);
+		return cartDAO.insertCart(dto);
 	}
 
 	@Override
-	public void updateCart(CartDTO dto) {
+	public int updateCart(CartDTO dto) {
 		System.out.println("==> CartServiceImpl - updateCart()");
-		cartDAO.updateCart(dto);
+		return cartDAO.updateCart(dto);
 	}
-
+	
 	@Override
-	public void deleteCart(CartDTO dto) {
+	public int deleteCart(CartDTO dto) {
 		System.out.println("==> CartServiceImpl - deleteCart()");
-		cartDAO.deleteCart(dto);
+		return cartDAO.deleteCart(dto);
+	}
+	
+	@Override
+	public int deleteCartAll(CartDTO dto) {
+		System.out.println("==> CartServiceImpl - deleteCartAll()");
+		return cartDAO.deleteCartAll(dto);
 	}
 
 	@Override
@@ -45,9 +51,10 @@ public class CartServiceImpl implements CartService{
 	}
 
 	@Override
-	public boolean checkCart(CartDTO dto) {
+	public int checkCart(CartDTO dto) {
 		System.out.println("==> CartServiceImpl - checkCart()");
 		return cartDAO.checkCart(dto);
 	}
+
 
 }

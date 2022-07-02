@@ -8,20 +8,22 @@
 <meta charset="UTF-8">
 <title>ProductList</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/management/product/productList.css" />
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
-	document.addEventListener("DOMContentLoaded", function(){
-		let btn_insert = document.getElementById("btn_insert");
-		btn_insert.addEventListener("click", function(){
-			location = "productInsert.do";
-		})
-	})
+	$(document).ready(function () {
+		let pageNum = $("input[name=pageNum]").val();
+		$(".btn_insert").click(function(){
+			location = "productInsert.do?pageNum=" + pageNum;
+		});
+    });
 </script>
 </head>
 <body>
 <body>
 <div class="container">
 	<h1>Product List</h1>
-	<input type="button" id="btn_insert" value="Register">
+	<input type="button" class="btn_insert" value="Register">
+	<input type="hidden" name="pageNum" value="${param.pageNum }">
 	<form action="productList.do?pageNum=1" method="post">
 	<table class="search">
 		<tr>
@@ -80,16 +82,36 @@
 	<c:forEach var="product" items="${productList }">
 	<tr>
 		<td class="center">
-			<a href="productDetail.do?product_id=${product.product_id }">${product.product_id }</a>
+			<c:if test="${param.pageNum == null }">
+			<a href="productDetail.do?product_id=${product.product_id}&pageNum=1">${product.product_id }</a>	
+			</c:if>
+			<c:if test="${param.pageNum != null }">
+			<a href="productDetail.do?product_id=${product.product_id}&pageNum=${param.pageNum}">${product.product_id }</a>	
+			</c:if>
 		</td>
 		<td class="center">
-			${product.category_name }
+			${product.product_category }
 		</td>
 		<td class="center">
-			<a href="productDetail.do?product_id=${product.product_id }">/images/${product.product_image }<img src="/images/${product.product_image }" width="60" height="60"></a>
+			<c:if test="${param.pageNum == null }">
+			<a href="productDetail.do?product_id=${product.product_id}&pageNum=1">
+				<img src="${pageContext.request.contextPath}/resources/img/${product.product_image }" width="60" height="60">
+			</a>	
+			</c:if>
+			<c:if test="${param.pageNum != null }">
+			<a href="productDetail.do?product_id=${product.product_id}&pageNum=${param.pageNum}">
+				<img src="${pageContext.request.contextPath}/resources/img/${product.product_image }" width="60" height="60">
+			</a>	
+			</c:if>
+			
 		</td>
 		<td class="center">
-			<a href="productDetail.do?product_id=${product.product_id }">${product.product_name }</a>
+			<c:if test="${param.pageNum == null }">
+			<a href="productDetail.do?product_id=${product.product_id}&pageNum=1">${product.product_name }</a>	
+			</c:if>
+			<c:if test="${param.pageNum != null }">
+			<a href="productDetail.do?product_id=${product.product_id}&pageNum=${param.pageNum}">${product.product_name }</a>	
+			</c:if>
 		</td>
 		<td class="center">
 			${product.product_brand }
@@ -114,7 +136,12 @@
 			${reg_date }
 		</td>
 		<td class="center">
-			<a href="productDelete.do?product_id=${product.product_id }">delete</a>
+			<c:if test="${param.pageNum == null }">
+			<a href="productDelete.do?product_id=${product.product_id}&pageNum=1">delete</a>	
+			</c:if>
+			<c:if test="${param.pageNum != null }">
+			<a href="productDelete.do?product_id=${product.product_id}&pageNum=${param.pageNum}">delete</a>	
+			</c:if>
 		</td>
 	</tr>
 	</c:forEach>
@@ -130,12 +157,12 @@
 	<div class="paging">
 		<!-- 첫 페이지 -->
 		<c:if test="${pageDTO.prev }">
-			<a href="productList.do?pageNum=1" class="p_box p_box_bold">prev</a>
+			<a href="productList.do?pageNum=1" class="p_box p_box_bold"><<</a>
 		</c:if>
 		<!-- 이전 페이지 -->
 		<c:if test="${pageDTO.prev }">
 			<c:set var="pageNum" value="${param.pageNum-10 }"/>	
-			<a href="productList.do?pageNum=${pageNum }" class="p_box p_box_bold">next</a>
+			<a href="productList.do?pageNum=${pageNum }" class="p_box p_box_bold"><</a>
 		</c:if>
 		
 		<!-- 페이지 번호 -->
@@ -154,12 +181,12 @@
 			<c:if test="${pageNum > pageDTO.pageCount }">
 				<c:set var="pageNum" value="${pageDTO.pageCount-1 }"/>
 			</c:if>
-			<a href="productList.do?pageNum=${pageNum }" class="p_box p_box_bold">next</a>
+			<a href="productList.do?pageNum=${pageNum }" class="p_box p_box_bold">></a>
 		</c:if>
 		<!-- 마지막 페이지 -->
 		<c:if test="${pageDTO.prev }">
 		<c:set var="pageNum" value="${pageDTO.pageCount }"/>
-			<a href="productList.do?pageNum=${pageNum-1 }" class="p_box p_box_bold">prev</a>
+			<a href="productList.do?pageNum=${pageNum-1 }" class="p_box p_box_bold">>></a>
 		</c:if>
 	</div>
 </div>

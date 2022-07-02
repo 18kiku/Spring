@@ -33,10 +33,12 @@ public class ShopController {
 	}
 	@RequestMapping(value="/shopList.do")
 	public String shopList(ProductDTO dto, Model model, BlockDTO block) {
-		
+		dto.setSearchCondition("PRODUCT_CATEGORY");
+		dto.setSearchKeyword(dto.getProduct_category());
 		int totalCount = productService.getProductCount(dto);
 		model.addAttribute("pageDTO", new PageDTO(block, totalCount));
 		model.addAttribute("productList", productService.getProductList(dto, block));
+		
 		return "shop.list";
 	}
 	@RequestMapping(value="/shopDetail.do")

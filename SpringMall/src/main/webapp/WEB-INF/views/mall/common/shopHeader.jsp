@@ -38,10 +38,10 @@
 <div class="t_box3">
 	<%-- 구역3 (중단): 타이틀, 검색 --%>
 	<div class="m_title">
-		<a href="shopMain.do">KoreaHanbok</a>
+		<a href="shopMain.do">18KIKU</a>
 	</div>
 	<div class="s_title">
-		한복은 한국의 전통 의복
+		나는 키쿠다 하하하
 	</div>
 </div>
 <%-- 하단 --%>
@@ -49,11 +49,11 @@
 	<%-- 구역4 (하단): 메인메뉴(하위메뉴) --%>
 	<div class="hover">
 		<div class="m_menu1 main">
-			<a href="#">전통한복</a>
+			<a href="#">컴퓨터공학 학사</a>
 		</div>
 		<div class="s_menu1 sub">
 			<div>
-				<a href="shopList.do?product_category=111">여성한복</a>
+				<a href="shopList.do?product_category=111">대학교</a>
 			</div>
 			<div>
 				<a href="shopList.do?product_category=121">남성한복</a>
@@ -65,7 +65,7 @@
 	</div>
 	<div class="hover">
 		<div class="m_menu2 main">
-			<a href="#">개량한복</a>
+			<a href="#">JAVA</a>
 		</div>
 		<div class="s_menu2 sub">
 			<div>
@@ -84,7 +84,7 @@
 	</div>
 	<div class="hover">
 		<div class="m_menu3 main">
-			<a href="#">궁중한복</a>
+			<a href="#">SPRING FRAMEWORK</a>
 		</div>
 		<div class="s_menu3 sub">
 			<div>
@@ -94,7 +94,7 @@
 	</div>
 	<div class="hover">
 		<div class="m_menu4 main">
-			<a href="#">아동한복</a>
+			<a href="#">SPRING BOOT</a>
 		</div>
 		<div class="s_menu4 sub">
 			<div>
@@ -107,22 +107,29 @@
 	</div>
 	<div class="hover">
 		<div class="m_menu5 main">
-			<a href="shopList.do?product_category=500">장신구</a>
+			<a href="#">SQL</a>
 		</div>
 		<div class="s_menu5 sub">
 			<div>
-				<a href="shopList.do?product_category=500">장신구</a>
+				<a href="shopList.do?product_category=500">ORACLE SQL</a>
+			</div>
+			<div>
+				<a href="shopList.do?product_category=500">MYSQL SQL</a>
 			</div>
 		</div>
 	</div>
 	<div class="hover">
 		<div class="m_menu6 main">
-			<a href="shopList.do?product_category=600">공예품</a>
+			<a href="#">자격증</a>
 		</div>
 		<div class="s_menu6 sub">
 			<div>
-				<a href="shopList.do?product_category=600">공예품</a>
+				<a href="shopList.do?product_category=600">정보처리기사</a>
 			</div>
+			<div>
+				<a href="shopList.do?product_category=600">JLPT N1</a>
+			</div>
+			
 		</div>
 	</div>
 </div>

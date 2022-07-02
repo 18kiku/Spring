@@ -151,7 +151,7 @@ th {
     left: 0;
     box-shadow: 0.4px 0.4px 0.4px black;
 }
-.quantity_btn {
+.btn_quantity {
     position: absolute;
     border: 1px solid #aaa;
     color: #3a60df;
@@ -167,18 +167,18 @@ th {
     transition-duration: 0.3s;
     cursor: pointer;
 }
-.quantity_btn:active {
+.btn_quantity:active {
 	box-shadow: none;
 }
-.plus_btn {
+.btn_plus {
     top: 0;
     right: 0
 }
-.minus_btn {
+.btn_minus {
     bottom: 0;
     right: 0
 }
-.quantity_modify_btn {
+.btn_quantity_modify {
     border: 1px solid #d0d0d0;
     height: 13px;
     line-height: 13px;
@@ -192,13 +192,13 @@ th {
     transition-duration: 0.3s;
     cursor: pointer;
 }
-.quantity_modify_btn:active {
+.btn_quantity_modify:active {
 	box-shadow: none;
 }
 .table_text_align_center {
     text-align: center;
 }
-.delete_btn {
+.btn_delete {
 	border: 1px solid #d0d0d0;
 	background-color: #fff;
 	text-align: center;
@@ -208,7 +208,7 @@ th {
     transition-duration: 0.3s;
     cursor: pointer;
 }
-.delete_btn:active {
+.btn_delete:active {
 	box-shadow: none;
 }
 .content_total_section {
@@ -240,13 +240,38 @@ th {
     width: 20px;
     height: 20px;
 }
-.all_check_input {
+.input_size_4020 {
+	width: 40px;
+	height: 20px;
+}
+.all_input_div {
+	
+}
+.input_all_check {
+	float: left;
     margin: 18px 0 18px 18px;
 }
 .all_chcek_span {
     padding-left: 8px;
     font-size: 20px;
     font-weight: bold;
+}
+.input_all_delete {
+	float: right;
+	border: 1px solid #d0d0d0;
+    line-height: 13px;
+    background-color: #fff;
+    text-align: center;
+    width: 28px;
+    display: inline-block;
+    padding: 3px 6px 2px;
+    margin-top: 3px;
+    box-shadow: 0.5px 0.5px 0.5px black;
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+.input_all_delete:active {
+	box-shadow: none;
 }
 /* 이미지 */
 .image_wrap {

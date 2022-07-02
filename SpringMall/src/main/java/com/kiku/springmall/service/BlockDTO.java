@@ -6,7 +6,6 @@ import lombok.Data;
 public class BlockDTO {
 	private int pageNum;
 	private int amount;
-	private int startNum;
 	
 	public BlockDTO() {
 		this.pageNum = 1;

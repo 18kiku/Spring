@@ -14,19 +14,24 @@ public class CartDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public void insertCart(CartDTO dto) {
+	public int insertCart(CartDTO dto) {
 		System.out.println("===> CartDAO - insertCart()");
-		sqlSession.insert("CartDAO.insertCart", dto);
+		return sqlSession.insert("CartDAO.insertCart", dto);
 	}
 	
-	public void updateCart(CartDTO dto) {
+	public int updateCart(CartDTO dto) {
 		System.out.println("===> CartDAO - updateCart()");
-		sqlSession.insert("CartDAO.updateCart", dto);
+		return sqlSession.update("CartDAO.updateCart", dto);
 	}
 	
-	public void deleteCart(CartDTO dto) {
+	public int deleteCart(CartDTO dto) {
 		System.out.println("===> CartDAO - deleteCart()");
-		sqlSession.insert("CartDAO.deleteCart", dto);
+		return sqlSession.delete("CartDAO.deleteCart", dto);
+	}
+	
+	public int deleteCartAll(CartDTO dto) {
+		System.out.println("===> CartDAO - deleteCartAll()");
+		return sqlSession.delete("CartDAO.deleteCartAll", dto);
 	}
 	
 	public CartDTO getCart(CartDTO dto) {
@@ -39,12 +44,8 @@ public class CartDAO {
 		return sqlSession.selectList("CartDAO.getCartList", dto);
 	}
 
-	public boolean checkCart(CartDTO dto) {
+	public int checkCart(CartDTO dto) {
 		System.out.println("===> CartDAO - getCartList()");
-		boolean isEmpty = false;
-		if(sqlSession.selectList("CartDAO.checkCart", dto).get(0) == null) {
-			isEmpty = true;
-		}
-		return isEmpty;
+		return sqlSession.selectOne("CartDAO.checkCart", dto);
 	}
 }

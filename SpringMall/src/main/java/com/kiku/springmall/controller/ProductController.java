@@ -5,9 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -64,11 +66,9 @@ public class ProductController {
 			dto.setProduct_detail(/* UPLOAD_PATH + */ "no-detail.jpg");
 		}
 		
-
-		System.out.println("insert할것 : " + dto);
 		productService.insertProduct(dto);
 		
-		return "redirect:productList.do";
+		return "redirect:productList.do?pageNum=1";
 	}
 	
 	
@@ -94,26 +94,26 @@ public class ProductController {
 		} else {
 			dto.setProduct_detail(request.getParameter("no_detail"));
 		}
-		System.out.println("update할것" + dto);
+
 		productService.updateProduct(dto);
-		return "management/product/productDetail";
+		
+		return "redirect:productList.do?pageNum=" + request.getParameter("pageNum");
 	}
 	
 	@RequestMapping(value="/productDelete.do")
-	public String deleteProduct(ProductDTO dto) {
+	public String deleteProduct(ProductDTO dto, BlockDTO block) {
 		System.out.println("=> ProductController deleteProduct()");
 		productService.deleteProduct(dto);
-		return "redirect:productList.do";
+		
+		return "redirect:productList.do?pageNum=" + block.getPageNum();
 	}
 	
 	@RequestMapping(value="/productDetail.do")
-	public String getProduct(ProductDTO dto, Model model, HttpSession session) {
+	public String getProduct(ProductDTO dto, Model model) {
 		System.out.println("=> ProductController getProduct");
-		MemberDTO member = (MemberDTO)session.getAttribute("member");
-		System.out.println("member => " + member);
-		
 		model.addAttribute("product", productService.getProduct(dto));
 		System.out.println(productService.getProduct(dto));
+		
 		return "management/product/productDetail";
 	}
 	
@@ -128,13 +128,13 @@ public class ProductController {
 	@RequestMapping(value="/productList.do")
 	public String getProductList(ProductDTO dto, BlockDTO block, Model model){
 		System.out.println("=> ProductController getProductList");
-		
 		if(dto.getSearchCondition() == null) dto.setSearchCondition("PRODUCT_CATEGORY");
 		if(dto.getSearchKeyword() == null) dto.setSearchKeyword("");
 		
 		int totalCount = productService.getProductCount(dto);
 		model.addAttribute("pageDTO", new PageDTO(block, totalCount));
 		model.addAttribute("productList", productService.getProductList(dto, block));
+		System.out.println("productController= " + dto);
 		return "management/product/productList";
 	}
 }

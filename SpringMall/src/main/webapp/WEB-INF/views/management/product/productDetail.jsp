@@ -7,27 +7,28 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/management/product/productDetail.css" />
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
-	document.addEventListener("DOMContentLoaded", function(){
-		let btn_update = document.getElementById("btn_update");
-		let btn_list = document.getElementById("btn_list");
-		
-		btn_update.addEventListener("click", function(){
-			// 유효성 검사 후 submit();
+	$(document).ready(function(){
+		let pageNum = $("input[name=pageNum]").val();
+		$(".btn_update").click(function(){
+			location = "productUpdate.do?pageNum=" + pageNum;
+		});
+		$(".btn_list").click(function(){
+			location = "productList.do?pageNum=" + pageNum;
 		})
-		
-		btn_list.addEventListener("click", function(){
-			location="productList.do";
-		})
-		
 	})
 </script>
 </head>
 <body>
 <div class="container">
 	<h1>ProductDetail</h1>
+	<c:if test="${param.pageNum == null }">
+		param.
+	</c:if>
 	<div class="d1">
-		<form action="productUpdate.do" method="post" name="detailForm" enctype="multipart/form-data">
+		<form action="productUpdate.do?pageNum=${param.pageNum }" method="post" name="detailForm" enctype="multipart/form-data">
+		<input type="hidden" name="pageNum" value="${param.pageNum }">
 			<table>
 			<tr>
 				<th>
@@ -123,8 +124,8 @@
 			</tr>
 			</table>
 			<div class="btns">
-				<input type="submit" id="btn_update" value="update">
-				<input type="button" id="btn_list" value="list">
+				<input type="submit" class="btn_update" value="update">
+				<input type="button" class="btn_list" value="list">
 			</div>
 		</form>
 	</div>

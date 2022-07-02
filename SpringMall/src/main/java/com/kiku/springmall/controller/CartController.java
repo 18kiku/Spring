@@ -1,12 +1,12 @@
 package com.kiku.springmall.controller;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kiku.springmall.service.CartDTO;
 import com.kiku.springmall.service.CartService;
@@ -31,34 +31,69 @@ public class CartController {
 	}
 	
 	@RequestMapping(value="/cartInsert.do")
-	public String insertCart(CartDTO dto, Model model, HttpSession session, HttpServletRequest request) {
+	@ResponseBody
+	public int insertCart(CartDTO dto, Model model, HttpSession session) {
 		System.out.println("=> CartController - insertCart");
 		MemberDTO member = (MemberDTO)session.getAttribute("member");
+		System.out.println(dto);
+		System.out.println(member);
+		int message = 10917;
 		if(member != null) {
-			if(cartService.checkCart(dto)) {
-				cartService.insertCart(dto);
+			System.out.println(cartService.checkCart(dto));
+			if(cartService.checkCart(dto) == 0) {
+				int result = cartService.insertCart(dto);
+				System.out.println("카트가 비어있을때 result = " + result);
+				if(result == 0) {
+					message = 0;
+				} else {
+					message = 1;
+				}
 			} else {
-				cartService.updateCart(dto);
+				int result = cartService.updateCart(dto);
+				System.out.println("카드에 해당상품이 있을때 result = " + result);
+				
+				if(result == 0) {
+					message = 0;
+				} else {
+					message = 2;
+				}
 			}
-		} else {
-			return "/memberLogin.do";
 		}
-		
-		return "redirect:cartList.do";
+		return message;
 	}
 	
 	@RequestMapping(value="/cartUpdate.do")
-	public String updateCart(CartDTO dto) {
-		return "";
+	@ResponseBody
+	public int updateCart(CartDTO dto, HttpSession session) {
+		System.out.println("=> CartController - updateCart");
+		MemberDTO member = (MemberDTO)session.getAttribute("member");
+		System.out.println(member);
+		System.out.println(dto);
+		if(member == null) {
+			return 10917;
+		}
+		return cartService.updateCart(dto);
 	}
 	
 	@RequestMapping(value="/cartDelete.do")
-	public String deleteCart(CartDTO dto) {
-		return "";
+	@ResponseBody
+	public int deleteCart(CartDTO dto, HttpSession session) {
+		System.out.println("=> CartController - deleteCart");
+		MemberDTO member = (MemberDTO)session.getAttribute("member");
+		if(member == null) {
+			return 10917;
+		}
+		return cartService.deleteCart(dto);
 	}
 	
-	@RequestMapping(value="/cartDeleteList.do")
-	public String deleteCartList(CartDTO dto) {
-		return "";
+	@RequestMapping(value="/cartDeleteAll.do")
+	@ResponseBody
+	public int deleteCartAll(CartDTO dto, HttpSession session) {
+		System.out.println("=> CartController - deleteCartList");
+		MemberDTO member = (MemberDTO)session.getAttribute("member");
+		if(member == null) {
+			return 10917;
+		}
+		return cartService.deleteCartAll(dto);
 	}
 }

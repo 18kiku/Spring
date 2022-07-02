@@ -1,10 +1,74 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>          
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>       
 
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mall/shop/shopDetail.css">
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    $(document).ready(function () { /* 이미지 삽입 */
+        let bobj = $(".image_wrap");
+        if (bobj.data("product_id")) {
+            let uploadPath = bobj.data("path");
+            let uuid = bobj.data("uuid");
+            let fileName = bobj.data("filename");
+            let fileCallPath = encodeURIComponent(uploadPath + "/s_" + uuid + "_" + fileName);
+            bobj.find("img").attr('src', '/display?fileName=' + fileCallPath);
+        } else {
+            bobj.find("img").attr('src', '/resources/img/goodsNoImage.png');
+        }
+        // 수량 버튼 조작
+        let quantity = $(".input_quantity").val();
+        $(".btn_plus").on("click", function () {
+            $(".input_quantity").val(++ quantity);
+        });
+        $(".btn_minus").on("click", function () {
+            if (quantity > 1) {
+                $(".input_quantity").val(-- quantity);
+            }
+        });
+        let cartForm = {
+        		orderer_id: '${member.id}',
+        		product_id: '${product.product_id}',
+        		order_quantity: ''
+        }
+        // 장바구니 추가 버튼
+        $(".btn_cart").on("click", function (e) {
+        	
+        	cartForm.order_quantity = $(".input_quantity").val();
+            $.ajax({
+                url: 'cartInsert.do',
+                type: 'POST',
+                data: cartForm,
+                success: function (message) {
+                	if (message == 0) {
+                        alert("장바구니에 추가하지 못하였습니다.");
+                    } else if (message == 1) {
+                        alert("장바구니에 추가되었습니다.");
+                    } else if (message == 2) {
+                        alert("장바구니에 추가되었습니다.(상품개수를 업데이트했습니다.)");
+                    } else if (message == 10917) {
+                        alert("로그인을 해주세요.");
+                        location = "memberLogin.do";
+                    }
+                },
+                error: function(message){
+                	alert('오류');
+                }
+            })
+        });
+        
+        /* 바로구매 버튼 */
+        $(".btn_order").on("click", function () {
+            let order_quantity = $(".input_quantity").val();
+            $(".order_form").find("input[name='order_quantity']").val(order_quantity);
+            $(".order_form").submit();
+        });
+    });
+    
+    
+</script>
 <main>
 <div class="wrapper">
 	<div class="wrap">
@@ -12,7 +76,7 @@
 			<div class="content_top">
 				<div class="dt_left_area">
 					<div class="image_wrap">
-						<img>
+						<img src="${pageContext.request.contextPath}/resources/img/${product.product_image }">
 					</div>				
 				</div>
 				<div class="dt_right_area">
@@ -56,16 +120,16 @@
 					<div class="button">						
 						<div class="button_quantity">
 							주문수량 | 
-							<input type="text" class="quantity_input" value="1">
+							<input type="number" class="input_quantity" value="1">
 							<span>
-								<button class="plus_btn">+</button>
-								<button class="minus_btn">-</button>
+								<button class="btn_plus">+</button>
+								<button class="btn_minus">-</button>
 							</span>
 						</div>
 						<div class="space_vertical"></div>
 						<div class="button_set">
-							<a class="btn_cart">장바구니 담기</a>
-							<a class="btn_order">바로구매</a>
+							<input type="button" class="btn_cart" value="add in cart">
+							<input type="button" class="btn_order" value="order">
 						</div>
 					</div>
 				</div>
@@ -81,72 +145,13 @@
 
 				</div>
 			</div>
-			<!-- 주문 form -->
-			<form action="/order/${member.id}" method="get" class="order_form">
-				<input type="hidden" name="orders[0].productId" value="${product.product_id}">
-				<input type="hidden" name="orders[0].productCount" value="">
-			</form>	
+			<!-- cart form -->
+			<%-- <form action="/cartInsert.do" method="post" name="cartForm" class="cartForm">
+				<input type="hidden" name="orderer_id" value="${member.id }">
+				<input type="hidden" name="product_id" value="${product.product_id}">
+				<input type="hidden" name="order_quantity" value="">
+			</form>	 --%>
 		</div>
 	</div>	<!-- class="wrap" -->
 </div>	<!-- class="wrapper" -->
 </main>
-<script>
-    $(document).ready(function () { /* 이미지 삽입 */
-        const bobj = $(".image_wrap");
-        if (bobj.data("productId")) {
-            const uploadPath = bobj.data("path");
-            const uuid = bobj.data("uuid");
-            const fileName = bobj.data("filename");
-            const fileCallPath = encodeURIComponent(uploadPath + "/s_" + uuid + "_" + fileName);
-            bobj.find("img").attr('src', '/display?fileName=' + fileCallPath);
-        } else {
-            bobj.find("img").attr('src', '/resources/img/goodsNoImage.png');
-        }
-    });
-    // $(document).ready(function(){
-    // 수량 버튼 조작
-    let quantity = $(".quantity_input").val();
-    $(".plus_btn").on("click", function () {
-        $(".quantity_input").val(++ quantity);
-    });
-    $(".minus_btn").on("click", function () {
-        if (quantity > 1) {
-            $(".quantity_input").val(-- quantity);
-        }
-    });
-    // 서버로 전송할 데이터
-    const form = {
-        id: '${member.id}',
-        productId: '${product.product_id}',
-        productCount: ''
-    }
-    // 장바구니 추가 버튼
-    $(".btn_cart").on("click", function (e) {
-        form.productCount = $(".quantity_input").val();
-        $.ajax({
-            url: '/cart/add',
-            type: 'POST',
-            data: form,
-            success: function (result) {
-                cartAlert(result);
-            }
-        })
-    });
-    function cartAlert(result) {
-        if (result == '0') {
-            alert("장바구니에 추가를 하지 못하였습니다.");
-        } else if (result == '1') {
-            alert("장바구니에 추가되었습니다.");
-        } else if (result == '2') {
-            alert("장바구니에 이미 추가되어져 있습니다.");
-        } else if (result == '5') {
-            alert("로그인이 필요합니다.");
-        }
-    }
-    /* 바로구매 버튼 */
-    $(".btn_order").on("click", function () {
-        let productCount = $(".quantity_input").val();
-        $(".order_form").find("input[name='orders[0].productCount']").val(productCount);
-        $(".order_form").submit();
-    });
-</script>
