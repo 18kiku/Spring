@@ -10,5 +10,6 @@
 		<typeAlias alias="management" type="com.kiku.springmall.service.ManagementDTO" />
 		<typeAlias alias="cart" type="com.kiku.springmall.service.CartDTO" />
 		<typeAlias alias="category" type="com.kiku.springmall.service.CategoryDTO" />
+		<typeAlias alias="order" type="com.kiku.springmall.service.OrderDTO" />
 	</typeAliases>
 </configuration>

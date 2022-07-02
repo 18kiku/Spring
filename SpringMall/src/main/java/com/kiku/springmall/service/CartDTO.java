@@ -11,6 +11,8 @@ public class CartDTO {
 	private String orderer_id;
 	private int product_id;
 	private int order_quantity;
+	private int salePrice;
+	private int totalPrice;
 	
 	// join
 	private String product_category;
@@ -24,4 +26,12 @@ public class CartDTO {
 	private String product_image;
 	private String product_detail;
 	private Timestamp reg_date;
+	
+	public int getSalePrice() {
+		return product_price - (product_price*discount_rate/100);
+	}
+	
+	public int getTotalPrice() {
+		return (product_price - (product_price*discount_rate/100)) * order_quantity;
+	}
 }

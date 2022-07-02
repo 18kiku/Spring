@@ -11,17 +11,23 @@
 <div class="t_box1">
 	<%-- 구역1 (상단좌측): 로그인, 회원가입, 고객센터 --%>
 	<c:if test="${member==null }">
-	<a href="memberLogin.do"><span>로그인</span></a>&ensp;|&ensp; <a href="memberJoin.do"><span>회원가입</span></a> &ensp;|&ensp; </c:if>
+		<a href="memberLogin.do"><span>로그인</span></a>&ensp;|&ensp; 
+		<a href="memberJoin.do"><span>회원가입</span></a> &ensp;|&ensp; 
+		<a href="#"><span>고객센터</span></a>
+	</c:if>
 	<c:if test="${member !=null }">
-	<a href="memberInfo.do?id=${member.id }">${member.name }님</a>&ensp;|&ensp;<a href="memberLogout.do">로그아웃</a>&ensp;|&ensp; </c:if>
-	<a href="#"><span>고객센터</span></a>
+		<a href="memberInfo.do?id=${member.id }">${member.name }님</a>&ensp;|&ensp;
+		<a href="memberLogout.do">로그아웃</a>&ensp;|&ensp; 
+		<a href="#"><span>고객센터</span></a>
+	</c:if>
+	
 </div>
 <div class="t_box2">
 	<%-- 구역2 (상단우측): 회원정보, 구매정보, 장바구니정보 --%>
 	<c:if test="${member !=null }">
 	<a href="memberInfo.do">
 	<img src="<spring:url value='/resources/img/user-white.png'/>" width="35" title="회원정보" class="t_box2_img1"> </a>
-	<a href="purchaseDetail.do">
+	<a href="orderDetail.do">
 	<img src="<spring:url value='/resources/img/buy-white.png'/>" width="35" title="구매정보" class="t_box2_img2"> </a>
 	<a href="cartList.do">
 	<img src="<spring:url value='/resources/img/cart-white.png'/>" width="35" title="장바구니정보" class="t_box2_img3"> </a>

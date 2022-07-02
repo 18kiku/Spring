@@ -79,7 +79,7 @@ a {
     line-height: 30px;
     padding: 2% 0 2% 3%;
 }
-.discount_price_number {
+.number_discount_price {
     line-height: 30px;
     font-size: 22px;
     color: #f84450;
@@ -88,16 +88,16 @@ a {
 .button {
     padding: 2% 0 2% 3%;
 }
-.button_quantity {
+.btn_quantity {
     margin-bottom: 2%;
 }
-.button_quantity input {
+.btn_quantity input {
     height: 20px;
     width: 20px;
     text-align: center;
     font-weight: bold;
 }
-.button_quantity button {
+.btn_quantity button {
     border: 1px solid #aaa;
     color: #3a60df;
     width: 20px;
@@ -108,11 +108,11 @@ a {
     font-size: 15px;
     line-height: 15px;
     
-    box-shadow: 0.3px 0.3px 0.3px black;
+    box-shadow: 0.3px 0.3px 0.3px #000;
     
     transition-duration: 0.3s;
 }
-.button_quantity button:active{
+.btn_quantity button:active{
 	box-shadow: none;
 }
 .btn_cart {

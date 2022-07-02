@@ -15,8 +15,22 @@
 		<result property="tel" column="tel"/>
 		<result property="address" column="address"/>
 		<result property="reg_date" column="reg_date"/>
-		
 	</resultMap>
+	
+	<select id="login" resultMap="memberResult">
+		<![CDATA[
+		select * from member where id=#{id} and password=#{password}
+		]]>
+	</select>
+
+	<select id="isAdmin" resultType="int" resultMap="memberResult">
+		<![CDATA[
+		select count(*) from member join management
+		on id = management_id
+		where id = #{id}
+		and password = #{password}
+		]]>
+	</select>
 
 	<insert id="insertMember">		
 		<![CDATA[

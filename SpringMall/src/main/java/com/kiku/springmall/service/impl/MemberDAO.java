@@ -15,7 +15,14 @@ public class MemberDAO {
 	
 	public MemberDTO login(MemberDTO dto) {
 		System.out.println("===> MemberDAO login");
-		return sqlSession.selectOne("MemberDAO.getMember", dto);
+		return sqlSession.selectOne("MemberDAO.login", dto);
+	}
+	
+	public int isAdmin(MemberDTO dto) {
+		System.out.println("===> MemberDAO isAdmin");
+		System.out.println("어드민" + dto);
+		System.out.println(sqlSession.selectOne("MemberDAO.isAdmin", dto));
+		return sqlSession.selectOne("MemberDAO.isAdmin", dto);
 	}
 	
 	public void insertMember(MemberDTO dto) {
@@ -43,4 +50,5 @@ public class MemberDAO {
 		//System.out.println(sqlSession.selectList("MemberDAO.getMemberList", dto));
 		return sqlSession.selectList("MemberDAO.getMemberList", dto);
 	}
+
 }

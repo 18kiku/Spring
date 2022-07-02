@@ -83,7 +83,7 @@ caption {
     margin-right: 14px;
     line-height: 39px;
 }
-.subject_table {
+.table_subject {
     font-size: 14px;
     line-height: 20px;
     width: 100%;
@@ -109,14 +109,14 @@ th {
 .td_width_4 {
     width: 15%;
 }
-.cart_table {
+.table_cart {
     font-size: 14px;
     line-height: 20px;
 }
-.cart_table tr {
+.table_cart tr {
     height: 110px;
 }
-.price_td {
+.td_price {
     padding-left: 5px;
 }
 .list_price{
@@ -128,17 +128,17 @@ th {
 .green_color {
     color: green;
 }
-.cart_table td {
+.table_cart td {
     border-bottom: 1px solid #e7e7e7;
 }
-.quantity_div {
+.div_quantity {
     position: relative;
     width: 42px;
     height: 25px;
     text-align: left;
     margin: 5px auto;
 }
-.quantity_input {
+.input_quantity {
     position: absolute;
     width: 27px;
     height: 23px;
@@ -222,16 +222,12 @@ th {
 .total_wrap td {
     width: 50%;
 }
-.finalTotalPrice_span {
+.span_finalTotalPrice {
     color: #854A72;
     font-size: 17px;
     font-weight: bold;
 }
-.totalPoint_span {
-    font-size: 17px;
-    font-weight: bold;
-}
-.boundary_div {
+.div_boundary {
     font-size: 0;
     border: 1px dotted #d1c7c7;
     margin: 5px 0;
@@ -244,14 +240,14 @@ th {
 	width: 40px;
 	height: 20px;
 }
-.all_input_div {
+.div_all_input {
 	
 }
 .input_all_check {
 	float: left;
     margin: 18px 0 18px 18px;
 }
-.all_chcek_span {
+.span_all_check {
     padding-left: 8px;
     font-size: 20px;
     font-weight: bold;

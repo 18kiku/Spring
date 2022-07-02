@@ -3,11 +3,11 @@ header {
 	width: 1200px; 
 	margin: 0 auto;
 }
-<%-- bx-slider --%>.slider {
+.slider {
+	width: 1200px;
 }
 .slider img {
 	vertical-align:middle;
-	overflow:hidden;
 }
 .main_img {
 	margin-bottom: 100px;

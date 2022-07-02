@@ -21,6 +21,12 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
+	public int isAdmin(MemberDTO dto) {
+		// TODO Auto-generated method stub
+		return memberDAO.isAdmin(dto);
+	}
+	
+	@Override
 	public void insertMember(MemberDTO dto) {
 		// TODO Auto-generated method stub
 		memberDAO.insertMember(dto);
@@ -49,6 +55,7 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return memberDAO.getMemberList(dto);
 	}
+
 
 
 

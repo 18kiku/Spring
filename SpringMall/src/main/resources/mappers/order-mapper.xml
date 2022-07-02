@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "..//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="orderDAO">
+	<resultMap type="order" id="orderResult">
+		<result property="order_id" column="order_id"/>
+		<result property="orderer_id" column="orderer_id"/>
+		<result property="product_id" column="product_id"/>
+		<result property="order_amount" column="order_amount"/>
+		<result property="order_quantity" column="order_quantity"/>
+		<result property="order_date" column="order_date"/>
+		<result property="delivery_name" column="delivery_name"/>
+		<result property="delivery_tel" column="delivery_tel"/>
+		<result property="delivery_address" column="delivery_address"/>
+		<result property="delivery_state" column="delivery_state"/>
+	</resultMap>
+
+	<insert id="insertorder">
+		<![CDATA[
+		insert into orders(order_id, orderer_id, product_id, order_amount, order_quantity, delivery_name, delivery_tel, delivery_address, delivery_state)
+					values(#{order_id}, #{orderer_id}, #{product_id}, #{order_amount}, #{order_quantity},
+							#{delivery_name}, #{delivery_tel}, #{delivery_address}, #{delivery_state}) 
+		]]>
+	</insert>
+	
+	<select id="getOrderCount" resultType="int">
+		<![CDATA[
+		select count(*) from orders
+		]]>
+	</select>
+	
+	<select id="getOrder" resultMap="orderResult">
+		<![CDATA[
+		select * from orders where order_id=#{order_id}
+		]]>
+	</select>
+	
+	<select id="getOrdersList" parameterType="Map" resultMap="orderResult">
+		<!-- 
+		<![CDATA[
+		select * from orders inner join product
+		on orders.product_id = product.product_id 
+		where orderer_id=#{orderer_id}
+		order by order_id desc
+		]]>
+		 -->
+	</select>
+</mapper>					

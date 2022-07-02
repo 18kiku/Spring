@@ -35,7 +35,6 @@
         }
         // 장바구니 추가 버튼
         $(".btn_cart").on("click", function (e) {
-        	
         	cartForm.order_quantity = $(".input_quantity").val();
             $.ajax({
                 url: 'cartInsert.do',
@@ -45,9 +44,13 @@
                 	if (message == 0) {
                         alert("장바구니에 추가하지 못하였습니다.");
                     } else if (message == 1) {
-                        alert("장바구니에 추가되었습니다.");
+                        if(confirm("장바구니에 추가되었습니다.\n장바구니로 이동하시겠습니까?")){
+                        	location = "cartList.do";
+                        }
                     } else if (message == 2) {
-                        alert("장바구니에 추가되었습니다.(상품개수를 업데이트했습니다.)");
+                    	if(confirm("장바구니에 추가되었습니다.(상품개수를 업데이트했습니다.)\n장바구니로 이동하시겠습니까?")){
+                        	location = "cartList.do";
+                        }
                     } else if (message == 10917) {
                         alert("로그인을 해주세요.");
                         location = "memberLogin.do";
@@ -107,7 +110,7 @@
 					<div class="price">
 						<div class="list_price">정가 : <fmt:formatNumber value="${product.product_price}" pattern="#,### 원" /></div>
 						<div class="discount_price">
-							판매가 : <span class="discount_price_number"><fmt:formatNumber value="${product.product_price - (product.product_price*product.discount_rate/100)}" pattern="#,### 원" /></span> 
+							판매가 : <span class="number_discount_price"><fmt:formatNumber value="${product.product_price - (product.product_price*product.discount_rate/100)}" pattern="#,### 원" /></span> 
 							[<fmt:formatNumber value="${product.discount_rate}" pattern="###" />% 
 							<fmt:formatNumber value="${product.product_price*product.discount_rate}" pattern="#,### 원" /> 할인]
 						</div>
@@ -118,7 +121,7 @@
 					<div class="line">
 					</div>	
 					<div class="button">						
-						<div class="button_quantity">
+						<div class="btn_quantity">
 							주문수량 | 
 							<input type="number" class="input_quantity" value="1">
 							<span>

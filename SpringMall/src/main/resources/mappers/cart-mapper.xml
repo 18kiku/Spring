@@ -11,20 +11,6 @@
 		<result property="product_id" column="product_id"/>
 		<result property="order_quantity" column="order_quantity"/>
 	</resultMap>
-	<resultMap type="product" id="productResult">
-		<result property="product_id" column="product_id"/>
-		<result property="product_category" column="product_category"/>
-		<result property="product_name" column="product_name"/>
-		<result property="product_brand" column="product_brand"/>
-		<result property="product_size" column="product_size"/>
-		<result property="product_color" column="product_color"/>
-		<result property="product_price" column="product_price"/>
-		<result property="discount_rate" column="discount_rate"/>
-		<result property="product_stock" column="product_stock"/>
-		<result property="product_image" column="product_image"/>
-		<result property="product_detail" column="product_detail"/>
-		<result property="reg_date" column="reg_date"/>
-	</resultMap>
 	
 	<insert id="insertCart">
 		<![CDATA[
@@ -72,7 +58,7 @@
 		select * from cart inner join product
 		on cart.product_id = product.product_id
 		where orderer_id = #{orderer_id}
-		order by orderer_id desc
+		order by cart_id desc
 		]]>
 	</select>
 </mapper>					

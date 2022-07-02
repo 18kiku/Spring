@@ -19,6 +19,12 @@
 			}
 			form.submit();	
 		})
+		let password = document.getElementById("password");
+		password.addEventListener("keyup",function(e){
+			if(e.keyCode == 13){
+				form.submit();
+			}
+		})
 		// 쿠키가 생성되어있을때 쿠키에 저장된 값인 아이디를 아이디 입력상자에 넣어준다.
 		// 쿠키 확인 - 쿠키가 존재한다면
 		if(document.cookie.length > 0){

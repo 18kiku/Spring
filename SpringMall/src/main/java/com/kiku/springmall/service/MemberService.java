@@ -4,6 +4,7 @@ import java.util.List;
 
 public interface MemberService {
 	MemberDTO login(MemberDTO dto);
+	int isAdmin(MemberDTO dto);
 	void insertMember(MemberDTO dto);
 	void updateMember(MemberDTO dto);
 	void deleteMember(MemberDTO dto);

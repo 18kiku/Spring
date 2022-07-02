@@ -62,6 +62,7 @@
 			new daum.Postcode({
 				oncomplete:function(data){
 					form.address.value = data.address;
+					form.postcode.value = data.zonecode;
 				}
 			}).open();
 		})
@@ -240,7 +241,7 @@
 			가입일자
 		</th>
 		<td>
-			${member.reg_date }
+			<input type="text" name="reg_date" value="${member.reg_date }">
 		</td>
 	</tr>
 	</table>

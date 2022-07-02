@@ -13,8 +13,11 @@ public class MemberDTO {
 	private String gender;
 	private String email;
 	private String tel;
+	private String postcode;
 	private String address;
 	private String address_detail;
-	private String postcode;
 	private Timestamp reg_date;
+	
+	private String management_id;
+	private String management_password;
 }
