@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mall/login/login.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mall/login/login.css?v">
 <script>
 	document.addEventListener("DOMContentLoaded", function(){
 		let form = document.loginForm;

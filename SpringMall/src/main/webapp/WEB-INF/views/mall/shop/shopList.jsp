@@ -5,7 +5,25 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mall/shop/shopList.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mall/shop/shopList.css?vz">
+<script>
+	$(document).ready(function(){
+		$(".btn_order").on("click",function(e){
+			e.preventDefault();
+			
+			let orderer_id = $("input[name='orderList[0].orderer_id']").val();
+			let order_amount = Math.floor($(".input_sale_price").val());
+			
+			if(!orderer_id){
+				alert('로그인을 해주세요');
+				location = 'memberLogin.do';
+				return;
+			}
+			$(".orderForm").find("input[name='orderList[0].order_amount']").val(order_amount);
+			$(".orderForm").submit();
+		})
+	})
+</script>
 <main>
 <div class="d_category2">
 	 CATEGORY : <span>${productList[0].category_name }</span>
@@ -26,16 +44,26 @@
 			<div class="c_p4">
 				<span><fmt:formatNumber value="${product.product_price }" pattern="#,###,###원"/></span>
 			</div>
+			<div class="c_p5">
+				<span><fmt:formatNumber value="${product.product_price - (product.product_price*product.discount_rate/100) }" pattern="#,###,###원"/></span>
+				<input type="hidden" class="input_sale_price" value="${product.product_price - (product.product_price*product.discount_rate/100) }">
+			</div>
 		</div>
 		<div class="c_product2">
 			<div class="c_p5">
-				<a href="#">구매</a>
+				<a href="#" class="btn_order">구매</a>
 			</div>
 			<div class="c_p6">
 				<a href="shopDetail.do?product_id=${product.product_id }">상세</a>
 			</div>
 		</div>
-		<%-- </a>--%>
+		<!-- 주문 form -->
+			<form action="orderCheck.do?orderer_id=${member.id}" method="get" class="orderForm">
+				<input type="hidden" name="orderList[0].orderer_id" value="${member.id }">
+				<input type="hidden" name="orderList[0].product_id" value="${product.product_id }">
+				<input type="hidden" name="orderList[0].order_quantity" value="1">
+				<input type="hidden" name="orderList[0].order_amount" value="">
+			</form>
 	</div>
 	</c:forEach>
 </div>

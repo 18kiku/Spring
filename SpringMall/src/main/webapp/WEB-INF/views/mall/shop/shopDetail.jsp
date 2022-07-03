@@ -5,7 +5,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>       
 
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mall/shop/shopDetail.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mall/shop/shopDetail.css?v">
 <script>
     $(document).ready(function () { /* 이미지 삽입 */
         let bobj = $(".image_wrap");
@@ -62,11 +62,22 @@
             })
         });
         
+        
         /* 바로구매 버튼 */
         $(".btn_order").on("click", function () {
-            let order_quantity = $(".input_quantity").val();
-            $(".order_form").find("input[name='order_quantity']").val(order_quantity);
-            $(".order_form").submit();
+        	let orderer_id = $("input[name='orderList[0].orderer_id']").val();
+        	let order_quantity = $(".input_quantity").val();
+			let order_amount = $(".input_discount_price").val() * $(".input_quantity").val();
+			
+			if(!orderer_id){
+				alert('로그인을 해주세요');
+				location = 'memberLogin.do';
+				return;
+			}
+			$(".orderForm").find("input[name='orderList[0].order_quantity']").val(order_quantity);
+			$(".orderForm").find("input[name='orderList[0].order_amount']").val(order_amount);
+			$(".orderForm").submit();
+			
         });
     });
     
@@ -110,13 +121,11 @@
 					<div class="price">
 						<div class="list_price">정가 : <fmt:formatNumber value="${product.product_price}" pattern="#,### 원" /></div>
 						<div class="discount_price">
-							판매가 : <span class="number_discount_price"><fmt:formatNumber value="${product.product_price - (product.product_price*product.discount_rate/100)}" pattern="#,### 원" /></span> 
+							판매가 : <span class="number_discount_price"><fmt:formatNumber value="${product.product_price - (product.product_price*product.discount_rate/100)}" pattern="#,### 원" /></span>
+							<input type="hidden" class="input_discount_price" value="${product.product_price - (product.product_price*product.discount_rate/100)}"> 
 							[<fmt:formatNumber value="${product.discount_rate}" pattern="###" />% 
 							<fmt:formatNumber value="${product.product_price*product.discount_rate}" pattern="#,### 원" /> 할인]
-						</div>
-						<div>
-							적립 포인트 : <span class="point_span"></span>원
-						</div>							
+						</div>						
 					</div>			
 					<div class="line">
 					</div>	
@@ -125,8 +134,8 @@
 							주문수량 | 
 							<input type="number" class="input_quantity" value="1">
 							<span>
-								<button class="btn_plus">+</button>
-								<button class="btn_minus">-</button>
+								<input type="button" class="btn_plus" value="+">
+								<input type="button" class="btn_minus" value="-">
 							</span>
 						</div>
 						<div class="space_vertical"></div>
@@ -148,12 +157,13 @@
 
 				</div>
 			</div>
-			<!-- cart form -->
-			<%-- <form action="/cartInsert.do" method="post" name="cartForm" class="cartForm">
-				<input type="hidden" name="orderer_id" value="${member.id }">
-				<input type="hidden" name="product_id" value="${product.product_id}">
-				<input type="hidden" name="order_quantity" value="">
-			</form>	 --%>
+			<!-- 주문 form -->
+			<form action="orderCheck.do?orderer_id=${member.id}" method="get" class="orderForm">
+				<input type="hidden" name="orderList[0].orderer_id" value="${member.id }">
+				<input type="hidden" name="orderList[0].product_id" value="${product.product_id }">
+				<input type="hidden" name="orderList[0].order_quantity" value="">
+				<input type="hidden" name="orderList[0].order_amount" value="">
+			</form>
 		</div>
 	</div>	<!-- class="wrap" -->
 </div>	<!-- class="wrapper" -->

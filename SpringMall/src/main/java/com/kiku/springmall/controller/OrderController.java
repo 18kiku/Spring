@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kiku.springmall.service.MemberDTO;
 import com.kiku.springmall.service.OrderDTO;
@@ -30,11 +31,10 @@ public class OrderController {
 	
 	@GetMapping("/orderCheck.do")
 	public String checkOrder(OrderDTO dto, Model model, HttpSession session){
-		System.out.println("=> OrderController orderInsert");
+		System.out.println("=> OrderController orderCheck");
 		MemberDTO member = (MemberDTO)session.getAttribute("member");
 		List<OrderDTO> orderList = new ArrayList<OrderDTO>();
 		ProductDTO product = new ProductDTO();
-		
 		for(OrderDTO order : dto.getOrderList()) {
 			product.setProduct_id(order.getProduct_id());
 			order.setProduct_image(productService.getProduct(product).getProduct_image());

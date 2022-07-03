@@ -80,10 +80,12 @@ a {
     padding: 2% 0 2% 3%;
 }
 .number_discount_price {
+	border: none;
     line-height: 30px;
     font-size: 22px;
     color: #f84450;
     font-weight: bold;
+    cursor: default;
 }
 .button {
     padding: 2% 0 2% 3%;

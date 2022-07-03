@@ -5,7 +5,7 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Dongle&family=Hi+Melody&family=Jua&family=Zen+Loop&display=swap');
 </style>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mall/common/shopHeader.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mall/common/shopHeader.css?v">
 <header>
 <%-- 상단 --%>
 <div class="t_box1">

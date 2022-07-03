@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mall/cart/cartList.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mall/cart/cartList.css?v">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
@@ -139,17 +139,18 @@
             $(".td_cart_list").each(function (index, element) {
                 if ($(element).find(".checkbox_individual_cart").is(":checked") === true) { // 체크여부
                     let product_id = $(element).find(".input_individual_product_id").val();
-                    let order_amount = $(element).find(".input_individual_totalPrice").val();
                 	let order_quantity = $(element).find(".input_individual_order_quantity").val();
+                    let order_amount = $(element).find(".input_individual_totalPrice").val();
                     
                     let product_id_input = "<input name='orderList[" + orderNumber + "].product_id' type='hidden' value='" + product_id + "'>";
                     form_contents += product_id_input;
                     
+                    let order_quantity_input = "<input name='orderList[" + orderNumber + "].order_quantity' type='hidden' value='" + order_quantity + "'>";
+                    form_contents += order_quantity_input;
+                    
                     let order_amount_input = "<input name='orderList[" + orderNumber + "].order_amount' type='hidden' value='" + order_amount + "'>";
                     form_contents += order_amount_input;
                     
-                    let order_quantity_input = "<input name='orderList[" + orderNumber + "].order_quantity' type='hidden' value='" + order_quantity + "'>";
-                    form_contents += order_quantity_input;
                     
                     orderNumber += 1;
                 }

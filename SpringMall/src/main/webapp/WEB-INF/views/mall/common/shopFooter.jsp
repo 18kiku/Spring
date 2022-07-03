@@ -4,7 +4,7 @@
 
 
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mall/common/shopFooter.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mall/common/shopFooter.css?v">
 <footer>
 <hr class="start_line">
 <div class="b_box1">
