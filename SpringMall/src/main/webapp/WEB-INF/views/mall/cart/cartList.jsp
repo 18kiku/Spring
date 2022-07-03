@@ -11,19 +11,29 @@
 <script>
     $(document).ready(function () { /* 종합 정보 섹션 정보 삽입 */
         setTotalInfo();
-        /* 체크여부에따른 종합 정보 변화 */
+        /* 체크여부에따른 종합 정보 변화  */ 
         $(".checkbox_individual_cart").on("change", function () { /* 총 주문 정보 세팅(배송비, 총 가격, 마일리지, 물품 수, 종류) */
             setTotalInfo($(".td_cart_list"));
         });
         /* 체크박스 전체 선택 */
         $(".input_all_check").on("click", function () { /* 체크박스 체크/해제 */
-            if ($(".input_all_check").prop("checked")) {
-                $(".checkbox_individual_cart").attr("checked", true);
+            if ($(".input_all_check").is(":checked")) {
+                $(".checkbox_individual_cart").prop("checked", true);
             } else {
-                $(".checkbox_individual_cart").attr("checked", false);
+                $(".checkbox_individual_cart").prop("checked", false);
             }
-            /* 총 주문 정보 세팅(배송비, 총 가격, 마일리지, 물품 수, 종류) */
-            setTotalInfo($(".td_cart_list"));
+        $(".checkbox_individual_cart").on("click", function(){
+        	let total_checkbox = $("checkbox_individual_cart").length;
+        	let checked = $("checkbox_individual_cart:checked").length;
+        	
+        	if(total_checkbox != checked) {
+        		$(".input_all_check").prop("checked", false);
+        	} else {
+        		$(".input_all_check").prop("checked", true);
+        	}
+        })
+        /* 총 주문 정보 세팅(배송비, 총 가격, 마일리지, 물품 수, 종류) */
+        setTotalInfo($(".td_cart_list"));
         });
         /* 수량버튼 */
         $(".btn_plus").on("click", function () {
@@ -137,23 +147,20 @@
             let form_contents = '';
             let orderNumber = 0;
             $(".td_cart_list").each(function (index, element) {
-                if ($(element).find(".checkbox_individual_cart").is(":checked") === true) { // 체크여부
-                    let product_id = $(element).find(".input_individual_product_id").val();
-                	let order_quantity = $(element).find(".input_individual_order_quantity").val();
-                    let order_amount = $(element).find(".input_individual_totalPrice").val();
-                    
-                    let product_id_input = "<input name='orderList[" + orderNumber + "].product_id' type='hidden' value='" + product_id + "'>";
-                    form_contents += product_id_input;
-                    
-                    let order_quantity_input = "<input name='orderList[" + orderNumber + "].order_quantity' type='hidden' value='" + order_quantity + "'>";
-                    form_contents += order_quantity_input;
-                    
-                    let order_amount_input = "<input name='orderList[" + orderNumber + "].order_amount' type='hidden' value='" + order_amount + "'>";
-                    form_contents += order_amount_input;
-                    
-                    
-                    orderNumber += 1;
-                }
+	            let product_id = $(element).find(".input_individual_product_id").val();
+	        	let order_quantity = $(element).find(".input_individual_order_quantity").val();
+	            let order_amount = $(element).find(".input_individual_totalPrice").val();
+	            
+	            let product_id_input = "<input name='orderList[" + orderNumber + "].product_id' type='hidden' value='" + product_id + "'>";
+	            form_contents += product_id_input;
+	            
+	            let order_quantity_input = "<input name='orderList[" + orderNumber + "].order_quantity' type='hidden' value='" + order_quantity + "'>";
+	            form_contents += order_quantity_input;
+	            
+	            let order_amount_input = "<input name='orderList[" + orderNumber + "].order_amount' type='hidden' value='" + order_amount + "'>";
+	            form_contents += order_amount_input;
+            
+            	orderNumber += 1;
             });
             $(".orderForm").html(form_contents);
             $(".orderForm").submit();
@@ -205,17 +212,15 @@
 <div class="wrapper">
 	<div class="wrap">
 		<div class="content_area">
-			
 			<div class="content_subject"><span>장바구니</span></div>
 			<!-- 장바구니 리스트 -->
 			<div class="content_middle_section"></div>
-			<!-- 장바구니 가격 합계 -->
 			<!-- cartList -->
 			<div class="content_totalCount_section">
 				
 				<!-- 체크박스 전체 여부 -->
 				<div class="div_all_input">
-					<span class="span_all_check"><input type="checkbox" class="input_all_check input_size_20" checked="checked">전체선택</span>
+					<span class="span_all_check"><input type="checkbox" class=" input_size_20" checked="checked">전체선택</span>
 					<input type="button" class="input_all_delete input_size_4020" data-orderer_id="${member.id }" value="전체 삭제">
 				</div>			
 				<div class="clearfix"></div>
@@ -245,7 +250,7 @@
 									<input type="hidden" class="input_individual_product_price" value="${cart.product_price}">
 									<input type="hidden" class="input_individual_order_amount" value="${cart.salePrice}">
 									<input type="hidden" class="input_individual_order_quantity" value="${cart.order_quantity}">
-									<input type="hidden" class="input_individual_totalPrice" value="${cart.salePrice * cart.order_quantity}">
+									<input type="hidden" class="input_individual_totalPrice" value="${cart.totalPrice}">
 									<input type="hidden" class="input_individual_product_id" value="${cart.product_id}">								
 								</td>
 								<td class="td_width_2">
@@ -345,6 +350,41 @@
 			<form action="orderCheck.do?orderer_id=${member.id}" method="get" class="orderForm">
 
 			</form>
+		</div>
+		<div class="paging">
+			<!-- 첫 페이지 -->
+			<c:if test="${pageDTO.prev }">
+				<a href="cartList.do?pageNum=1" class="p_box p_box_bold"><<</a>
+			</c:if>
+			<!-- 이전 페이지 -->
+			<c:if test="${pageDTO.prev }">
+				<c:set var="pageNum" value="${param.pageNum-10 }"/>	
+				<a href="cartList.do?pageNum=${pageNum }" class="p_box p_box_bold"><</a>
+			</c:if>
+			
+			<!-- 페이지 번호 -->
+			<c:forEach var="pageNum" varStatus="s" begin="${pageDTO.startPage }" end="${pageDTO.endPage }">
+				<c:if test="${param.pageNum == pageNum }">
+					<a href="cartList.do?pageNum=${pageNum }" class="p_box_choice">${pageNum }</a>
+				</c:if>
+				<c:if test="${param.pageNum != pageNum }">
+					<a href="cartList.do?pageNum=${pageNum }" class="p_box">${pageNum }</a>
+				</c:if>
+			</c:forEach>
+			
+			<!-- 다음 페이지 -->
+			<c:if test="${pageDTO.next }">
+			<c:set var="pageNum" value="${param.pageNum+10 }"/>
+				<c:if test="${pageNum > pageDTO.pageCount }">
+					<c:set var="pageNum" value="${pageDTO.pageCount-1 }"/>
+				</c:if>
+				<a href="cartList.do?pageNum=${pageNum }" class="p_box p_box_bold">></a>
+			</c:if>
+			<!-- 마지막 페이지 -->
+			<c:if test="${pageDTO.prev }">
+			<c:set var="pageNum" value="${pageDTO.pageCount }"/>
+				<a href="cartList.do?pageNum=${pageNum-1 }" class="p_box p_box_bold">>></a>
+			</c:if>
 		</div>
 	</div>	<!-- class="wrap" -->
 </div>	<!-- class="wrapper" -->

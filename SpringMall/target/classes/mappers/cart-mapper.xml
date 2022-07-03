@@ -55,10 +55,17 @@
 	
 	<select id="getCartList" resultMap="cartResult">
 		<![CDATA[
-		select * from cart inner join product
+		select * from cart join product
 		on cart.product_id = product.product_id
 		where orderer_id = #{orderer_id}
 		order by cart_id desc
+		]]>
+	</select>
+	
+	<select id="getCartCount" resultType="int">
+		<![CDATA[
+		select count(*) from cart
+		where orderer_id = #{orderer_id}
 		]]>
 	</select>
 </mapper>					

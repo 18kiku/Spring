@@ -13,14 +13,14 @@ public class OrderDTO {
 	private String order_id;
 	private String orderer_id;
 	private int product_id;
-	private int order_amount;
 	private int order_quantity;
+	private int order_amount;
 	private Timestamp order_date;
-	private String delivery_name;
-	private String delivery_tel;
-	private String delivery_postcode;
-	private String delivery_address;
-	private String delivery_address_detail;
+	private String addressee;
+	private String tel;
+	private String postcode;
+	private String address;
+	private String address_detail;
 	private String delivery_state;
 	
 	private int salePrice;

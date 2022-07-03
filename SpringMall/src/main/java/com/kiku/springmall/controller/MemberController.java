@@ -52,7 +52,7 @@ public class MemberController {
 	public String logout(HttpSession session){
 		System.out.println("=> MemberController - 로그아웃 처리");
 		session.invalidate();
-		return "shop.main";
+		return "redirect:shopMain.do";
 	}
 	
 	// ######################
@@ -62,8 +62,8 @@ public class MemberController {
 			System.out.println("=> MemberController - insertMember");
 			return "memberJoin";
 		}
-		@RequestMapping("/memberCheck.do")
 		@ResponseBody
+		@RequestMapping("/memberCheck.do")
 		public int checkMember(@RequestParam("id") String id){
 			int cnt = 0;
 			MemberDTO dto = new MemberDTO();

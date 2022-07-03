@@ -71,13 +71,13 @@
 			where 1=1
 			]]>
 			<if test="searchCondition == 'PRODUCT_CATEGORY'">
-			and product_category like '%'||#{searchKeyword}||'%'
+			and product_category like '%'||#{product.searchKeyword}||'%'
 			</if>
 			<if test="searchCondition == 'PRODUCT_NAME'">
-			and product_name like '%'||#{searchKeyword}||'%'
+			and product_name like '%'||#{product.searchKeyword}||'%'
 			</if>
 			<![CDATA[
-			) where rnum >= ((#{block.pageNum}-1) * #{block.amount}) and rnum <= #{block.pageNum} * #{block.amount}
+			) where rnum > ((#{block.pageNum}-1) * #{block.amount}) and rnum <= #{block.pageNum} * #{block.amount}
 			order by product_id desc
 			]]>
 		

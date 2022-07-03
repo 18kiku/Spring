@@ -9,7 +9,7 @@
 <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mall/order/orderCheck.css?v">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mall/order/orderCheck.css?v3">
 
 <script>
     $(document).ready(function () { /* 주문 조합정보란 최신화 */
@@ -80,11 +80,11 @@
                 }
                 // 제거해야할 코드
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                $(".input_delivery_postcode").val(data.zonecode);
-                $(".input_delivery_address").val(addr);
+                $(".input_postcode").val(data.zonecode);
+                $(".input_address").val(addr);
                 // 커서를 상세주소 필드로 이동한다.
-                $(".input_delivery_address_detail").attr("readonly", false);
-                $(".input_delivery_address_detail").focus();
+                $(".input_address_detail").attr("readonly", false);
+                $(".input_address_detail").focus();
             }
         }).open();
     }
@@ -146,12 +146,35 @@
                 msg += '상점 거래ID : ' + rsp.merchant_uid;
                 msg += '결제 금액 : ' + rsp.paid_amount;
                 msg += '카드 승인번호 : ' + rsp.apply_num;
+                alert(msg);
+                order(rsp.merchant_uid);
             } else {
                 var msg = '결제에 실패하였습니다.';
                 msg += '에러내용 : ' + rsp.error_msg;
+                alert(msg);
             }
-            alert(msg);
         });
+        /*
+        function(rsp) {
+			console.log(rsp);
+			// 결제검증
+			$.ajax({
+	        	type : "POST",
+	        	url : "/verifyIamport/" + rsp.imp_uid 
+	        }).done(function(data) {
+	        	
+	        	console.log(data);
+	        	
+	        	// 위의 rsp.paid_amount 와 data.response.amount를 비교한후 로직 실행 (import 서버검증)
+	        	if(rsp.paid_amount == data.response.amount){
+		        	alert("결제 및 결제검증완료");
+		        	//order();
+	        	} else {
+	        		alert("결제 실패");
+	        	}
+	        });
+		});
+    	*/
     };
     function uuidv4() {
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -163,29 +186,74 @@
         });
     }
     /* 주문 요청 */
-    $(".btn_order").on("click", function () { /* 주소 정보 & 받는이*/
-        $(".div_addressInfo_input").each(function (i, obj) {
+    function order(uid) { /* 주소 정보 & 받는이*/
+    	$("input[name='order_id']").val(uid);
+    	let addressee = "";
+        let tel = "";
+        let postcode = "";
+        let address = "";
+        let address_detail = "";
+        $(".div_addressInfo_input").each(function(i, obj){
             if ($(obj).find(".selectAddress").val() === 'T') {
-                $("input[name='delivery_name']").val($(obj).find(".input_delivery_name").val());
-                $("input[name='delivery_postcode']").val($(obj).find(".input_postcode").val());
-                $("input[name='delivery_address']").val($(obj).find(".input_address").val());
-                $("input[name='delivery_address_detail']").val($(obj).find(".input_address_detail").val());
+                addressee = $(obj).find(".input_addressee").val();
+                tel = $(obj).find(".input_tel").val();
+                postcode = $(obj).find(".input_postcode").val();
+                address = $(obj).find(".input_address").val();
+                address_detail = $(obj).find(".input_address_detail").val();
+            } else if ($(obj).find(".selectAddress").val() === 'F') {
+            	addressee = $(obj).find(".input_addressee").val();
+                tel = $(obj).find(".input_tel").val();
+                postcode = $(obj).find(".input_postcode").val();
+                address = $(obj).find(".input_address").val();
+                address_detail = $(obj).find(".input_address_detail").val();
             }
         });
         /* 상품정보 */
         let form_contents = '';
         $(".td_table_products_price").each(function (index, element) {
-            let product_id = $(element).find(".input_individual_product_id").val();
+            let order_id = uid;
+            let orderer_id = $("input[name='orderer_id']").val();
+        	let product_id = $(element).find(".input_individual_product_id").val();
             let order_quantity = $(element).find(".input_individual_order_quantity").val();
-            let product_id_input = "<input name='orders[" + index + "].product_id' type='hidden' value='" + product_id + "'>";
+            let order_amount = $(element).find(".input_individual_order_amount").val();
+            
+            
+            let order_id_input = "<input name='orderList[" + index + "].order_id' type='hidden' value='" + order_id + "'>";
+            form_contents += order_id_input;
+            
+            let orderer_id_input = "<input name='orderList[" + index + "].orderer_id' type='hidden' value='" + orderer_id + "'>";
+            form_contents += orderer_id_input;
+            
+            let product_id_input = "<input name='orderList[" + index + "].product_id' type='hidden' value='" + product_id + "'>";
             form_contents += product_id_input;
-            let order_quantity_input = "<input name='orders[" + index + "].order_quantity' type='hidden' value='" + order_quantity + "'>";
+            
+            let order_quantity_input = "<input name='orderList[" + index + "].order_quantity' type='hidden' value='" + order_quantity + "'>";
             form_contents += order_quantity_input;
+            
+            let order_amount_input = "<input name='orderList[" + index + "].order_amount' type='hidden' value='" + order_amount + "'>";
+            form_contents += order_amount_input;
+            
+            let addressee_input = "<input name='orderList[" + index + "].addressee' type='hidden' value='" + addressee + "'>";
+            form_contents += addressee_input;
+            
+            let tel_input = "<input name='orderList[" + index + "].tel' type='hidden' value='" + tel + "'>";
+            form_contents += tel_input;
+            
+            let postcode_input = "<input name='orderList[" + index + "].postcode' type='hidden' value='" + postcode + "'>";
+            form_contents += postcode_input;
+            
+            let address_input = "<input name='orderList[" + index + "].address' type='hidden' value='" + address + "'>";
+            form_contents += address_input;
+            
+            let address_detail_input = "<input name='orderList[" + index + "].address_detail' type='hidden' value='" + address_detail + "'>";
+            form_contents += address_detail_input;
+            
+            
         });
         $(".order_form").append(form_contents);
         /* 서버 전송 */
         $(".order_form").submit();
-    });
+    };
 </script>
 
 <main>
@@ -232,18 +300,26 @@
 								<td>
 									 ${member.name}
 								</td>
+								<th>
+									전화번호
+								</th>
+								<td>
+									 ${member.tel}
+								</td>
 							</tr>
 							<tr>
 								<th>
 									주소
 								</th>
 								<td>
+									
 									 ${member.address} ${member.address_detail}<br>
-									${member.postcode} <input class="selectAddress" value="T" type="hidden">
-									<input class="input_delivery_name" value="${member.name}" type="hidden">
-									<input class="input_postcode" type="hidden" value="${member.postcode}">
-									<input class="input_address" type="hidden" value="${member.address}">
-									<input class="input_address_detail" type="hidden" value="${member.address_detail}">
+									${member.postcode} <input type="hidden" class="selectAddress" value="T">
+									<input type="hidden" class="input_addressee" value="${member.name}">
+									<input type="hidden" class="input_tel" value="${member.tel }">
+									<input type="hidden" class="input_postcode" value="${member.postcode}">
+									<input type="hidden" class="input_address" value="${member.address}">
+									<input type="hidden" class="input_address_detail" value="${member.address_detail}">
 								</td>
 							</tr>
 							</tbody>
@@ -261,18 +337,24 @@
 									이름
 								</th>
 								<td>
-									<input class="input_delivery_name">
+									<input type="text" class="input_addressee" value="치로루">
+								</td>
+								<th>
+									tel
+								</th>
+								<td>
+									<input type="tel" class="input_tel" value="010-1111-1111">
 								</td>
 							</tr>
 							<tr>
 								<th>
 									주소
 								</th>
-								<td>
-									<input class="selectAddress" value="F" type="hidden">
-									<input class="input_delivery_postcode" readonly="readonly"><a class="btn_addres_search" onclick="execution_daum_address()">주소 찾기</a><br>
-									<input class="input_delivery_address" readonly="readonly"><br>
-									<input class="input_delivery_address_detail" readonly="readonly">
+								<td colspan="2">
+									<input type="hidden" class="selectAddress" value="F">
+									<input type="text" class="input_postcode" readonly="readonly" value="13536">&ensp;<a class="btn_addres_search" onclick="execution_daum_address()">주소 찾기</a><br>
+									<input type="text" class="input_address" readonly="readonly" value="경기 성남시 분당구 판교역로 4 (백현동)"><br>
+									<input type="text" class="input_address_detail" readonly="readonly" value="1번지">
 								</td>
 							</tr>
 							</tbody>
@@ -318,10 +400,10 @@
 					<tr>
 						<td>
 							<div class="image_wrap">
-								<img>
+								<img src="${pageContext.request.contextPath}/resources/img/${order.product_image }">
 							</div>
 						</td>
-						<td>
+						<td class="td_table_products_name">
 							${order.product_name}
 						</td>
 						<td class="td_table_products_price">
@@ -346,17 +428,17 @@
 						<ul>
 							<li>
 							<span class="span_price_label">상품 금액</span>
-							<span class="span_totalPrice">100000</span>원 </li>
+							<span class="span_totalPrice">????</span>원 </li>
 							<li>
 							<span class="span_price_label">배송비</span>
-							<span class="span_delivery_price">100000</span>원 </li>
+							<span class="span_delivery_price">????</span>원 </li>
 							<li>
 							<span class="span_price_label">할인금액</span>
 							<li class="li_price_total">
 							<strong class="span_price_label total_price_label">최종 결제 금액</strong>
 							<strong class="strong_red">
 							<span class="total_price_red span_finalTotalPrice">
-							1500000 </span>원 </strong>
+							???? </span>원 </strong>
 							</li>
 						</ul>
 					</div>
@@ -367,15 +449,11 @@
 					</div>
 				</div>
 			</div>
-			<!-- 주문 요청 form -->
-			<form class="order_form" action="orderList.do" method="post">
-				<!-- 주문자 회원번호 -->
-				<input name="orderer_id" value="${member.id}" type="hidden">
-				<!-- 주소록 & 받는이-->
-				<input name="delivery_name" type="hidden">
-				<input name="delivery_postcode" type="hidden">
-				<input name="delivery_address" type="hidden">
-				<input name="delivery_address_detail" type="hidden">
+			<!-- 주문 완료 form -->
+			<form class="order_form" action="orderInsert.do" method="post">
+				<!-- 주문자 아이디 -->
+				<input type="hidden" name="order_id">
+				<input type="hidden" name="orderer_id" value="${member.id}">
 				<!-- 상품 정보 -->
 			</form>
 		</div>

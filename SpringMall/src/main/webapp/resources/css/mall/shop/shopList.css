@@ -26,7 +26,7 @@ main {
 .c_product {
 	display:inline-block;
 	width:250px;
-	height:370px;
+	height:350px;
 	margin:25px;
 }
 .d_category2 {
@@ -56,6 +56,10 @@ main {
 	white-space:nowrap;
 	overflow:hidden;
 	text-overflow:ellipsis;
+}
+.c_product .c_p2:hover,.c_product .c_p3:hover {
+	white-space:nowrap;
+	overflow:visible;
 }
 .c_product .s_p_discount {
 	clolor: #f00;

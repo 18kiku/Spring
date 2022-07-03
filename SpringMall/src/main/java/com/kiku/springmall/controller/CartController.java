@@ -29,9 +29,9 @@ public class CartController {
 		}
 		return "login";
 	}
-	
-	@RequestMapping(value="/cartInsert.do")
+
 	@ResponseBody
+	@RequestMapping(value="/cartInsert.do")
 	public int insertCart(CartDTO dto, Model model, HttpSession session) {
 		System.out.println("=> CartController - insertCart");
 		MemberDTO member = (MemberDTO)session.getAttribute("member");
@@ -61,9 +61,9 @@ public class CartController {
 		}
 		return message;
 	}
-	
-	@RequestMapping(value="/cartUpdate.do")
+
 	@ResponseBody
+	@RequestMapping(value="/cartUpdate.do")
 	public int updateCart(CartDTO dto, HttpSession session) {
 		System.out.println("=> CartController - updateCart");
 		MemberDTO member = (MemberDTO)session.getAttribute("member");
@@ -74,9 +74,9 @@ public class CartController {
 		}
 		return cartService.updateCart(dto);
 	}
-	
-	@RequestMapping(value="/cartDelete.do")
+
 	@ResponseBody
+	@RequestMapping(value="/cartDelete.do")
 	public int deleteCart(CartDTO dto, HttpSession session) {
 		System.out.println("=> CartController - deleteCart");
 		MemberDTO member = (MemberDTO)session.getAttribute("member");
@@ -85,9 +85,9 @@ public class CartController {
 		}
 		return cartService.deleteCart(dto);
 	}
-	
-	@RequestMapping(value="/cartDeleteAll.do")
+
 	@ResponseBody
+	@RequestMapping(value="/cartDeleteAll.do")
 	public int deleteCartAll(CartDTO dto, HttpSession session) {
 		System.out.println("=> CartController - deleteCartList");
 		MemberDTO member = (MemberDTO)session.getAttribute("member");

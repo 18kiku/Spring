@@ -5,7 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mall/shop/shopList.css?vz">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mall/shop/shopList.css?vzz">
 <script>
 	$(document).ready(function(){
 		$(".btn_order").on("click",function(e){
@@ -42,9 +42,6 @@
 				<span title="${product.product_brand }">${product.product_brand }</span>
 			</div>
 			<div class="c_p4">
-				<span><fmt:formatNumber value="${product.product_price }" pattern="#,###,###원"/></span>
-			</div>
-			<div class="c_p5">
 				<span><fmt:formatNumber value="${product.product_price - (product.product_price*product.discount_rate/100) }" pattern="#,###,###원"/></span>
 				<input type="hidden" class="input_sale_price" value="${product.product_price - (product.product_price*product.discount_rate/100) }">
 			</div>

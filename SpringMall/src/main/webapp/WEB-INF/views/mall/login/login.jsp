@@ -4,6 +4,7 @@
 <script>
 	document.addEventListener("DOMContentLoaded", function(){
 		let form = document.loginForm;
+		form.id.focus();
 		// 로그인 버튼을 클릭했을때 유효성검사 (공백유무)
 		let btn_login = document.getElementById("btn_login");
 		btn_login.addEventListener("click", function(){

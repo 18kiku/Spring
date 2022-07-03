@@ -19,9 +19,20 @@
 			<id>oracle</id>
 			<url>https://maven.jahia.org/maven2</url>
 		</repository>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
 	</repositories>
 	
 	<dependencies>
+		
+		<!-- iamport -->
+		<dependency>
+		  <groupId>com.github.iamport</groupId>
+		  <artifactId>iamport-rest-client-java</artifactId>
+		  <version>0.2.14</version>
+		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.apache.tiles/tiles-jsp -->
 		<dependency>
@@ -29,7 +40,7 @@
 		    <artifactId>tiles-jsp</artifactId>
 		    <version>3.0.8</version>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/org.apache.tiles/tiles-core -->
 		<dependency>
 		    <groupId>org.apache.tiles</groupId>

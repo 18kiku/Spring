@@ -156,6 +156,9 @@ table {
 .table_products tr {
     height: 110px;
 }
+.td_table_products_name {
+    text-align: center;
+}
 .td_table_products_price {
     text-align: center;
 }
