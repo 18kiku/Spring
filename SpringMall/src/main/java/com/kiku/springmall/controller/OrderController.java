@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kiku.springmall.service.BlockDTO;
+import com.kiku.springmall.service.CartDTO;
+import com.kiku.springmall.service.CartService;
 import com.kiku.springmall.service.MemberDTO;
 import com.kiku.springmall.service.OrderDTO;
 import com.kiku.springmall.service.OrderService;
@@ -30,6 +32,9 @@ public class OrderController {
 	
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private CartService CartService;
 	
 	@GetMapping("/orderCheck.do")
 	public String checkOrder(OrderDTO dto, Model model, HttpSession session){
@@ -64,9 +69,12 @@ public class OrderController {
 		if(member == null) {
 			return "redirect:memberLogin.do";
 		}
-		
 		for(OrderDTO order : dto.getOrderList()) {
 			orderService.insertOrder(order);
+			CartDTO cart = new CartDTO();
+			cart.setOrderer_id(order.getOrderer_id());
+			cart.setProduct_id(order.getProduct_id());
+			CartService.deleteCart(cart); // 주문 완료 후 장바구니 삭제
 		}
 		List<OrderDTO> orderList = orderService.getOrder(dto);
 		model.addAttribute("orderList", orderList);

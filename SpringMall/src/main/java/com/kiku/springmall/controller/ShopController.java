@@ -35,6 +35,7 @@ public class ShopController {
 	public String shopList(ProductDTO dto, Model model, BlockDTO block) {
 		dto.setSearchCondition("PRODUCT_CATEGORY");
 		dto.setSearchKeyword(dto.getProduct_category());
+		System.out.println(dto);
 		int totalCount = productService.getProductCount(dto);
 		model.addAttribute("pageDTO", new PageDTO(block, totalCount));
 		model.addAttribute("productList", productService.getProductList(dto, block));

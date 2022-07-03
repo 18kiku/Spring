@@ -48,7 +48,8 @@ public class ProductDAO {
 		Map<String, Object> pagingMap = new HashMap<String, Object>();
 		pagingMap.put("product", dto);
 		pagingMap.put("block", block);
-		System.out.println(pagingMap);
+		System.out.println("페이징" + pagingMap);
+		System.out.println("결과 : " + sqlSession.selectList("ProductDAO.getProductList", pagingMap));
 		return sqlSession.selectList("ProductDAO.getProductList", pagingMap);
 	}
 	

@@ -132,13 +132,13 @@
             pg: "카카오페이",
             pay_method: "card",
             merchant_uid: uuidv4(),
-            name: "상품",
+            name: $(".input_product_name").val(),
             amount: 1,
-            buyer_email: "18kiku@gmil.com",
-            buyer_name: "키쿠",
-            buyer_tel: "010-9362-9589",
-            buyer_addr: "서울특별시 강남구 신사동",
-            buyer_postcode: "01181"
+            buyer_email: $(".input_email").val(),
+            buyer_name: $(".div_addressInfo_input_1").find(".input_addressee").val(),
+            buyer_tel: $(".div_addressInfo_input_1").find(".input_tel").val(),
+            buyer_addr: $(".div_addressInfo_input_1").find(".input_address").val(),
+            buyer_postcode: $(".div_addressInfo_input_1").find(".input_postcode").val()
         }, function (rsp) { // callback
             if (rsp.success) {
                 var msg = '결제가 완료되었습니다.';
@@ -154,28 +154,8 @@
                 alert(msg);
             }
         });
-        /*
-        function(rsp) {
-			console.log(rsp);
-			// 결제검증
-			$.ajax({
-	        	type : "POST",
-	        	url : "/verifyIamport/" + rsp.imp_uid 
-	        }).done(function(data) {
-	        	
-	        	console.log(data);
-	        	
-	        	// 위의 rsp.paid_amount 와 data.response.amount를 비교한후 로직 실행 (import 서버검증)
-	        	if(rsp.paid_amount == data.response.amount){
-		        	alert("결제 및 결제검증완료");
-		        	//order();
-	        	} else {
-	        		alert("결제 실패");
-	        	}
-	        });
-		});
-    	*/
     };
+    /* 결제 id(=order_id) 생성*/
     function uuidv4() {
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
             var r = Math.random() * 16 | 0,
@@ -186,7 +166,7 @@
         });
     }
     /* 주문 요청 */
-    function order(uid) { /* 주소 정보 & 받는이*/
+    function order(uid) { /* 주소 정보 & 수령인*/
     	$("input[name='order_id']").val(uid);
     	let addressee = "";
         let tel = "";
@@ -274,6 +254,8 @@
 						</th>
 						<td style="width: *">
 							${member.name} | ${member.email}
+							<input type="hidden" class="input_name" value="${member.name}">
+							<input type="hidden" class="input_email" value="${member.email}">
 						</td>
 					</tr>
 					</tbody>
@@ -405,6 +387,7 @@
 						</td>
 						<td class="td_table_products_name">
 							${order.product_name}
+							<input type="hidden" class="input_product_name" value="${order.product_name}">
 						</td>
 						<td class="td_table_products_price">
 							<fmt:formatNumber value="${order.salePrice}" pattern="#,### 원"/> | 수량 ${order.order_quantity}개 <br>

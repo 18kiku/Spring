@@ -37,7 +37,9 @@
 	
 	<delete id="deleteCart">
 		<![CDATA[
-		delete from cart where cart_id=#{cart_id}
+		delete from cart 
+		where orderer_id = #{orderer_id}
+		and product_id = #{product_id}
 		]]>
 	</delete>
 	

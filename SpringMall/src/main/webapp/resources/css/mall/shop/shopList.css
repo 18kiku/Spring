@@ -125,11 +125,20 @@ main {
     border-radius: 10px;
 }
 .p_box_choice {
+	width: 32px;
+    height: 22px;
+    padding: 5px;
     background: #495057;
     color: #fff;
     font-weight: bold;
     border-radius: 10px;
     box-shadow: 1px 1px 1px gray;
+}
+.p_box_choice:hover {
+	background: #495057;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 10px;
 }
 .p_box_bold {
     font-weight: 900;

@@ -55,17 +55,17 @@
 	<%-- 구역4 (하단): 메인메뉴(하위메뉴) --%>
 	<div class="hover">
 		<div class="m_menu1 main">
-			<a href="#">컴퓨터공학 학사</a>
+			<a href="#">컴퓨터공학</a>
 		</div>
 		<div class="s_menu1 sub">
 			<div>
-				<a href="shopList.do?product_category=111">대학교</a>
+				<a href="shopList.do?product_category=111">ㅇㅇㅇ</a>
 			</div>
 			<div>
-				<a href="shopList.do?product_category=121">남성한복</a>
+				<a href="shopList.do?product_category=121">ㅇㅇㅇ</a>
 			</div>
 			<div>
-				<a href="shopList.do?product_category=131">배자/쾌자</a>
+				<a href="shopList.do?product_category=131">ㅇㅇㅇ</a>
 			</div>
 		</div>
 	</div>
@@ -75,16 +75,16 @@
 		</div>
 		<div class="s_menu2 sub">
 			<div>
-				<a href="shopList.do?product_category=211">여성 저고리</a>
+				<a href="shopList.do?product_category=211">ㅇㅇㅇ</a>
 			</div>
 			<div>
-				<a href="shopList.do?product_category=221">여성 치마</a>
+				<a href="shopList.do?product_category=221">ㅇㅇㅇ</a>
 			</div>
 			<div>
-				<a href="shopList.do?product_category=231">여성 원피스</a>
+				<a href="shopList.do?product_category=231">ㅇㅇㅇ</a>
 			</div>
 			<div>
-				<a href="shopList.do?product_category=241">남성 생활한복</a>
+				<a href="shopList.do?product_category=241">ㅇㅇㅇ</a>
 			</div>
 		</div>
 	</div>
@@ -94,7 +94,7 @@
 		</div>
 		<div class="s_menu3 sub">
 			<div>
-				<a href="shopList.do?product_category=300">궁중한복</a>
+				<a href="shopList.do?product_category=300">ㅇㅇㅇ</a>
 			</div>
 		</div>
 	</div>
@@ -104,10 +104,10 @@
 		</div>
 		<div class="s_menu4 sub">
 			<div>
-				<a href="shopList.do?product_category=411">여아 한복</a>
+				<a href="shopList.do?product_category=411">ㅇㅇㅇ</a>
 			</div>
 			<div>
-				<a href="shopList.do?product_category=421">남아 한복</a>
+				<a href="shopList.do?product_category=421">ㅇㅇㅇ</a>
 			</div>
 		</div>
 	</div>

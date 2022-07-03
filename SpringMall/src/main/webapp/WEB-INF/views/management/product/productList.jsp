@@ -81,6 +81,7 @@
 	<c:if test="${productList[0] != null }">
 	<c:forEach var="product" items="${productList }">
 	<tr>
+	
 		<td class="center">
 			<c:if test="${param.pageNum == null }">
 			<a href="productDetail.do?product_id=${product.product_id}&pageNum=1">${product.product_id }</a>	
@@ -155,38 +156,75 @@
 	</c:if>
 	</table>
 	<div class="paging">
-		<!-- 첫 페이지 -->
-		<c:if test="${pageDTO.prev }">
-			<a href="productList.do?pageNum=1" class="p_box p_box_bold"><<</a>
-		</c:if>
-		<!-- 이전 페이지 -->
-		<c:if test="${pageDTO.prev }">
-			<c:set var="pageNum" value="${param.pageNum-10 }"/>	
-			<a href="productList.do?pageNum=${pageNum }" class="p_box p_box_bold"><</a>
-		</c:if>
-		
-		<!-- 페이지 번호 -->
-		<c:forEach var="pageNum" varStatus="s" begin="${pageDTO.startPage }" end="${pageDTO.endPage }">
-			<c:if test="${param.pageNum == pageNum }">
-				<a href="productList.do?pageNum=${pageNum }" class="p_box_choice">${pageNum }</a>
+		<c:if test="${product.searchKeword == null}">
+			<!-- 첫 페이지 -->
+			<c:if test="${pageDTO.prev }">
+				<a href="productList.do?pageNum=1" class="p_box p_box_bold" ><<</a>
 			</c:if>
-			<c:if test="${param.pageNum != pageNum }">
-				<a href="productList.do?pageNum=${pageNum }" class="p_box">${pageNum }</a>
+			<!-- 이전 페이지 -->
+			<c:if test="${pageDTO.prev }">
+				<c:set var="pageNum" value="${param.pageNum-10 }"/>	
+				<a href="productList.do?pageNum=${pageNum }" class="p_box p_box_bold"><</a>
 			</c:if>
-		</c:forEach>
-		
-		<!-- 다음 페이지 -->
-		<c:if test="${pageDTO.next }">
-		<c:set var="pageNum" value="${param.pageNum+10 }"/>
-			<c:if test="${pageNum > pageDTO.pageCount }">
-				<c:set var="pageNum" value="${pageDTO.pageCount-1 }"/>
+			
+			<!-- 페이지 번호 -->
+			<c:forEach var="pageNum" varStatus="s" begin="${pageDTO.startPage }" end="${pageDTO.endPage }">
+				<c:if test="${param.pageNum == pageNum }">
+					<a href="productList.do?pageNum=${pageNum }" class="p_box_choice">${pageNum }</a>
+				</c:if>
+				<c:if test="${param.pageNum != pageNum }">
+					<a href="productList.do?pageNum=${pageNum }" class="p_box">${pageNum }</a>
+				</c:if>
+			</c:forEach>
+			
+			<!-- 다음 페이지 -->
+			<c:if test="${pageDTO.next }">
+			<c:set var="pageNum" value="${param.pageNum+10 }"/>
+				<c:if test="${pageNum > pageDTO.pageCount }">
+					<c:set var="pageNum" value="${pageDTO.pageCount-1 }"/>
+				</c:if>
+				<a href="productList.do?pageNum=${pageNum }" class="p_box p_box_bold">></a>
 			</c:if>
-			<a href="productList.do?pageNum=${pageNum }" class="p_box p_box_bold">></a>
+			<!-- 마지막 페이지 -->
+			<c:if test="${pageDTO.prev }">
+			<c:set var="pageNum" value="${pageDTO.pageCount }"/>
+				<a href="productList.do?pageNum=${pageNum-1 }" class="p_box p_box_bold">>></a>
+			</c:if>
 		</c:if>
-		<!-- 마지막 페이지 -->
-		<c:if test="${pageDTO.prev }">
-		<c:set var="pageNum" value="${pageDTO.pageCount }"/>
-			<a href="productList.do?pageNum=${pageNum-1 }" class="p_box p_box_bold">>></a>
+		<c:if test="${product.searchKeword != null }">
+			<!-- 첫 페이지 -->
+			<c:if test="${pageDTO.prev }">
+				<a href="productList.do?searchKeword=${product[0].searchKeword }&pageNum=1" class="p_box p_box_bold" ><<</a>
+			</c:if>
+			<!-- 이전 페이지 -->
+			<c:if test="${pageDTO.prev }">
+				<c:set var="pageNum" value="${param.pageNum-10 }"/>	
+				<a href="productList.do?searchKeword=${product[0].searchKeword }&pageNum=${pageNum }" class="p_box p_box_bold"><</a>
+			</c:if>
+			
+			<!-- 페이지 번호 -->
+			<c:forEach var="pageNum" varStatus="s" begin="${pageDTO.startPage }" end="${pageDTO.endPage }">
+				<c:if test="${param.pageNum == pageNum }">
+					<a href="productList.do?searchKeword=${product[0].searchKeword }&pageNum=${pageNum }" class="p_box_choice">${pageNum }</a>
+				</c:if>
+				<c:if test="${param.pageNum != pageNum }">
+					<a href="productList.do?searchKeword=${product[0].searchKeword }&pageNum=${pageNum }" class="p_box">${pageNum }</a>
+				</c:if>
+			</c:forEach>
+			
+			<!-- 다음 페이지 -->
+			<c:if test="${pageDTO.next }">
+			<c:set var="pageNum" value="${param.pageNum+10 }"/>
+				<c:if test="${pageNum > pageDTO.pageCount }">
+					<c:set var="pageNum" value="${pageDTO.pageCount-1 }"/>
+				</c:if>
+				<a href="productList.do?searchKeword=${product[0].searchKeword }&pageNum=${pageNum }" class="p_box p_box_bold">></a>
+			</c:if>
+			<!-- 마지막 페이지 -->
+			<c:if test="${pageDTO.prev }">
+			<c:set var="pageNum" value="${pageDTO.pageCount }"/>
+				<a href="productList.do?searchKeword=${product[0].searchKeword }&pageNum=${pageNum-1 }" class="p_box p_box_bold">>></a>
+			</c:if>
 		</c:if>
 	</div>
 </div>

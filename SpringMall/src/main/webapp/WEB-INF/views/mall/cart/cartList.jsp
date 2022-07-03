@@ -93,11 +93,13 @@
             })
         });
         let deleteForm = {
-        		cart_id: ''
+        		orderer_id: '',
+        		product_id: ''
         }
         /* 장바구니 개별 삭제 버튼 */
         $(".btn_delete").on("click", function (e) {
-            deleteForm.cart_id = $(this).data("cart_id");
+            deleteForm.orderer_id = $(this).data("orderer_id");
+            deleteForm.product_id = $(this).data("product_id");
             $.ajax({
             	url: 'cartDelete.do',
             	type: 'POST',
@@ -276,7 +278,7 @@
 									<fmt:formatNumber value="${cart.totalPrice}" pattern="#,### 원" />
 								</td>
 								<td class="td_width_4 table_text_align_center">
-									<input type="button" class="btn_delete" data-cart_id="${cart.cart_id}" value="삭제">
+									<input type="button" class="btn_delete" data-orderer_id="${cart.orderer_id}" data-product_id="${cart.product_id }" value="삭제">
 								</td>
 							</tr>
 						</c:forEach>
