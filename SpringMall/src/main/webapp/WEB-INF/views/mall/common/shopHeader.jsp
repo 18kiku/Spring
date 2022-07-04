@@ -10,13 +10,13 @@
 <%-- 상단 --%>
 <div class="t_box1">
 	<%-- 구역1 (상단좌측): 로그인, 회원가입, 고객센터 --%>
-	<c:if test="${member==null }">
+	<c:if test="${sessionScope.member==null }">
 		<a href="memberLogin.do"><span>로그인</span></a>&ensp;|&ensp; 
 		<a href="memberJoin.do"><span>회원가입</span></a> &ensp;|&ensp; 
 		<a href="#"><span>고객센터</span></a>
 	</c:if>
-	<c:if test="${member !=null }">
-		<a href="memberInfo.do?id=${member.id }">${member.name }님</a>&ensp;|&ensp;
+	<c:if test="${sessionScope.member !=null }">
+		<a href="memberInfo.do?id=${sessionScope.member.id }">${sessionScope.member.name }님</a>&ensp;|&ensp;
 		<a href="memberLogout.do">로그아웃</a>&ensp;|&ensp; 
 		<a href="#"><span>고객센터</span></a>
 	</c:if>
@@ -24,21 +24,21 @@
 </div>
 <div class="t_box2">
 	<%-- 구역2 (상단우측): 회원정보, 구매정보, 장바구니정보 --%>
-	<c:if test="${member !=null }">
-	<a href="memberInfo.do?id=${member.id }">
-	<img src="<spring:url value='/resources/img/user-white.png'/>" width="35" title="회원정보" class="t_box2_img1"> </a>
-	<a href="orderList.do?orderer_id=${member.id }">
-	<img src="<spring:url value='/resources/img/buy-white.png'/>" width="35" title="구매정보" class="t_box2_img2"> </a>
+	<c:if test="${sessionScope.member !=null }">
+	<a href="memberInfo.do?id=${sessionScope.member.id }">
+	<img alt="user-white" src="<spring:url value='/resources/img/user-white.png'/>" width="35" title="회원정보" class="t_box2_img1"> </a>
+	<a href="orderList.do?orderer_id=${sessionScope.member.id }">
+	<img alt="buy-white" src="<spring:url value='/resources/img/buy-white.png'/>" width="35" title="구매정보" class="t_box2_img2"> </a>
 	<a href="cartList.do">
-	<img src="<spring:url value='/resources/img/cart-white.png'/>" width="35" title="장바구니정보" class="t_box2_img3"> </a>
+	<img alt="cart-white" src="<spring:url value='/resources/img/cart-white.png'/>" width="35" title="장바구니정보" class="t_box2_img3"> </a>
 	</c:if>
-	<c:if test="${member==null }">
+	<c:if test="${sessionScope.member==null }">
 	<a href="memberLogin.do">
-	<img src="<spring:url value='/resources/img/user-white.png'/>" width="35" title="회원정보" class="t_box2_img1"> </a>
+	<img alt="user-white" src="<spring:url value='/resources/img/user-white.png'/>" width="35" title="회원정보" class="t_box2_img1"> </a>
 	<a href="memberLogin.do">
-	<img src="<spring:url value='/resources/img/buy-white.png'/>" width="35" title="구매정보" class="t_box2_img2"> </a>
+	<img alt="buy-white" src="<spring:url value='/resources/img/buy-white.png'/>" width="35" title="구매정보" class="t_box2_img2"> </a>
 	<a href="memberLogin.do">
-	<img src="<spring:url value='/resources/img/cart-white.png'/>" width="35" title="장바구니정보" class="t_box2_img3"> </a>
+	<img alt="cart-white" src="<spring:url value='/resources/img/cart-white.png'/>" width="35" title="장바구니정보" class="t_box2_img3"> </a>
 	</c:if>
 </div>
 <div class="t_box3">
@@ -55,7 +55,7 @@
 	<%-- 구역4 (하단): 메인메뉴(하위메뉴) --%>
 	<div class="hover">
 		<div class="m_menu1 main">
-			<a href="#">컴퓨터공학</a>
+			<a href="#">컴퓨터공학과</a>
 		</div>
 		<div class="s_menu1 sub">
 			<div>

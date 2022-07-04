@@ -17,7 +17,7 @@ import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
 
 @Controller
-public class PaymentController {
+public class PaymentController { // 결제 검증 Controller, 구현중
 	
 	private String apiKey = "2427278140350668";
 	private String apiSecret = "4f686575f7e28f5f38385eae0bfbb8a63953d1333faa5e9b9a1526ff4f5433a17ab4f0345b172c6c";

@@ -126,7 +126,7 @@
     $(".btn_payment").on("click", function () {
         
     });
-    function requestPay() { // IMP.request_pay(param, callback) 결제창 호출
+    function requestPay() { // IMP.request_pay(param, callback) 결제창 호출  // (+) 검증하기 기능
         IMP.request_pay({
             // param
             pg: "카카오페이",
@@ -253,9 +253,9 @@
 							주문자
 						</th>
 						<td style="width: *">
-							${member.name} | ${member.email}
-							<input type="hidden" class="input_name" value="${member.name}">
-							<input type="hidden" class="input_email" value="${member.email}">
+							${sessionScope.member.name} | ${sessionScope.member.email}
+							<input type="hidden" class="input_name" value="${sessionScope.member.name}">
+							<input type="hidden" class="input_email" value="${sessionScope.member.email}">
 						</td>
 					</tr>
 					</tbody>
@@ -280,13 +280,13 @@
 									이름
 								</th>
 								<td>
-									 ${member.name}
+									 ${sessionScope.member.name}
 								</td>
 								<th>
 									전화번호
 								</th>
 								<td>
-									 ${member.tel}
+									 ${sessionScope.member.tel}
 								</td>
 							</tr>
 							<tr>
@@ -295,13 +295,13 @@
 								</th>
 								<td>
 									
-									 ${member.address} ${member.address_detail}<br>
-									${member.postcode} <input type="hidden" class="selectAddress" value="T">
-									<input type="hidden" class="input_addressee" value="${member.name}">
-									<input type="hidden" class="input_tel" value="${member.tel }">
-									<input type="hidden" class="input_postcode" value="${member.postcode}">
-									<input type="hidden" class="input_address" value="${member.address}">
-									<input type="hidden" class="input_address_detail" value="${member.address_detail}">
+									 ${sessionScope.member.address} ${sessionScope.member.address_detail}<br>
+									${sessionScope.member.postcode} <input type="hidden" class="selectAddress" value="T">
+									<input type="hidden" class="input_addressee" value="${sessionScope.member.name}">
+									<input type="hidden" class="input_tel" value="${sessionScope.member.tel }">
+									<input type="hidden" class="input_postcode" value="${sessionScope.member.postcode}">
+									<input type="hidden" class="input_address" value="${sessionScope.member.address}">
+									<input type="hidden" class="input_address_detail" value="${sessionScope.member.address_detail}">
 								</td>
 							</tr>
 							</tbody>
@@ -382,7 +382,7 @@
 					<tr>
 						<td>
 							<div class="image_wrap">
-								<img src="${pageContext.request.contextPath}/resources/img/${order.product_image }">
+								<img alt="product_image" src="${pageContext.request.contextPath}/resources/img/${order.product_image }">
 							</div>
 						</td>
 						<td class="td_table_products_name">
@@ -436,7 +436,7 @@
 			<form class="order_form" action="orderInsert.do" method="post">
 				<!-- 주문자 아이디 -->
 				<input type="hidden" name="order_id">
-				<input type="hidden" name="orderer_id" value="${member.id}">
+				<input type="hidden" name="orderer_id" value="${sessionScope.member.id}">
 				<!-- 상품 정보 -->
 			</form>
 		</div>

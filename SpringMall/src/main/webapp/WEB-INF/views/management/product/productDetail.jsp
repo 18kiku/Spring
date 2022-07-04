@@ -11,11 +11,15 @@
 <script>
 	$(document).ready(function(){
 		let pageNum = $("input[name=pageNum]").val();
-		$(".btn_update").click(function(){
-			location = "productUpdate.do?pageNum=" + pageNum;
+		/* 삭제 버튼*/
+		$(".btn_delete").click(function(){
+			$("form[name='detailForm']").attr("action", "productDelete.do?pageNum=" + pageNum);
+			$("form[name='detailForm']").submit();
 		});
+		/* 리스트로 돌아가기 버튼*/
 		$(".btn_list").click(function(){
-			location = "productList.do?pageNum=" + pageNum;
+			$("form[name='detailForm']").attr("action", "productList.do?pageNum=" + pageNum);
+			$("form[name='detailForm']").submit();
 		})
 	})
 </script>
@@ -125,6 +129,7 @@
 			</table>
 			<div class="btns">
 				<input type="submit" class="btn_update" value="update">
+				<input type="button" class="btn_delete" value="delete">
 				<input type="button" class="btn_list" value="list">
 			</div>
 		</form>

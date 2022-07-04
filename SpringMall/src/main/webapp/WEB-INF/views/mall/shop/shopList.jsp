@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mall/shop/shopList.css?vzz">
 <script>
 	$(document).ready(function(){
+		/* 주문하기 버튼 */
 		$(".btn_order").on("click",function(e){
 			e.preventDefault();
 			
@@ -33,7 +34,7 @@
 	<div class="d_category3">
 		<div class="c_product">
 			<div class="c_p1">
-				<img src="${pageContext.request.contextPath}/resources/img/${product.product_image }">
+				<img alt="product_image" src="${pageContext.request.contextPath}/resources/img/${product.product_image }">
 			</div>
 			<div class="c_p2">
 				<span title="${product.product_name }">${product.product_name }</span><br>
@@ -55,8 +56,8 @@
 			</div>
 		</div>
 		<!-- 주문 form -->
-			<form action="orderCheck.do?orderer_id=${member.id}" method="get" class="orderForm">
-				<input type="hidden" name="orderList[0].orderer_id" value="${member.id }">
+			<form action="orderCheck.do?orderer_id=${sessionScope.member.id}" method="get" class="orderForm">
+				<input type="hidden" name="orderList[0].orderer_id" value="${sessionScope.member.id }">
 				<input type="hidden" name="orderList[0].product_id" value="${product.product_id }">
 				<input type="hidden" name="orderList[0].order_quantity" value="1">
 				<input type="hidden" name="orderList[0].order_amount" value="">
@@ -68,21 +69,21 @@
 <div class="paging">
 	<!-- 첫 페이지 -->
 	<c:if test="${pageDTO.prev }">
-		<a href="shopList.do?pageNum=1" class="p_box p_box_bold">prev</a>
+		<a href="shopList.do?product_category=${productList[0].product_category }&pageNum=1" class="p_box p_box_bold">prev</a>
 	</c:if>
 	<!-- 이전 페이지 -->
 	<c:if test="${pageDTO.prev }">
 		<c:set var="pageNum" value="${param.pageNum-10 }"/>	
-		<a href="shopList.do?pageNum=${pageNum }" class="p_box p_box_bold">next</a>
+		<a href="shopList.do?product_category=${productList[0].product_category }&pageNum=${pageNum }" class="p_box p_box_bold">next</a>
 	</c:if>
 	
 	<!-- 페이지 번호 -->
 	<c:forEach var="pageNum" varStatus="s" begin="${pageDTO.startPage }" end="${pageDTO.endPage }">
 		<c:if test="${param.pageNum == pageNum }">
-			<a href="shopList.do?pageNum=${pageNum }" class="p_box_choice">${pageNum }</a>
+			<a href="shopList.do?product_category=${productList[0].product_category }&pageNum=${pageNum }" class="p_box_choice">${pageNum }</a>
 		</c:if>
 		<c:if test="${param.pageNum != pageNum }">
-			<a href="shopList.do?pageNum=${pageNum }" class="p_box">${pageNum }</a>
+			<a href="shopList.do?product_category=${productList[0].product_category }&pageNum=${pageNum }" class="p_box">${pageNum }</a>
 		</c:if>
 	</c:forEach>
 	
@@ -92,12 +93,12 @@
 		<c:if test="${pageNum > pageDTO.pageCount }">
 			<c:set var="pageNum" value="${pageDTO.pageCount-1 }"/>
 		</c:if>
-		<a href="shopList.do?pageNum=${pageNum }" class="p_box p_box_bold">next</a>
+		<a href="shopList.do?product_category=${productList[0].product_category }&pageNum=${pageNum }" class="p_box p_box_bold">next</a>
 	</c:if>
 	<!-- 마지막 페이지 -->
 	<c:if test="${pageDTO.prev }">
 	<c:set var="pageNum" value="${pageDTO.pageCount }"/>
-		<a href="shopList.do?pageNum=${pageNum-1 }" class="p_box p_box_bold">prev</a>
+		<a href="shopList.do?product_category=${productList[0].product_category }&pageNum=${pageNum-1 }" class="p_box p_box_bold">prev</a>
 	</c:if>
 </div>
 </main>

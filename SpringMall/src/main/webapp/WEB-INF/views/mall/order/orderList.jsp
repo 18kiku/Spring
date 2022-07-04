@@ -42,7 +42,7 @@
 								</td>
 								<td class="td_width_2">
 									<div>
-										<img src="/resources/img/${order.product_image }" width="60" height="60">
+										<img alt="product_image" src="/resources/img/${order.product_image }" width="60" height="60">
 									</div>								
 								</td>
 								<td class="td_width_3">${order.product_name}</td>

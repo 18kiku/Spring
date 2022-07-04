@@ -20,6 +20,7 @@
 			}
 			form.submit();	
 		})
+		// keyup 이벤트. enter 키를 눌렀을때 submit. -> 현재는 테스트를 위해 password에 걸어놨지만 test 종료 후 id에 걸도록 한다
 		let password = document.getElementById("password");
 		password.addEventListener("keyup",function(e){
 			if(e.keyCode == 13){

@@ -7,17 +7,8 @@
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mall/shop/shopDetail.css?v">
 <script>
-    $(document).ready(function () { /* 이미지 삽입 */
-        let bobj = $(".image_wrap");
-        if (bobj.data("product_id")) {
-            let uploadPath = bobj.data("path");
-            let uuid = bobj.data("uuid");
-            let fileName = bobj.data("filename");
-            let fileCallPath = encodeURIComponent(uploadPath + "/s_" + uuid + "_" + fileName);
-            bobj.find("img").attr('src', '/display?fileName=' + fileCallPath);
-        } else {
-            bobj.find("img").attr('src', '/resources/img/goodsNoImage.png');
-        }
+    $(document).ready(function () { 
+        
         // 수량 버튼 조작
         let quantity = $(".input_quantity").val();
         $(".btn_plus").on("click", function () {
@@ -61,9 +52,7 @@
                 }
             })
         });
-        
-        
-        /* 바로구매 버튼 */
+        /* 구매 버튼 */
         $(".btn_order").on("click", function () {
         	let orderer_id = $("input[name='orderList[0].orderer_id']").val();
         	let order_quantity = $(".input_quantity").val();
@@ -90,7 +79,7 @@
 			<div class="content_top">
 				<div class="dt_left_area">
 					<div class="image_wrap">
-						<img src="${pageContext.request.contextPath}/resources/img/${product.product_image }">
+						<img alt="product_image" src="${pageContext.request.contextPath}/resources/img/${product.product_image }">
 					</div>				
 				</div>
 				<div class="dt_right_area">
@@ -149,17 +138,14 @@
 			<div class="line">
 			</div>				
 			<div class="content_middle">
-				<div class="product_intro">
-					intro
-				</div>
+				<h3>상품 상세 정보</h3>
 				<div class="product_detail">
-					detail
-
+					<img alt="product_detail" src="${pageContext.request.contextPath}/resources/img/${product.product_image }">
 				</div>
 			</div>
 			<!-- 주문 form -->
-			<form action="orderCheck.do?orderer_id=${member.id}" method="get" class="orderForm">
-				<input type="hidden" name="orderList[0].orderer_id" value="${member.id }">
+			<form action="orderCheck.do?orderer_id=${sessionScope.member.id}" method="get" class="orderForm">
+				<input type="hidden" name="orderList[0].orderer_id" value="${sessionScope.member.id }">
 				<input type="hidden" name="orderList[0].product_id" value="${product.product_id }">
 				<input type="hidden" name="orderList[0].order_quantity" value="">
 				<input type="hidden" name="orderList[0].order_amount" value="">

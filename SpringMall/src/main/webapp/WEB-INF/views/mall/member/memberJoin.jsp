@@ -7,6 +7,7 @@
 
 
 <script>
+	// ajax 사용. 중복체크
 	function memberCheck(){
 		let id = $("#id").val();
 		

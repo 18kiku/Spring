@@ -7,7 +7,7 @@
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
-<script>
+<script>	
 	document.addEventListener("DOMContentLoaded", function(){
 		let form = document.infoForm;
 		
@@ -162,7 +162,7 @@
 			아이디
 		</th>
 		<td>
-			<input type="text" name="id" class="c_id" value="${member.id }" readonly>
+			<input type="text" name="id" class="c_id" value="${sessionScope.member.id }" readonly>
 			&ensp;<span class="s_id">아이디는 변경 불가</span>
 		</td>
 	</tr>
@@ -171,7 +171,7 @@
 			비밀번호
 		</th>
 		<td>
-			<input type="password" name="password" size=15 value="${member.password }"><br>
+			<input type="password" name="password" size=15 value="${sessionScope.member.password }"><br>
 			<span id="chk_password"></span>
 		</td>
 	</tr>
@@ -189,7 +189,7 @@
 			이름
 		</th>
 		<td>
-			<input type="text" name="name" size=15 value="${member.name }">
+			<input type="text" name="name" size=15 value="${sessionScope.member.name }">
 		</td>
 	</tr>
 	<tr>
@@ -197,7 +197,7 @@
 			생년월일
 		</th>
 		<td>
-			<input type="text" name="birth" size=15 value="${member.birth }">
+			<input type="text" name="birth" size=15 value="${sessionScope.member.birth }">
 		</td>
 	</tr>
 	<tr>
@@ -205,7 +205,7 @@
 			성별
 		</th>
 		<td>
-			<input type="text" name="gender" size=15 value="${member.gender }">
+			<input type="text" name="gender" size=15 value="${sessionScope.member.gender }">
 		</td>
 	</tr>
 	<tr>
@@ -213,7 +213,7 @@
 			이메일
 		</th>
 		<td>
-			<input type="email" name="email" size=30 value="${member.email }"><br>
+			<input type="email" name="email" size=30 value="${sessionScope.member.email }"><br>
 			<span id="chk_email"></span>
 		</td>
 	</tr>
@@ -222,7 +222,7 @@
 			전화번호
 		</th>
 		<td>
-			<input type="tel" name="tel" value="${member.tel }">
+			<input type="tel" name="tel" value="${sessionScope.member.tel }">
 		</td>
 	</tr>
 	<tr class="addr_row">
@@ -231,9 +231,9 @@
 		</th>
 		<td>
 			<input type="button" value="주소찾기" id="btn_address"><br>
-			<input type="text" name="address" value="${member.address }" size=49><br>
-			<input type="text" name="address_detail" value="${member.address_detail }" size=49>
-			<input type="hidden" name="postcode" value="${member.postcode }">
+			<input type="text" name="address" value="${sessionScope.member.address }" size=49><br>
+			<input type="text" name="address_detail" value="${sessionScope.member.address_detail }" size=49>
+			<input type="hidden" name="postcode" value="${sessionScope.member.postcode }">
 		</td>
 	</tr>
 	<tr>
@@ -241,7 +241,7 @@
 			가입일자
 		</th>
 		<td>
-			<input type="text" name="reg_date" value="${member.reg_date }">
+			<input type="text" name="reg_date" value="${sessionScope.member.reg_date }">
 		</td>
 	</tr>
 	</table>

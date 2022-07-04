@@ -20,6 +20,7 @@
 		<result property="delivery_state" column="delivery_state"/>
 	</resultMap>
 
+	<!-- orders 테이블에 행 insert (order_date를 제외한 모든 컬럼 값 필요) -->
 	<insert id="insertOrder">
 		<![CDATA[
 		insert into orders(order_id, orderer_id, product_id, order_quantity, order_amount, addressee, tel, postcode, address, address_detail)
@@ -28,13 +29,7 @@
 		]]>
 	</insert>
 	
-	<select id="getOrderCount" resultType="int">
-		<![CDATA[
-		select count(*) from orders
-		where orderer_id = #{orderer_id}
-		]]>
-	</select>
-	
+	<!-- orders 테이블에서 order_id가 같은 행 조회, 주문 상품의 정보도 필요하기 때문에 product 테이블과 join -->
 	<select id="getOrder" resultMap="orderResult">
 		<![CDATA[
 		select * from orders join product
@@ -43,6 +38,7 @@
 		]]>
 	</select>
 	
+	<!-- orders 테이블에서 orderer_id가 같은 행 조회, 주문 상품의 정보도 필요하기 때문에 product 테이블과 join, 페이징 처리를 위해 where 절에 block의 범위 추가 -->
 	<select id="getOrderList" parameterType="Map" resultMap="orderResult">
 		<![CDATA[
 		select * 
@@ -52,6 +48,13 @@
 		)
 		where rnum > ((#{block.pageNum}-1) * #{block.amount}) and rnum <= #{block.pageNum} * #{block.amount}
 		order by order_date desc
+		]]>
+	</select>
+	
+	<select id="getOrderCount" resultType="int">
+		<![CDATA[
+		select count(*) from orders
+		where orderer_id = #{orderer_id}
 		]]>
 	</select>
 </mapper>					
