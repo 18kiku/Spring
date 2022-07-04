@@ -1,9 +1,11 @@
 package com.springbook.biz.common;
 
 import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.Aspect;
+import org.springframework.stereotype.Service;
 
-//@Service
-//@Aspect
+@Service
+@Aspect
 public class AfterAdvice {
 	
 	

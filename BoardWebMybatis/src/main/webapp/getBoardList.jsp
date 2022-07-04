@@ -39,7 +39,7 @@ th { background: #e9ecef;}
 <div class="container">
 	<h1>글목록</h1>
 	<div class="d1">
-		<div class="d1_1"><a href="getMember.do?id=${member.id}">${member.id }</a> 님 환영합니다&emsp;<a href="logout.do">LOGOUT</a></div>
+		<div class="d1_1"><a href="getMember.do?id=${member.id}">${member.name }</a> 님 환영합니다&emsp;<a href="logout.do">LOGOUT</a></div>
 		<div class="d1_2"><a href="insertBoard.do">글등록</a></div>
 	</div>
 	<form action="getBoardList.do?pageNum=1" method="post">
