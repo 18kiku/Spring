@@ -11,7 +11,7 @@
 <script>
     $(document).ready(function () { /* 종합 정보 섹션 정보 삽입 */
         setTotalInfo();
-        /* 체크여부에따른 종합 정보 변화  */ 
+        /* 체크여부에따른 종합 정보 변화  */
         $(".checkbox_individual_cart").on("change", function () { /* 총 주문 정보 세팅(배송비, 총 가격, 마일리지, 물품 수, 종류) */
             setTotalInfo($(".td_cart_list"));
         });
@@ -22,18 +22,17 @@
             } else {
                 $(".checkbox_individual_cart").prop("checked", false);
             }
-        $(".checkbox_individual_cart").on("click", function(){
-        	let total_checkbox = $("checkbox_individual_cart").length;
-        	let checked = $("checkbox_individual_cart:checked").length;
-        	
-        	if(total_checkbox != checked) {
-        		$(".input_all_check").prop("checked", false);
-        	} else {
-        		$(".input_all_check").prop("checked", true);
-        	}
-        })
-        /* 총 주문 정보 세팅(배송비, 총 가격, 마일리지, 물품 수, 종류) */
-        setTotalInfo($(".td_cart_list"));
+            $(".checkbox_individual_cart").on("click", function () {
+                let total_checkbox = $(".checkbox_individual_cart").length;
+                let checked = $(".checkbox_individual_cart:checked").length;
+                if (total_checkbox != checked) {
+                    $(".input_all_check").prop("checked", false);
+                } else {
+                    $(".input_all_check").prop("checked", true);
+                }
+            })
+            /* 총 주문 정보 세팅(배송비, 총 가격, 마일리지, 물품 수, 종류) */
+            setTotalInfo($(".td_cart_list"));
         });
         /* 수량버튼 */
         $(".btn_plus").on("click", function () {
@@ -59,9 +58,9 @@
             }
         });
         let updateForm = {
-        		orderer_id: '${member.id}',
-        		product_id: '',
-        		order_quantity: ''
+            orderer_id: '${member.id}',
+            product_id: '',
+            order_quantity: ''
         }
         /* 수량 수정 버튼 */
         $(".btn_quantity_modify").on("click", function () {
@@ -74,12 +73,12 @@
                 url: 'cartUpdate.do',
                 type: 'POST',
                 data: updateForm,
-                success: function(message) {
-                	if (message == 0) {
+                success: function (message) {
+                    if (message == 0) {
                         alert("수량을 변경하지 못하였습니다.");
                     } else if (message == 1) {
                         alert("수량을 변경했습니다.");
-                        location="cartList.do";
+                        location = "cartList.do";
                     } else if (message == 2) {
                         alert("???????????");
                     } else if (message == 10917) {
@@ -87,25 +86,25 @@
                         location = "memberLogin.do";
                     }
                 },
-                error: function(message){
-                	alert('오류');
+                error: function (message) {
+                    alert('오류');
                 }
             })
         });
         let deleteForm = {
-        		orderer_id: '',
-        		product_id: ''
+            orderer_id: '',
+            product_id: ''
         }
         /* 장바구니 개별 삭제 버튼 */
         $(".btn_delete").on("click", function (e) {
             deleteForm.orderer_id = $(this).data("orderer_id");
             deleteForm.product_id = $(this).data("product_id");
             $.ajax({
-            	url: 'cartDelete.do',
-            	type: 'POST',
-            	data: deleteForm,
-            	success: function(message){
-            		if (message == 0) {
+                url: 'cartDelete.do',
+                type: 'POST',
+                data: deleteForm,
+                success: function (message) {
+                    if (message == 0) {
                         alert("삭제에 실패했습니다.");
                     } else if (message > 0 && message < 10917) {
                         alert("삭제되었습니다.");
@@ -114,22 +113,22 @@
                         alert("로그인을 해주세요.");
                         location = "memberLogin.do";
                     }
-            	},
-            	error: function(message){
-            		alert('오류');
-            	}
+                },
+                error: function (message) {
+                    alert('오류');
+                }
             })
         });
         /* 장바구니 전체 삭제 버튼 */
         $(".input_all_delete").on("click", function (e) {
             $.ajax({
-            	url: 'cartDeleteAll.do',
-            	type: 'POST',
-            	data: {
-            		orderer_id: $(this).data("orderer_id")
-            	},
-            	success: function(message){
-            		if (message == 0) {
+                url: 'cartDeleteAll.do',
+                type: 'POST',
+                data: {
+                    orderer_id: $(this).data("orderer_id")
+                },
+                success: function (message) {
+                    if (message == 0) {
                         alert("삭제에 실패했습니다.");
                     } else if (message > 0 && message < 10917) {
                         alert("모두 삭제되었습니다.");
@@ -138,10 +137,10 @@
                         alert("로그인을 해주세요.");
                         location = "memberLogin.do";
                     }
-            	},
-            	error: function(message){
-            		alert('오류');
-            	}
+                },
+                error: function (message) {
+                    alert('오류');
+                }
             })
         });
         /* 주문 페이지 이동 */
@@ -149,26 +148,23 @@
             let form_contents = '';
             let orderNumber = 0;
             $(".td_cart_list").each(function (index, element) {
-	            let product_id = $(element).find(".input_individual_product_id").val();
-	        	let order_quantity = $(element).find(".input_individual_order_quantity").val();
-	            let order_amount = $(element).find(".input_individual_totalPrice").val();
-	            
-	            let product_id_input = "<input name='orderList[" + orderNumber + "].product_id' type='hidden' value='" + product_id + "'>";
-	            form_contents += product_id_input;
-	            
-	            let order_quantity_input = "<input name='orderList[" + orderNumber + "].order_quantity' type='hidden' value='" + order_quantity + "'>";
-	            form_contents += order_quantity_input;
-	            
-	            let order_amount_input = "<input name='orderList[" + orderNumber + "].order_amount' type='hidden' value='" + order_amount + "'>";
-	            form_contents += order_amount_input;
-            
-            	orderNumber += 1;
+                if ($(element).find(".checkbox_individual_cart").is(":checked") === true) {
+                    let product_id = $(element).find(".input_individual_product_id").val();
+                    let order_quantity = $(element).find(".input_individual_order_quantity").val();
+                    let order_amount = $(element).find(".input_individual_totalPrice").val();
+                    let product_id_input = "<input name='orderList[" + orderNumber + "].product_id' type='hidden' value='" + product_id + "'>";
+                    form_contents += product_id_input;
+                    let order_quantity_input = "<input name='orderList[" + orderNumber + "].order_quantity' type='hidden' value='" + order_quantity + "'>";
+                    form_contents += order_quantity_input;
+                    let order_amount_input = "<input name='orderList[" + orderNumber + "].order_amount' type='hidden' value='" + order_amount + "'>";
+                    form_contents += order_amount_input;
+                    orderNumber += 1;
+                }
             });
             $(".orderForm").html(form_contents);
             $(".orderForm").submit();
         });
     });
-    
     /* 총 주문 정보 세팅(배송비, 총 가격, 마일리지, 물품 수, 종류) */
     function setTotalInfo() {
         let totalPrice = 0; // 총 가격
@@ -208,7 +204,6 @@
         // 최종 가격(총 가격 + 배송비)
         $(".span_finalTotalPrice").text(finalTotalPrice.toLocaleString());
     }
-    
 </script>
 <main>
 <div class="wrapper">
@@ -222,7 +217,7 @@
 				
 				<!-- 체크박스 전체 여부 -->
 				<div class="div_all_input">
-					<span class="span_all_check"><input type="checkbox" class=" input_size_20" checked="checked">전체선택</span>
+					<span class="span_all_check"><input type="checkbox" class="input_all_check input_size_20" checked="checked">전체선택</span>
 					<input type="button" class="input_all_delete input_size_4020" data-orderer_id="${member.id }" value="전체 삭제">
 				</div>			
 				<div class="clearfix"></div>
