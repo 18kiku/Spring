@@ -20,6 +20,7 @@ public class OrderDAO {
 	/* orders 테이블 -> insert 작업 (dto 내에서 필요한 값 : order_id, order_date를 제외한 모든 컬럼)*/
 	public int insertOrder(OrderDTO dto) {
 		System.out.println("===> OrderDAO insertOrder");
+		System.out.println(dto);
 		return sqlSession.insert("OrderDAO.insertOrder", dto);
 	}
 

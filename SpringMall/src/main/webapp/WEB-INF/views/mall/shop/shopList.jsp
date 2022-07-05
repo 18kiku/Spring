@@ -27,7 +27,7 @@
 </script>
 <main>
 <div class="d_category2">
-	 CATEGORY : <span>${productList[0].product_category }</span>
+	 CATEGORY : <span>${productList[0].category_name }</span>
 </div>
 <div class="products">
 	<c:forEach var="product" items="${productList }">

@@ -90,7 +90,7 @@ public class MemberController {
 		return "login"; // 완료 후 로그인 페이지로 이동
 	}
 
-	/* memberJoin.jsp -> member 수정*/
+	/* memberInfo.jsp -> member 수정*/
 	@RequestMapping("/memberUpdate.do")
 	public String updateMember(@ModelAttribute("member") MemberDTO dto, Model model, HttpSession session) {
 		System.out.println("=> MemberController - 회원정보 업데이트");

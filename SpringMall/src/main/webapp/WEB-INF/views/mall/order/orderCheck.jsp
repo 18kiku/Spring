@@ -9,32 +9,19 @@
 <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mall/order/orderCheck.css?v3">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mall/order/orderCheck.css?v31">
 
 <script>
     $(document).ready(function () { /* 주문 조합정보란 최신화 */
         setTotalInfo();
         IMP.init("imp90878890");
     });
-    /* 주소입력란 버튼 동작(숨김, 등장) */
-    function showAdress(className) {
-        /* 컨텐츠 동작 */
-        /* 모두 숨기기 */
-        $(".div_addressInfo_input").css('display', 'none');
-        /* 컨텐츠 보이기 */
-        $(".div_addressInfo_input_" + className).css('display', 'block');
-        /* 버튼 색상 변경 */
-        /* 모든 색상 동일 */
-        $(".btn_address").css('backgroundColor', '#555');
-        /* 지정 색상 변경 */
-        $(".btn_address_" + className).css('backgroundColor', '#3c3838');
-        /* selectAddress T/F */
-        /* 모든 selectAddress F만들기 */
-        $(".div_addressInfo_input").each(function (i, obj) {
-            $(obj).find(".selectAddress").val("F");
-        });
-        /* 선택한 selectAdress T만들기 */
-        $(".div_addressInfo_input_" + className).find(".selectAddress").val("T");
+    function getAddress(){
+    	$(".input_addressee").val($(".member_addressee").val());
+        $(".input_tel").val($(".member_tel").val());
+        $(".input_postcode").val($(".member_postcode").val());
+        $(".input_address").val($(".member_address").val());
+        $(".input_address_detail").val($(".member_address_detail").val());
     }
     /* 다음 주소 연동 */
     function execution_daum_address() {
@@ -122,10 +109,7 @@
         // 최종 가격(총 가격 + 배송비)
         $(".span_finalTotalPrice").text(finalTotalPrice.toLocaleString());
     };
-    /* 결제 요청 */
-    $(".btn_payment").on("click", function () {
-        
-    });
+    /* 결제 요청 */ // 결제 요청 전에 수령인의 정보 유효성 검사 추가
     function requestPay() { // IMP.request_pay(param, callback) 결제창 호출  // (+) 검증하기 기능
         IMP.request_pay({
             // param
@@ -135,10 +119,10 @@
             name: $(".input_product_name").val(),
             amount: 1,
             buyer_email: $(".input_email").val(),
-            buyer_name: $(".div_addressInfo_input_1").find(".input_addressee").val(),
-            buyer_tel: $(".div_addressInfo_input_1").find(".input_tel").val(),
-            buyer_addr: $(".div_addressInfo_input_1").find(".input_address").val(),
-            buyer_postcode: $(".div_addressInfo_input_1").find(".input_postcode").val()
+            buyer_name: $(".div_addressInfo_input").find(".member_addressee").val(),
+            buyer_tel: $(".div_addressInfo_input").find(".member_tel").val(),
+            buyer_addr: $(".div_addressInfo_input").find(".member_address").val(),
+            buyer_postcode: $(".div_addressInfo_input").find(".member_postcode").val()
         }, function (rsp) { // callback
             if (rsp.success) {
                 var msg = '결제가 완료되었습니다.';
@@ -166,28 +150,14 @@
         });
     }
     /* 주문 요청 */
-    function order(uid) { /* 주소 정보 & 수령인*/
+    function order(uid) { 
+    	/* 주문 id, 주소 정보, 수령인 정보*/
     	$("input[name='order_id']").val(uid);
-    	let addressee = "";
-        let tel = "";
-        let postcode = "";
-        let address = "";
-        let address_detail = "";
-        $(".div_addressInfo_input").each(function(i, obj){
-            if ($(obj).find(".selectAddress").val() === 'T') {
-                addressee = $(obj).find(".input_addressee").val();
-                tel = $(obj).find(".input_tel").val();
-                postcode = $(obj).find(".input_postcode").val();
-                address = $(obj).find(".input_address").val();
-                address_detail = $(obj).find(".input_address_detail").val();
-            } else if ($(obj).find(".selectAddress").val() === 'F') {
-            	addressee = $(obj).find(".input_addressee").val();
-                tel = $(obj).find(".input_tel").val();
-                postcode = $(obj).find(".input_postcode").val();
-                address = $(obj).find(".input_address").val();
-                address_detail = $(obj).find(".input_address_detail").val();
-            }
-        });
+    	let addressee = $(".input_addressee").val();
+        let tel = $(".input_tel").val();
+        let postcode = $(".input_postcode").val();
+        let address = $(".input_address").val();
+        let address_detail = $(".input_address_detail").val();
         /* 상품정보 */
         let form_contents = '';
         $(".td_table_products_price").each(function (index, element) {
@@ -227,13 +197,21 @@
             
             let address_detail_input = "<input name='orderList[" + index + "].address_detail' type='hidden' value='" + address_detail + "'>";
             form_contents += address_detail_input;
-            
-            
         });
         $(".order_form").append(form_contents);
         /* 서버 전송 */
         $(".order_form").submit();
     };
+    function test(){
+    	let addressee = $(".input_addressee").val();
+        let tel = $(".input_tel").val();
+        let postcode = $(".input_postcode").val();
+        let address = $(".input_address").val();
+        let address_detail = $(".input_address_detail").val();
+        
+        alert("정보 확인 : " + "\naddressee : " + addressee + "\ntel : " + tel + "\npostcode : " + postcode
+        		+ "\naddress : " + address + "\naddress_detail : " + address_detail);
+    }
 </script>
 
 <main>
@@ -253,9 +231,9 @@
 							주문자
 						</th>
 						<td style="width: *">
-							${sessionScope.member.name} | ${sessionScope.member.email}
-							<input type="hidden" class="input_name" value="${sessionScope.member.name}">
-							<input type="hidden" class="input_email" value="${sessionScope.member.email}">
+							${member.name} | ${member.email}
+							<input type="hidden" class="input_name" value="${member.name}">
+							<input type="hidden" class="input_email" value="${member.email}">
 						</td>
 					</tr>
 					</tbody>
@@ -263,12 +241,12 @@
 				</div>
 				<!-- 배송지 정보 -->
 				<div class="div_addressInfo">
-					<div class="div_addressInfo_button">
-						<input type="button" class="btn_address btn_address_1" onclick="showAdress('1')" style="background-color: #3c3838;" value="배송지">
-						<input type="button" class="btn_address btn_address_2" onclick="showAdress('2')" value="직접 입력">
+					<div class="div_addressInfo">
+						<input type="button" disabled class="btn_address btn_address_1" style="background-color: #3c3838;" value="배송지">
+						<input type="button" class="btn_address btn_address_2" onclick="getAddress()" value="주소 불러오기">
 					</div>
 					<div class="div_addressInfo_input_wrap">
-						<div class="div_addressInfo_input div_addressInfo_input_1" style="display: block">
+						<div class="div_addressInfo_input">
 							<table>
 							<colgroup>
 							<col width="25%">
@@ -280,52 +258,13 @@
 									이름
 								</th>
 								<td>
-									 ${sessionScope.member.name}
-								</td>
-								<th>
-									전화번호
-								</th>
-								<td>
-									 ${sessionScope.member.tel}
-								</td>
-							</tr>
-							<tr>
-								<th>
-									주소
-								</th>
-								<td>
-									
-									 ${sessionScope.member.address} ${sessionScope.member.address_detail}<br>
-									${sessionScope.member.postcode} <input type="hidden" class="selectAddress" value="T">
-									<input type="hidden" class="input_addressee" value="${sessionScope.member.name}">
-									<input type="hidden" class="input_tel" value="${sessionScope.member.tel }">
-									<input type="hidden" class="input_postcode" value="${sessionScope.member.postcode}">
-									<input type="hidden" class="input_address" value="${sessionScope.member.address}">
-									<input type="hidden" class="input_address_detail" value="${sessionScope.member.address_detail}">
-								</td>
-							</tr>
-							</tbody>
-							</table>
-						</div>
-						<div class="div_addressInfo_input div_addressInfo_input_2">
-							<table>
-							<colgroup>
-							<col width="25%">
-							<col width="*">
-							</colgroup>
-							<tbody>
-							<tr>
-								<th>
-									이름
-								</th>
-								<td>
-									<input type="text" class="input_addressee" value="치로루">
+									<input type="text" class="input_addressee">
 								</td>
 								<th>
 									tel
 								</th>
 								<td>
-									<input type="tel" class="input_tel" value="010-1111-1111">
+									<input type="tel" class="input_tel">
 								</td>
 							</tr>
 							<tr>
@@ -333,10 +272,16 @@
 									주소
 								</th>
 								<td colspan="2">
-									<input type="hidden" class="selectAddress" value="F">
-									<input type="text" class="input_postcode" readonly="readonly" value="13536">&ensp;<a class="btn_addres_search" onclick="execution_daum_address()">주소 찾기</a><br>
-									<input type="text" class="input_address" readonly="readonly" value="경기 성남시 분당구 판교역로 4 (백현동)"><br>
-									<input type="text" class="input_address_detail" readonly="readonly" value="1번지">
+									<input type="text" class="input_postcode">&ensp;<a class="btn_addres_search" onclick="execution_daum_address()">주소 찾기</a><br>
+									<input type="text" class="input_address"><br>
+									<input type="text" class="input_address_detail">
+									
+									<!-- getOrder() 호출 시 불러올 주소 -->
+									<input type="hidden" class="member_addressee" value="${member.name}">
+									<input type="hidden" class="member_tel" value="${member.tel }">
+									<input type="hidden" class="member_postcode" value="${member.postcode}">
+									<input type="hidden" class="member_address" value="${member.address}">
+									<input type="hidden" class="member_address_detail" value="${member.address_detail}">
 								</td>
 							</tr>
 							</tbody>
@@ -436,9 +381,10 @@
 			<form class="order_form" action="orderInsert.do" method="post">
 				<!-- 주문자 아이디 -->
 				<input type="hidden" name="order_id">
-				<input type="hidden" name="orderer_id" value="${sessionScope.member.id}">
+				<input type="hidden" name="orderer_id" value="${member.id}">
 				<!-- 상품 정보 -->
 			</form>
+			<input type="button" class="btn_test" onclick="test()" value="test">
 		</div>
 	</div>
 	<!-- class="wrap" -->

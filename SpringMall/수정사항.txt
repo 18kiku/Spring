@@ -20,6 +20,8 @@ OrderController
 PaymentController
 - 결제 검증 구현하기
 
+orderCheck.jsp
+- 결제요청( function payment() )을 실행하기 전에 수령인의 정보 유효성 검사 추가하기
 --------------------------------------------------------
 
 제대로 작동 안 되는 부분
