@@ -44,10 +44,10 @@
 <div class="t_box3">
 	<%-- 구역3 (중단): 타이틀, 검색 --%>
 	<div class="m_title">
-		<a href="shopMain.do">18KIKU</a>
+		<a href="shopMain.do">Spring Framework</a>
 	</div>
 	<div class="s_title">
-		나는 키쿠다 하하하
+		18KIKU
 	</div>
 </div>
 <%-- 하단 --%>
