@@ -48,7 +48,8 @@ DB : Oracle 11g
 ![10_결제완료](https://user-images.githubusercontent.com/98327681/179440974-82696780-7def-4b99-8abc-ee294ea6542a.png)
 
 #### 11. 주문 목록
-![11_orderlist](https://user-images.githubusercontent.com/98327681/179440975-b56b7ec4-7ce9-4576-8e99-ac5dc2de1d6e.png)
+![image](https://user-images.githubusercontent.com/98327681/179441859-d3acb1ce-fc5f-461d-bf95-b6f9eb372ab1.png)
+
 
 
 
