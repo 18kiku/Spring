@@ -14,9 +14,8 @@ IDE : spring-tool-suite-3.9.15.RELEASE-e4.16.0
 
 DB : Oracle 11g
 
-### 프로젝트 캡처
 
-### 고객 영역
+### ■ 고객 영역
 
 #### 1. 메인
 ![1_main](https://user-images.githubusercontent.com/98327681/179440955-ff6f7648-fcb1-4407-9b63-101c8037770d.png)
@@ -53,7 +52,7 @@ DB : Oracle 11g
 
 
 
-### 관리자 영역
+### ■ 관리자 영역
 
 #### 1. 상품 목록
 ![productList](https://user-images.githubusercontent.com/98327681/179441460-35211b92-931e-4aa7-9df7-0b9730011394.png)
