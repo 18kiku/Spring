@@ -14,7 +14,7 @@ IDE : spring-tool-suite-3.9.15.RELEASE-e4.16.0
 
 DB : Oracle 11g
 
-## 프로젝트 캡처
+### 프로젝트 캡처
 
 ### 고객 영역
 
